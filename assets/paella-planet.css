@@ -3,8 +3,8 @@
   width:100vw; position:relative; left:50%; right:50%;
   margin-left:-50vw; margin-right:-50vw;
   padding-block:0 !important;
-  background:#F7EEE0;
-  color:#5A1B12;
+  background:#4A160F;
+  color:#F5EAE0;
   overflow:hidden;
 }
 
@@ -24,11 +24,11 @@
   letter-spacing:0.01em;
   line-height:1;
   color:transparent;
-  -webkit-text-stroke:1.5px rgba(90,27,18,0.4);
+  -webkit-text-stroke:1.5px rgba(245,234,224,0.16);
 }
 .planet-bg-row.solid{
   -webkit-text-stroke:0;
-  color:rgba(90,27,18,0.88);
+  color:rgba(245,234,224,0.09);
 }
 
 .planet-top{
@@ -36,21 +36,21 @@
   max-width:1160px; margin-inline:auto; padding-inline:20px;
   padding-top:28px;
 }
-.planet-top .detail-back{ color:rgba(90,27,18,0.8); }
-.planet-top .detail-back:hover{ color:#5A1B12; }
+.planet-top .detail-back{ color:rgba(245,234,224,0.85); }
+.planet-top .detail-back:hover{ color:#F5EAE0; }
 
 .planet-stage{
   position:relative; z-index:2;
-  max-width:900px; margin-inline:auto;
-  height:clamp(520px, 68vw, 760px);
+  max-width:960px; margin-inline:auto;
+  height:clamp(600px, 74vw, 840px);
 }
 
 .planet-photo{
   position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
   width:min(320px, 44vw); aspect-ratio:1/1; border-radius:50%;
   overflow:hidden;
-  border:6px solid #5A1B12;
-  box-shadow:0 20px 50px rgba(90,27,18,0.28);
+  border:6px solid rgba(245,234,224,0.9);
+  box-shadow:0 20px 60px rgba(0,0,0,0.45);
   z-index:3;
 }
 .planet-photo img{
@@ -66,23 +66,27 @@
 .planet-float.type-title{
   font-family:'Fraunces',serif; font-weight:700; text-transform:uppercase;
   font-size:clamp(1.3rem, 2.6vw, 1.9rem); line-height:1.08;
-  color:#5A1B12; max-width:280px;
+  color:#F5EAE0; max-width:280px;
 }
-.planet-float.type-lede{
+.planet-float.type-fact{
   font-family:'Fraunces',serif; font-style:italic; font-weight:500;
-  font-size:1rem; line-height:1.4; color:rgba(90,27,18,0.85);
+  font-size:0.92rem; line-height:1.35; color:rgba(245,234,224,0.8);
+  max-width:170px;
 }
 .planet-float.type-tag{
   display:inline-block; font-family:'Karla',sans-serif; font-weight:700;
   font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase;
-  color:#F7EEE0; background:#5A1B12;
+  color:#4A160F; background:#F5EAE0;
   padding:9px 16px; border-radius:999px; max-width:none; white-space:nowrap;
 }
 
-.planet-float--title{ top:2%; left:50%; transform:translate(-50%,0) rotate(-2deg); }
-.planet-float--tag1{ top:10%; right:2%; transform:rotate(4deg); }
-.planet-float--tag2{ top:46%; right:-2%; transform:translateY(-50%) rotate(-3deg); }
-.planet-float--tag3{ top:46%; left:-2%; transform:translateY(-50%) rotate(3deg); }
+.planet-float--title{ top:0; left:50%; transform:translate(-50%,0) rotate(-2deg); }
+.planet-float--tag1{ top:9%; right:0; transform:rotate(4deg); }
+.planet-float--tag2{ top:47%; right:-4%; transform:translateY(-50%) rotate(-3deg); }
+.planet-float--tag3{ top:47%; left:-4%; transform:translateY(-50%) rotate(3deg); }
+.planet-float--fact1{ top:9%; left:0; transform:rotate(-4deg); }
+.planet-float--fact2{ bottom:14%; right:2%; transform:rotate(3deg); }
+.planet-float--fact3{ bottom:14%; left:2%; transform:rotate(-3deg); }
 
 .planet-cta{
   position:absolute; z-index:4; bottom:0; left:50%;
@@ -94,12 +98,12 @@
   font-family:'Karla',sans-serif; font-weight:700; font-size:0.85rem;
   letter-spacing:0.04em;
   padding:15px 32px; border-radius:999px;
-  background:#5A1B12; color:#F7EEE0; border:1px solid #5A1B12;
+  background:#F5EAE0; color:#4A160F; border:1px solid #F5EAE0;
   text-decoration:none;
   transition:background .15s ease, color .15s ease;
 }
 .planet-btn svg{ width:16px; height:16px; flex:none; }
-.planet-btn:hover{ background:transparent; color:#5A1B12; }
+.planet-btn:hover{ background:transparent; color:#F5EAE0; }
 
 /* ---------- What's Included ---------- */
 .planet-included{
@@ -108,24 +112,25 @@
   padding:36px 24px 40px;
   text-align:center;
   scroll-margin-top:24px;
-  background:rgba(247,238,224,0.96);
+  background:rgba(74,22,15,0.55);
+  border:1px solid rgba(245,234,224,0.18);
   border-radius:18px;
-  box-shadow:0 20px 50px rgba(90,27,18,0.12);
+  box-shadow:0 20px 50px rgba(0,0,0,0.25);
 }
-.planet-included .eyebrow{ color:rgba(90,27,18,0.7); }
+.planet-included .eyebrow{ color:rgba(245,234,224,0.65); }
 .planet-included h2{
   font-family:'Fraunces',serif; font-weight:700; text-transform:uppercase;
-  font-size:clamp(1.5rem, 3vw, 2rem); color:#5A1B12; margin-top:8px;
+  font-size:clamp(1.5rem, 3vw, 2rem); color:#F5EAE0; margin-top:8px;
 }
 .included-list{
   list-style:none; margin:30px 0 0; padding:0;
-  border-top:1px solid rgba(90,27,18,0.25);
+  border-top:1px solid rgba(245,234,224,0.22);
 }
 .included-list li{
   display:flex; align-items:center; gap:12px;
   padding:13px 2px;
-  border-bottom:1px solid rgba(90,27,18,0.25);
-  font-family:'Karla',sans-serif; font-size:0.98rem; color:#5A1B12;
+  border-bottom:1px solid rgba(245,234,224,0.22);
+  font-family:'Karla',sans-serif; font-size:0.98rem; color:#F5EAE0;
   text-align:left;
 }
 .included-list li::before{
@@ -134,21 +139,55 @@
   font-size:0.65rem; font-weight:700; line-height:1;
 }
 .included-list li.yes::before{
-  content:"\2713"; background:#5A1B12; color:#F7EEE0;
+  content:"\2713"; background:#F5EAE0; color:#4A160F;
 }
-.included-list li.no{ color:rgba(90,27,18,0.55); }
+.included-list li.no{ color:rgba(245,234,224,0.55); }
 .included-list li.no::before{
-  content:"\2715"; background:transparent; border:1.5px solid rgba(90,27,18,0.4); color:rgba(90,27,18,0.55);
+  content:"\2715"; background:transparent; border:1.5px solid rgba(245,234,224,0.4); color:rgba(245,234,224,0.55);
 }
 .included-note{
   margin-top:22px; padding:13px 18px;
-  background:rgba(90,27,18,0.08);
-  border:1px solid rgba(90,27,18,0.3);
+  background:rgba(245,234,224,0.1);
+  border:1px solid rgba(245,234,224,0.3);
   border-radius:8px;
   font-family:'Karla',sans-serif; font-weight:700; font-size:0.85rem;
-  color:#5A1B12; text-transform:uppercase; letter-spacing:0.03em;
+  color:#F5EAE0; text-transform:uppercase; letter-spacing:0.03em;
 }
 .planet-included .planet-btn{ margin-top:30px; }
+
+/* ---------- theme the persistent header/footer while this page is open ---------- */
+body:has(#page-paella-workshop:not([hidden])){
+  background:#4A160F;
+}
+body:has(#page-paella-workshop:not([hidden])) header{
+  background:rgba(74,22,15,0.94);
+  border-bottom-color:rgba(245,234,224,0.18);
+}
+body:has(#page-paella-workshop:not([hidden])) header .logo-mark{
+  filter:brightness(0) invert(1);
+}
+body:has(#page-paella-workshop:not([hidden])) header .navlinks a:not(.btn){
+  color:rgba(245,234,224,0.8);
+}
+body:has(#page-paella-workshop:not([hidden])) header .navlinks a:not(.btn):hover{
+  color:#F5EAE0; border-color:#F5EAE0;
+}
+body:has(#page-paella-workshop:not([hidden])) header .btn-dark{
+  background:#F5EAE0; color:#4A160F;
+}
+body:has(#page-paella-workshop:not([hidden])) header .btn-dark:hover{
+  background:transparent; color:#F5EAE0; border-color:#F5EAE0;
+}
+body:has(#page-paella-workshop:not([hidden])) footer{
+  background:#4A160F;
+  border-top-color:rgba(245,234,224,0.18);
+}
+body:has(#page-paella-workshop:not([hidden])) footer .foot-left .logo-mark{
+  filter:brightness(0) invert(1);
+}
+body:has(#page-paella-workshop:not([hidden])) footer .foot-left p{ color:rgba(245,234,224,0.6); }
+body:has(#page-paella-workshop:not([hidden])) footer .foot-right a{ color:rgba(245,234,224,0.75); }
+body:has(#page-paella-workshop:not([hidden])) footer .foot-right a:hover{ color:#F5EAE0; }
 
 @media (max-width:720px){
   .planet-stage{
