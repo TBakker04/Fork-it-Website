@@ -29,6 +29,7 @@
 
   setupCarousel(document.getElementById('heroCarousel'), '.slide', '.hero-dots button', 4800);
   setupCarousel(document.getElementById('reviewRotator'), '.review-slide', '.review-dots button', 6500);
+  setupCarousel(document.getElementById('gateSlides'), '.gate-slide', '.gate-dots button', 5500);
 
   var eventSelect = document.getElementById('event');
 
