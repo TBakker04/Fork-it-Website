@@ -109,6 +109,18 @@
     });
   });
 
+  /* ---------- in-page scroll buttons (e.g. paella "What's Included") ---------- */
+  document.querySelectorAll('.planet-scroll-btn').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      var targetId = (btn.getAttribute('href') || '').replace('#', '');
+      var target = targetId && document.getElementById(targetId);
+      if(target){
+        e.preventDefault();
+        target.scrollIntoView({ behavior:'smooth', block:'start' });
+      }
+    });
+  });
+
   function buildMessage(){
     var name = document.getElementById('name').value.trim();
     var event = eventSelect.value;
