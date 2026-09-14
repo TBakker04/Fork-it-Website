@@ -57,8 +57,7 @@ html, body{ margin:0; padding:0; background:#141210; }
 
 .gate-logo{
   width:min(210px, 42vw);
-  opacity:0.55;
-  filter:drop-shadow(0 6px 18px rgba(0,0,0,0.4)) brightness(0) invert(1);
+  filter:drop-shadow(0 2px 5px rgba(0,0,0,0.5));
 }
 
 .gate-content .kicker{
