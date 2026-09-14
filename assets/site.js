@@ -80,7 +80,7 @@
     currentView = id;
     /* Only snap to the top when we're actually switching between the
        home page and a detail page. A plain in-page anchor (#menu,
-       #season, #kitchen, #book...) while already on the home view
+       #season, #book...) while already on the home view
        should scroll natively to that section, not get reset to 0,0. */
     if(changed){ window.scrollTo(0, 0); }
   }
