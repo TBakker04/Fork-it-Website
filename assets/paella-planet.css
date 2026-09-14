@@ -112,25 +112,25 @@
   padding:36px 24px 40px;
   text-align:center;
   scroll-margin-top:24px;
-  background:rgba(74,22,15,0.55);
-  border:1px solid rgba(245,234,224,0.18);
+  background:#F5EAE0;
+  border:1px solid rgba(74,22,15,0.15);
   border-radius:18px;
   box-shadow:0 20px 50px rgba(0,0,0,0.25);
 }
-.planet-included .eyebrow{ color:rgba(245,234,224,0.65); }
+.planet-included .eyebrow{ color:rgba(74,22,15,0.65); }
 .planet-included h2{
   font-family:'Fraunces',serif; font-weight:700; text-transform:uppercase;
-  font-size:clamp(1.5rem, 3vw, 2rem); color:#F5EAE0; margin-top:8px;
+  font-size:clamp(1.5rem, 3vw, 2rem); color:#4A160F; margin-top:8px;
 }
 .included-list{
   list-style:none; margin:30px 0 0; padding:0;
-  border-top:1px solid rgba(245,234,224,0.22);
+  border-top:1px solid rgba(74,22,15,0.2);
 }
 .included-list li{
   display:flex; align-items:center; gap:12px;
   padding:13px 2px;
-  border-bottom:1px solid rgba(245,234,224,0.22);
-  font-family:'Karla',sans-serif; font-size:0.98rem; color:#F5EAE0;
+  border-bottom:1px solid rgba(74,22,15,0.2);
+  font-family:'Karla',sans-serif; font-size:0.98rem; color:#4A160F;
   text-align:left;
 }
 .included-list li::before{
@@ -139,21 +139,25 @@
   font-size:0.65rem; font-weight:700; line-height:1;
 }
 .included-list li.yes::before{
-  content:"\2713"; background:#F5EAE0; color:#4A160F;
+  content:"\2713"; background:#4A160F; color:#F5EAE0;
 }
-.included-list li.no{ color:rgba(245,234,224,0.55); }
+.included-list li.no{ color:rgba(74,22,15,0.5); }
 .included-list li.no::before{
-  content:"\2715"; background:transparent; border:1.5px solid rgba(245,234,224,0.4); color:rgba(245,234,224,0.55);
+  content:"\2715"; background:transparent; border:1.5px solid rgba(74,22,15,0.4); color:rgba(74,22,15,0.5);
 }
 .included-note{
   margin-top:22px; padding:13px 18px;
-  background:rgba(245,234,224,0.1);
-  border:1px solid rgba(245,234,224,0.3);
+  background:rgba(74,22,15,0.07);
+  border:1px solid rgba(74,22,15,0.25);
   border-radius:8px;
   font-family:'Karla',sans-serif; font-weight:700; font-size:0.85rem;
-  color:#F5EAE0; text-transform:uppercase; letter-spacing:0.03em;
+  color:#4A160F; text-transform:uppercase; letter-spacing:0.03em;
 }
-.planet-included .planet-btn{ margin-top:30px; }
+.planet-included .planet-btn{
+  margin-top:30px;
+  background:#4A160F; color:#F5EAE0; border-color:#4A160F;
+}
+.planet-included .planet-btn:hover{ background:transparent; color:#4A160F; }
 
 /* ---------- theme the persistent header/footer while this page is open ---------- */
 body:has(#page-paella-workshop:not([hidden])){
