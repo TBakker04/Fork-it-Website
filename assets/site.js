@@ -29,7 +29,14 @@
 
   setupCarousel(document.getElementById('heroCarousel'), '.slide', '.hero-dots button', 4800);
   setupCarousel(document.getElementById('reviewRotator'), '.review-slide', '.review-dots button', 6500);
-  setupCarousel(document.getElementById('gateSlides'), '.gate-slide', '.gate-dots button', 5500);
+
+  /* ---------- gate page: fade the scroll hint once the visitor starts scrolling ---------- */
+  var scrollHint = document.getElementById('gateScrollHint');
+  if(scrollHint){
+    window.addEventListener('scroll', function(){
+      scrollHint.classList.toggle('is-hidden', window.scrollY > 40);
+    }, { passive:true });
+  }
 
   var eventSelect = document.getElementById('event');
 
