@@ -1,0 +1,211 @@
+/* ---------- Date Dinner "candlelit menu journey" page ---------- */
+.journey-page{
+  width:100vw; position:relative; left:50%; right:50%;
+  margin-left:-50vw; margin-right:-50vw;
+  padding-block:0 !important;
+  background:#121A2E;
+  color:#F3E9D8;
+}
+
+.journey-top{
+  position:relative; z-index:3;
+  max-width:1160px; margin-inline:auto; padding-inline:20px;
+  padding-top:28px;
+}
+.journey-top .detail-back{ color:rgba(243,233,216,0.85); }
+.journey-top .detail-back:hover{ color:#F3E9D8; }
+
+/* ---------- opening scene ---------- */
+.journey-hero{
+  position:relative;
+  min-height:min(88vh, 720px);
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+  margin-top:16px;
+}
+.journey-hero img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:saturate(1.05) contrast(1.03) brightness(0.55);
+}
+.journey-hero::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(18,26,46,0.35) 0%, rgba(18,26,46,0.55) 55%, rgba(18,26,46,0.92) 100%);
+}
+.journey-hero-content{
+  position:relative; z-index:2; text-align:center; padding:32px;
+  max-width:640px;
+}
+.journey-hero .eyebrow{ color:rgba(243,233,216,0.75); }
+.journey-hero h1{
+  font-family:'Fraunces',serif; font-weight:600; font-style:italic;
+  font-size:clamp(2rem, 5vw, 3.2rem); line-height:1.12;
+  color:#F3E9D8; margin-top:12px;
+}
+.journey-hero .lede{
+  font-size:1.02rem; color:rgba(243,233,216,0.8);
+  margin-top:18px; max-width:48ch; margin-inline:auto;
+}
+
+.journey-scroll-cue{
+  position:absolute; left:0; right:0; bottom:26px; z-index:2;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  font-family:'Karla',sans-serif; font-size:0.68rem; font-weight:700;
+  letter-spacing:0.18em; text-transform:uppercase;
+  color:rgba(243,233,216,0.75);
+}
+.journey-scroll-cue svg{ width:14px; height:14px; animation:journey-bounce 1.8s ease-in-out infinite; }
+@keyframes journey-bounce{
+  0%, 100%{ transform:translateY(0); }
+  50%{ transform:translateY(6px); }
+}
+
+/* ---------- candle motif ---------- */
+.candle{
+  display:inline-flex; align-items:flex-end; justify-content:center;
+  width:22px; height:30px; position:relative; flex:none;
+}
+.candle .flame{
+  width:8px; height:14px; border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+  background:radial-gradient(circle at 50% 30%, #FFE8B0 0%, #F4A93B 45%, #C9601C 100%);
+  filter:drop-shadow(0 0 6px rgba(244,169,59,0.7));
+  animation:candle-flicker 2.4s ease-in-out infinite;
+  transform-origin:50% 100%;
+}
+.candle .wax{
+  position:absolute; bottom:0; width:12px; height:16px;
+  background:#F3E9D8; border-radius:2px;
+  opacity:0.9;
+}
+@keyframes candle-flicker{
+  0%, 100%{ transform:scaleY(1) rotate(0deg); opacity:1; }
+  25%{ transform:scaleY(0.96) rotate(-2deg); opacity:0.92; }
+  50%{ transform:scaleY(1.05) rotate(1deg); opacity:1; }
+  75%{ transform:scaleY(0.98) rotate(-1deg); opacity:0.95; }
+}
+@media (prefers-reduced-motion: reduce){
+  .candle .flame{ animation:none; }
+  .journey-scroll-cue svg{ animation:none; }
+}
+
+/* ---------- course sections ---------- */
+.journey-course{
+  max-width:1000px; margin-inline:auto; padding:clamp(56px,10vw,110px) 20px;
+  display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,64px);
+  align-items:center;
+}
+.journey-course.reverse .journey-course-photo{ order:2; }
+.journey-course.reverse .journey-course-text{ order:1; }
+.journey-course-photo{
+  border-radius:6px; overflow:hidden; aspect-ratio:4/5;
+  border:1px solid rgba(243,233,216,0.15);
+}
+.journey-course-photo img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  filter:saturate(1.05) contrast(1.02);
+}
+.journey-course-text{ text-align:left; }
+.journey-course-num{
+  display:flex; align-items:center; gap:10px;
+  font-family:'Karla',sans-serif; font-weight:700; font-size:0.72rem;
+  letter-spacing:0.2em; text-transform:uppercase; color:rgba(216,173,109,0.9);
+  margin-bottom:16px;
+}
+.journey-course h2{
+  font-family:'Fraunces',serif; font-style:italic; font-weight:600;
+  font-size:clamp(1.5rem, 3vw, 2.1rem); color:#F3E9D8; line-height:1.15;
+}
+.journey-course p{
+  margin-top:14px; font-size:0.98rem; line-height:1.6;
+  color:rgba(243,233,216,0.78); max-width:42ch;
+}
+
+/* ---------- scroll reveal ---------- */
+.reveal{
+  opacity:0; transform:translateY(28px);
+  transition:opacity .9s ease, transform .9s ease;
+}
+.reveal.is-visible{ opacity:1; transform:none; }
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity:1; transform:none; transition:none; }
+}
+
+/* ---------- closing scene ---------- */
+.journey-close{
+  position:relative;
+  min-height:min(72vh, 620px);
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.journey-close img{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:saturate(1.05) contrast(1.03) brightness(0.45);
+}
+.journey-close::after{
+  content:""; position:absolute; inset:0;
+  background:radial-gradient(ellipse 70% 60% at center, rgba(18,26,46,0.35) 0%, rgba(18,26,46,0.85) 100%);
+}
+.journey-close-content{
+  position:relative; z-index:2; text-align:center; padding:32px;
+  display:flex; flex-direction:column; align-items:center; gap:22px;
+}
+.journey-close h2{
+  font-family:'Fraunces',serif; font-style:italic; font-weight:600;
+  font-size:clamp(1.6rem, 3.4vw, 2.3rem); color:#F3E9D8; max-width:20ch;
+}
+.journey-close p{
+  color:rgba(243,233,216,0.8); max-width:44ch; font-size:1rem;
+}
+.journey-btn{
+  display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
+  font-family:'Karla',sans-serif; font-weight:700; font-size:0.85rem;
+  letter-spacing:0.04em;
+  padding:15px 32px; border-radius:999px;
+  background:#D8AD6D; color:#121A2E; border:1px solid #D8AD6D;
+  text-decoration:none;
+  transition:background .15s ease, color .15s ease, border-color .15s ease;
+}
+.journey-btn svg{ width:16px; height:16px; flex:none; }
+.journey-btn:hover{ background:transparent; color:#D8AD6D; }
+
+/* ---------- theme the persistent header/footer while this page is open ---------- */
+body:has(#page-date-dinner:not([hidden])){
+  background:#121A2E;
+}
+body:has(#page-date-dinner:not([hidden])) header{
+  background:rgba(18,26,46,0.94);
+  border-bottom-color:rgba(243,233,216,0.15);
+}
+body:has(#page-date-dinner:not([hidden])) header .logo-mark{
+  filter:brightness(0) invert(1);
+}
+body:has(#page-date-dinner:not([hidden])) header .navlinks a:not(.btn){
+  color:rgba(243,233,216,0.8);
+}
+body:has(#page-date-dinner:not([hidden])) header .navlinks a:not(.btn):hover{
+  color:#F3E9D8; border-color:#F3E9D8;
+}
+body:has(#page-date-dinner:not([hidden])) header .btn-dark{
+  background:#D8AD6D; color:#121A2E;
+}
+body:has(#page-date-dinner:not([hidden])) header .btn-dark:hover{
+  background:transparent; color:#D8AD6D; border-color:#D8AD6D;
+}
+body:has(#page-date-dinner:not([hidden])) footer{
+  background:#121A2E;
+  border-top-color:rgba(243,233,216,0.15);
+}
+body:has(#page-date-dinner:not([hidden])) footer .foot-left .logo-mark{
+  filter:brightness(0) invert(1);
+}
+body:has(#page-date-dinner:not([hidden])) footer .foot-left p{ color:rgba(243,233,216,0.55); }
+body:has(#page-date-dinner:not([hidden])) footer .foot-right a{ color:rgba(243,233,216,0.7); }
+body:has(#page-date-dinner:not([hidden])) footer .foot-right a:hover{ color:#F3E9D8; }
+
+@media (max-width:760px){
+  .journey-course{ grid-template-columns:1fr; }
+  .journey-course.reverse .journey-course-photo{ order:0; }
+  .journey-course.reverse .journey-course-text{ order:1; }
+  .journey-course-text{ text-align:center; }
+  .journey-course-num{ justify-content:center; }
+  .journey-course p{ margin-inline:auto; }
+}
