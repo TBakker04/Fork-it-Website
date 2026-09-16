@@ -18,7 +18,7 @@
 <meta name="twitter:image" content="og-image.jpg">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="assets/paella-planet.css">
-<link rel="stylesheet" href="assets/date-dinner-journey.css">
+<link rel="stylesheet" href="assets/date-dinner-carousel.css">
 </head>
 <body>
 <header>
@@ -292,69 +292,51 @@
 </div>
 
   <!-- DETAIL: DATE DINNERS -->
-  <div id="page-date-dinner" class="detail-page journey-page" hidden>
-    <div class="journey-top">
-      <a class="detail-back" href="#top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to Fork It</a>
-    </div>
+  <div id="page-date-dinner" class="detail-page dd-carousel-page" hidden>
+    <a class="dd-back" href="#top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to Fork It</a>
 
-    <!-- opening scene -->
-    <div class="journey-hero">
-      <img src="images/a-long-candlelit-table-set-for-a-forkit-date-din.jpg" alt="A long candlelit table set for a Fork It Date Dinner, with menu cards, candles, and a camera ready to capture the night">
-      <div class="journey-hero-content">
-        <p class="eyebrow">Date Dinners</p>
-        <h1>An evening built<br>around your table.</h1>
-        <p class="lede">Not just for two &mdash; from an intimate dinner to a full group celebration. Candlelight, good wine, and a menu built just for the people you&rsquo;re sharing it with, cooked fresh wherever you are. Scroll down &mdash; we&rsquo;ll walk you through the table, course by course.</p>
-      </div>
-      <div class="journey-scroll-cue">
-        <span>Scroll to begin</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
-      </div>
-    </div>
+    <div class="dd-carousel">
+      <div class="dd-track" id="ddTrack">
 
-    <!-- course 1: starter -->
-    <div class="journey-course reveal">
-      <div class="journey-course-photo">
-        <img src="images/fresh-pasta-plates-finished-with-edible-flowers.jpg" alt="Fresh pasta plates finished with edible flowers">
-      </div>
-      <div class="journey-course-text">
-        <p class="journey-course-num"><span class="candle"><span class="wax"></span><span class="flame"></span></span>Course One &mdash; Starter</p>
-        <h2>Herb &amp; cheese pasta, edible flowers</h2>
-        <p>Fresh pasta plated by candlelight, finished with edible flowers &mdash; the first course arrives light and bright, setting the pace for the evening ahead.</p>
-      </div>
-    </div>
+        <div class="dd-slide">
+          <img class="dd-slide-bg" src="images/a-long-candlelit-table-set-for-a-forkit-date-din.jpg" alt="A long candlelit table set for a Fork It Date Dinner">
+          <div class="dd-slide-content">
+            <p class="eyebrow">Date Dinners</p>
+            <h1>WTF is a Dating App?</h1>
+            <p class="dd-lede">Ready to plan your night of magic?</p>
+          </div>
+        </div>
 
-    <!-- course 2: main -->
-    <div class="journey-course reverse reveal">
-      <div class="journey-course-photo">
-        <img src="images/four-plates-of-roasted-duck-breast-ready-to-be-s.jpg" alt="Four plates of roasted duck breast ready to be served">
-      </div>
-      <div class="journey-course-text">
-        <p class="journey-course-num"><span class="candle"><span class="wax"></span><span class="flame"></span></span>Course Two &mdash; Main</p>
-        <h2>Roasted duck breast</h2>
-        <p>Plated table-side and served while the conversation&rsquo;s still going &mdash; the centerpiece course, built around what&rsquo;s in season and what you told us you love.</p>
-      </div>
-    </div>
+        <div class="dd-slide">
+          <img class="dd-slide-bg" src="images/an-overhead-shot-of-a-charcuterie-board-olives-a.jpg" alt="An overhead shot of a charcuterie board and a Fork It Date Dinner menu card">
+          <div class="dd-slide-content">
+            <h2>We bring a fully organized dinner to you!</h2>
+            <p class="dd-lede">No luck dating yet? No worries &mdash; our food &amp; wine matching will definitely do the trick.</p>
+          </div>
+        </div>
 
-    <!-- course 3: dessert -->
-    <div class="journey-course reveal">
-      <div class="journey-course-photo">
-        <img src="images/an-overhead-shot-of-a-charcuterie-board-olives-a.jpg" alt="An overhead shot of a charcuterie board, olives, and bread with a Fork It Date Dinner menu card">
-      </div>
-      <div class="journey-course-text">
-        <p class="journey-course-num"><span class="candle"><span class="wax"></span><span class="flame"></span></span>Course Three &mdash; To Finish</p>
-        <h2>A slow finish, at your table</h2>
-        <p>We close the night the way we opened it &mdash; unhurried, at your table, with a menu card to keep and nothing left to clear but the candles.</p>
-      </div>
-    </div>
+        <div class="dd-slide">
+          <img class="dd-slide-bg" src="images/fresh-pasta-plates-finished-with-edible-flowers.jpg" alt="Fresh pasta plates finished with edible flowers">
+          <div class="dd-slide-content">
+            <h2>Wanna know how it works?</h2>
+            <p class="dd-lede">More on the way &mdash; keep tapping the arrow.</p>
+          </div>
+        </div>
 
-    <!-- closing scene -->
-    <div class="journey-close">
-      <img src="images/a-herb-and-cheese-pasta-dish-plated-by-candlelig.jpg" alt="A herb and cheese pasta dish plated by candlelight">
-      <div class="journey-close-content">
-        <h2>Ready to book your date dinner?</h2>
-        <p>Tell us your date, your headcount, and any dietary wishes &mdash; we&rsquo;ll take it from there.</p>
-        <a href="#book" class="btn journey-btn detail-book-btn" data-event="Date Dinner">Book This Now<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="dd-slide dd-slide-cta">
+          <img class="dd-slide-bg" src="images/a-herb-and-cheese-pasta-dish-plated-by-candlelig.jpg" alt="A herb and cheese pasta dish plated by candlelight">
+          <div class="dd-slide-content">
+            <h2>Ready to book your date dinner?</h2>
+            <p class="dd-lede">Tell us your date, your headcount, and any dietary wishes &mdash; we&rsquo;ll take it from there.</p>
+            <a href="#book" class="btn dd-btn detail-book-btn" data-event="Date Dinner">Book This Now<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+
       </div>
+
+      <button type="button" class="dd-arrow dd-arrow-prev" id="ddPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+      <button type="button" class="dd-arrow dd-arrow-next" id="ddNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      <div class="dd-dots" id="ddDots"></div>
     </div>
   </div>
 

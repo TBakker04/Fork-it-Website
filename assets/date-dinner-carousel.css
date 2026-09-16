@@ -1,0 +1,128 @@
+/* ---------- Date Dinner full-screen left-right carousel ---------- */
+.dd-carousel-page{
+  width:100vw; position:relative; left:50%; right:50%;
+  margin-left:-50vw; margin-right:-50vw;
+  padding-block:0 !important;
+  background:#121A2E;
+  color:#F3E9D8;
+}
+
+.dd-back{
+  position:fixed; top:20px; left:20px; z-index:20;
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:'Karla',sans-serif; font-weight:700; font-size:0.82rem;
+  color:rgba(243,233,216,0.9); text-decoration:none;
+  padding:9px 16px; border-radius:999px;
+  background:rgba(18,26,46,0.55);
+  border:1px solid rgba(243,233,216,0.25);
+  backdrop-filter:blur(6px);
+  transition:background .15s ease, color .15s ease;
+}
+.dd-back svg{ width:16px; height:16px; flex:none; }
+.dd-back:hover{ color:#F3E9D8; background:rgba(18,26,46,0.85); }
+
+.dd-carousel{
+  position:relative;
+  width:100vw; height:100vh; height:100dvh;
+  overflow:hidden;
+}
+.dd-track{
+  display:flex; height:100%;
+  transition:transform .6s cubic-bezier(.65,0,.35,1);
+  will-change:transform;
+}
+.dd-slide{
+  position:relative;
+  flex:0 0 100%; width:100%; height:100%;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+.dd-slide-bg{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:saturate(1.05) contrast(1.03) brightness(0.4);
+}
+.dd-slide::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(18,26,46,0.5) 0%, rgba(18,26,46,0.68) 100%);
+}
+.dd-slide-content{
+  position:relative; z-index:2; text-align:center;
+  max-width:640px; padding:32px;
+}
+.dd-slide-content .eyebrow{ color:rgba(243,233,216,0.75); }
+.dd-slide-content h1, .dd-slide-content h2{
+  font-family:'Fraunces',serif; font-weight:600; font-style:italic;
+  font-size:clamp(2rem, 5.5vw, 3.4rem); line-height:1.12;
+  color:#F3E9D8; margin-top:12px;
+}
+.dd-lede{
+  font-size:1.05rem; color:rgba(243,233,216,0.82);
+  margin-top:18px; max-width:44ch; margin-inline:auto;
+}
+.dd-slide-cta .dd-lede{ margin-bottom:26px; }
+
+.dd-btn{
+  display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
+  font-family:'Karla',sans-serif; font-weight:700; font-size:0.85rem;
+  letter-spacing:0.04em;
+  padding:15px 32px; border-radius:999px;
+  background:#D8AD6D; color:#121A2E; border:1px solid #D8AD6D;
+  text-decoration:none;
+  transition:background .15s ease, color .15s ease, border-color .15s ease;
+}
+.dd-btn svg{ width:16px; height:16px; flex:none; }
+.dd-btn:hover{ background:transparent; color:#D8AD6D; }
+
+.dd-arrow{
+  position:absolute; top:50%; transform:translateY(-50%);
+  z-index:15;
+  width:52px; height:52px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(243,233,216,0.12);
+  border:1px solid rgba(243,233,216,0.4);
+  color:#F3E9D8;
+  cursor:pointer;
+  transition:background .15s ease, opacity .2s ease;
+}
+.dd-arrow svg{ width:22px; height:22px; flex:none; }
+.dd-arrow:hover{ background:rgba(243,233,216,0.24); }
+.dd-arrow.is-hidden{ opacity:0; pointer-events:none; }
+.dd-arrow-prev{ left:20px; }
+.dd-arrow-next{ right:20px; }
+
+.dd-dots{
+  position:absolute; left:0; right:0; bottom:26px; z-index:15;
+  display:flex; align-items:center; justify-content:center; gap:10px;
+}
+.dd-dots button{
+  width:8px; height:8px; border-radius:50%; padding:0;
+  border:1px solid rgba(243,233,216,0.6);
+  background:transparent;
+  cursor:pointer;
+  transition:background .15s ease, width .15s ease, border-color .15s ease;
+}
+.dd-dots button.is-active{
+  background:#D8AD6D; border-color:#D8AD6D; width:22px; border-radius:5px;
+}
+
+/* full screen takeover: hide the persistent site chrome while this page is open */
+body:has(#page-date-dinner:not([hidden])){
+  overflow:hidden;
+  background:#121A2E;
+}
+body:has(#page-date-dinner:not([hidden])) header,
+body:has(#page-date-dinner:not([hidden])) footer{
+  display:none;
+}
+
+@media (max-width:640px){
+  .dd-back{ top:14px; left:14px; padding:8px 14px; }
+  .dd-arrow{ width:44px; height:44px; }
+  .dd-arrow-prev{ left:10px; }
+  .dd-arrow-next{ right:10px; }
+  .dd-slide-content{ padding:24px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .dd-track{ transition:none; }
+}

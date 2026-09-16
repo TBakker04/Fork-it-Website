@@ -109,22 +109,58 @@
     });
   });
 
-  /* ---------- scroll reveal (e.g. date dinner journey courses) ---------- */
-  var revealEls = document.querySelectorAll('.reveal');
-  if(revealEls.length){
-    if(reduceMotion || !('IntersectionObserver' in window)){
-      revealEls.forEach(function(el){ el.classList.add('is-visible'); });
-    } else {
-      var revealObserver = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-          if(entry.isIntersecting){
-            entry.target.classList.add('is-visible');
-            revealObserver.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.2, rootMargin: '0px 0px -60px 0px' });
-      revealEls.forEach(function(el){ revealObserver.observe(el); });
+  /* ---------- date dinner: full-screen left-right carousel ---------- */
+  var ddTrack = document.getElementById('ddTrack');
+  if(ddTrack){
+    var ddSlides = ddTrack.querySelectorAll('.dd-slide');
+    var ddPrev = document.getElementById('ddPrev');
+    var ddNext = document.getElementById('ddNext');
+    var ddDotsWrap = document.getElementById('ddDots');
+    var ddIndex = 0;
+
+    ddSlides.forEach(function(_, i){
+      var dot = document.createElement('button');
+      dot.type = 'button';
+      dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+      dot.addEventListener('click', function(){ ddGoTo(i); });
+      ddDotsWrap.appendChild(dot);
+    });
+    var ddDots = ddDotsWrap.querySelectorAll('button');
+
+    function ddUpdate(){
+      ddTrack.style.transform = 'translateX(-' + (ddIndex * 100) + '%)';
+      ddDots.forEach(function(d, i){ d.classList.toggle('is-active', i === ddIndex); });
+      ddPrev.classList.toggle('is-hidden', ddIndex === 0);
+      ddNext.classList.toggle('is-hidden', ddIndex === ddSlides.length - 1);
     }
+    function ddGoTo(i){
+      ddIndex = Math.max(0, Math.min(ddSlides.length - 1, i));
+      ddUpdate();
+    }
+    ddNext.addEventListener('click', function(){ ddGoTo(ddIndex + 1); });
+    ddPrev.addEventListener('click', function(){ ddGoTo(ddIndex - 1); });
+
+    document.addEventListener('keydown', function(e){
+      var page = document.getElementById('page-date-dinner');
+      if(!page || page.hidden) return;
+      if(e.key === 'ArrowRight') ddGoTo(ddIndex + 1);
+      if(e.key === 'ArrowLeft') ddGoTo(ddIndex - 1);
+    });
+
+    var ddTouchStartX = null;
+    ddTrack.addEventListener('touchstart', function(e){ ddTouchStartX = e.touches[0].clientX; }, { passive:true });
+    ddTrack.addEventListener('touchend', function(e){
+      if(ddTouchStartX === null) return;
+      var dx = e.changedTouches[0].clientX - ddTouchStartX;
+      if(Math.abs(dx) > 40){ ddGoTo(ddIndex + (dx < 0 ? 1 : -1)); }
+      ddTouchStartX = null;
+    }, { passive:true });
+
+    window.addEventListener('hashchange', function(){
+      if(window.location.hash === '#date-dinner'){ ddGoTo(0); }
+    });
+
+    ddUpdate();
   }
 
   /* ---------- in-page scroll buttons (e.g. paella "What's Included") ---------- */
