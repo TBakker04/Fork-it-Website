@@ -38,6 +38,13 @@
     }, { passive:true });
   }
 
+  /* ---------- gallery page: fade the hero text and clear the fog once scrolling starts ---------- */
+  if(document.querySelector('.gallery-hero')){
+    window.addEventListener('scroll', function(){
+      document.body.classList.toggle('is-gallery-scrolled', window.scrollY > 40);
+    }, { passive:true });
+  }
+
   var eventSelect = document.getElementById('event');
 
   document.querySelectorAll('[data-event]').forEach(function(el){

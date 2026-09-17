@@ -24,7 +24,16 @@ html{ scroll-snap-type: y proximity; }
   padding:92px 24px 44px;
   text-align:center;
   background:linear-gradient(180deg, rgba(10,6,4,0.78) 0%, rgba(10,6,4,0.4) 68%, rgba(10,6,4,0) 100%);
+  transition:opacity .5s ease;
 }
+body.is-gallery-scrolled .gallery-hero{ opacity:0; }
+
+/* ---------- clear the fog once the visitor starts scrolling ---------- */
+.gate-scrim, .gate-grain{ transition:opacity .6s ease; }
+body.is-gallery-scrolled .gate-scrim{ opacity:0.25; }
+body.is-gallery-scrolled .gate-grain{ opacity:0.05; }
+.gate-cell img{ transition:filter .6s ease; }
+body.is-gallery-scrolled .gate-cell img{ filter:saturate(1.05) contrast(1.02) brightness(0.95); }
 .gallery-hero .eyebrow{ color:rgba(243,237,226,0.7); }
 .gallery-hero h1{
   font-family:'Fraunces',serif; font-weight:600; font-style:italic;
