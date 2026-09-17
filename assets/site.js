@@ -191,6 +191,7 @@
       });
       if(variantTitle && variantNames[key]){ variantTitle.textContent = variantNames[key]; }
       paellaIncluded.setAttribute('data-active', key);
+      paellaIncluded.hidden = false;
       variantCards.forEach(function(card){
         card.classList.toggle('is-active', card.getAttribute('data-variant') === key);
       });
@@ -199,7 +200,9 @@
       var key = card.getAttribute('data-variant');
       card.addEventListener('click', function(){
         selectVariant(key);
-        paellaIncluded.scrollIntoView({ behavior:'smooth', block:'start' });
+        window.requestAnimationFrame(function(){
+          paellaIncluded.scrollIntoView({ behavior:'smooth', block:'start' });
+        });
       });
       card.addEventListener('keydown', function(e){
         if(e.key === 'Enter' || e.key === ' '){
