@@ -175,6 +175,41 @@
     });
   });
 
+  /* ---------- paella: pick a workshop variant, swap the What's Included table ---------- */
+  var variantCards = document.querySelectorAll('.variant-card[data-variant]');
+  var paellaIncluded = document.getElementById('paella-included');
+  if(variantCards.length && paellaIncluded){
+    var variantLists = paellaIncluded.querySelectorAll('.included-list[data-list]');
+    var variantTitle = paellaIncluded.querySelector('.planet-included-title');
+    var variantNames = {
+      authentic: 'Authentic Paella Workshop',
+      viva: 'Viva La Cocina!'
+    };
+    var selectVariant = function(key){
+      variantLists.forEach(function(list){
+        list.hidden = (list.getAttribute('data-list') !== key);
+      });
+      if(variantTitle && variantNames[key]){ variantTitle.textContent = variantNames[key]; }
+      paellaIncluded.setAttribute('data-active', key);
+      variantCards.forEach(function(card){
+        card.classList.toggle('is-active', card.getAttribute('data-variant') === key);
+      });
+    };
+    variantCards.forEach(function(card){
+      var key = card.getAttribute('data-variant');
+      card.addEventListener('click', function(){
+        selectVariant(key);
+        paellaIncluded.scrollIntoView({ behavior:'smooth', block:'start' });
+      });
+      card.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+  }
+
   function buildMessage(){
     var name = document.getElementById('name').value.trim();
     var event = eventSelect.value;
