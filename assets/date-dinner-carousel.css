@@ -48,6 +48,7 @@
 .dd-slide-content{
   position:relative; z-index:2; text-align:center;
   max-width:640px; padding:32px;
+  max-height:100%; overflow-y:auto;
 }
 .dd-slide-content .eyebrow{ color:rgba(243,233,216,0.75); }
 .dd-slide-content h1, .dd-slide-content h2{
@@ -72,6 +73,44 @@
 }
 .dd-btn svg{ width:16px; height:16px; flex:none; }
 .dd-btn:hover{ background:transparent; color:#D8AD6D; }
+
+.dd-kicker-btn{
+  display:inline-block; margin-top:26px;
+  font-family:'Karla',sans-serif; font-weight:700; font-size:0.76rem;
+  letter-spacing:0.16em; text-transform:uppercase;
+  color:#D8AD6D; background:none; border:none; border-bottom:1px solid rgba(216,173,109,0.5);
+  padding:0 0 4px; cursor:pointer;
+  transition:color .15s ease, border-color .15s ease;
+}
+.dd-kicker-btn:hover{ color:#F3E9D8; border-color:#F3E9D8; }
+
+.dd-included-list{
+  list-style:none; margin:24px 0 0; padding:0;
+  border-top:1px solid rgba(243,233,216,0.2);
+  text-align:left;
+}
+.dd-included-list li{
+  display:flex; align-items:center; gap:12px;
+  padding:11px 2px;
+  border-bottom:1px solid rgba(243,233,216,0.2);
+  font-family:'Karla',sans-serif; font-size:0.94rem; color:#F3E9D8;
+}
+.dd-included-list li::before{
+  flex:none; width:18px; height:18px; border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:0.6rem; font-weight:700; line-height:1;
+}
+.dd-included-list li.yes::before{
+  content:"\2713"; background:#D8AD6D; color:#080706;
+}
+.dd-included-list li.no{ color:rgba(243,233,216,0.5); }
+.dd-included-list li.no::before{
+  content:"\2715"; background:transparent; border:1.5px solid rgba(243,233,216,0.4); color:rgba(243,233,216,0.5);
+}
+.dd-included-note{
+  margin-top:20px; font-size:0.86rem; line-height:1.5;
+  color:rgba(243,233,216,0.7);
+}
 
 .dd-arrow{
   position:absolute; top:50%; transform:translateY(-50%);
