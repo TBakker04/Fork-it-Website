@@ -128,12 +128,6 @@
   padding:26px 24px;
   box-shadow:0 16px 40px rgba(0,0,0,0.22);
 }
-.variant-tag{
-  display:inline-block; font-family:'Karla',sans-serif; font-weight:700;
-  font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;
-  color:#4A160F; background:rgba(74,22,15,0.08);
-  padding:5px 12px; border-radius:999px; margin-bottom:12px;
-}
 .variant-card h3{
   font-family:'Fraunces',serif; font-weight:700;
   font-size:1.2rem; color:#4A160F; line-height:1.2;
