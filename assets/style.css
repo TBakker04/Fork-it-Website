@@ -300,12 +300,6 @@
   .btn-full{ flex:1; }
   .hint{ font-size:0.8rem; color:var(--ink-faint); }
 
-  .review-card{
-    margin-top:24px; padding-top:24px; border-top:1px solid var(--line);
-  }
-  .review-card h4{ font-size:1rem; margin-bottom:4px; font-family:'Fraunces',serif; font-style:italic; font-weight:600; }
-  .review-card p{ color:var(--ink-soft); font-size:0.88rem; margin-bottom:14px; }
-
   footer{
     border-top:1px solid var(--line); margin-top:20px; padding-block:36px 48px;
     display:flex; flex-wrap:wrap; gap:20px; align-items:center; justify-content:space-between;
@@ -458,6 +452,12 @@
     background:transparent; cursor:pointer;
   }
   .review-dots button.is-active{ background:var(--ink); width:18px; }
+  .review-cta{
+    margin-top:40px; padding-top:28px; border-top:1px solid var(--line);
+    text-align:center;
+  }
+  .review-cta h4{ font-size:1.1rem; font-family:'Fraunces',serif; font-style:italic; font-weight:600; }
+  .review-cta p{ color:var(--ink-soft); font-size:0.92rem; margin-top:6px; margin-bottom:18px; }
   @media (prefers-reduced-motion: reduce){
     .review-slide{ transition:none; }
   }
