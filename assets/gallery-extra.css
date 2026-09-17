@@ -1,0 +1,67 @@
+/* proximity (not mandatory) so scrolling can continue past the last
+   row into the closing CTA + footer below the photo carousel */
+html{ scroll-snap-type: y proximity; }
+
+/* ---------- gallery page: fixed back link ---------- */
+.gallery-back{
+  position:fixed; top:20px; left:20px; z-index:5;
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:'Karla',sans-serif; font-weight:700; font-size:0.82rem;
+  color:rgba(243,237,226,0.9); text-decoration:none;
+  padding:9px 16px; border-radius:999px;
+  background:rgba(20,18,16,0.55);
+  border:1px solid rgba(243,237,226,0.25);
+  backdrop-filter:blur(6px);
+  transition:background .15s ease, color .15s ease;
+}
+.gallery-back svg{ width:16px; height:16px; flex:none; }
+.gallery-back:hover{ color:#F3EDE2; background:rgba(20,18,16,0.85); }
+
+/* ---------- fixed hero text, stays above the scrolling photos ---------- */
+.gallery-hero{
+  position:fixed; top:0; left:0; right:0; z-index:4;
+  pointer-events:none;
+  padding:92px 24px 44px;
+  text-align:center;
+  background:linear-gradient(180deg, rgba(10,6,4,0.78) 0%, rgba(10,6,4,0.4) 68%, rgba(10,6,4,0) 100%);
+}
+.gallery-hero .eyebrow{ color:rgba(243,237,226,0.7); }
+.gallery-hero h1{
+  font-family:'Fraunces',serif; font-weight:600; font-style:italic;
+  font-size:clamp(1.6rem, 4vw, 2.6rem); line-height:1.15;
+  color:#F3EDE2; margin-top:10px;
+}
+.gallery-hero p{
+  font-size:0.95rem; color:rgba(243,237,226,0.82);
+  margin-top:12px; max-width:52ch; margin-inline:auto;
+}
+
+/* ---------- closing CTA + footer, dark themed to match the gallery ---------- */
+.gallery-close{
+  position:relative; z-index:1;
+  background:#141210;
+  padding-top:70px;
+}
+.gallery-close .detail-cta{
+  border-color:rgba(243,237,226,0.25);
+  background:transparent;
+}
+.gallery-close .detail-cta h2{ color:#F3EDE2; }
+.gallery-close .detail-cta p{ color:rgba(243,237,226,0.75); }
+.gallery-close .detail-cta .btn-dark{
+  background:#F3EDE2; color:#141210; border-color:#F3EDE2;
+}
+.gallery-close .detail-cta .btn-dark:hover{ background:transparent; color:#F3EDE2; }
+
+.gallery-close footer{
+  background:#141210;
+  border-top-color:rgba(243,237,226,0.18);
+}
+.gallery-close footer .foot-left .logo-mark{ filter:brightness(0) invert(1); }
+.gallery-close footer .foot-left p{ color:rgba(243,237,226,0.55); }
+.gallery-close footer .foot-right a{ color:rgba(243,237,226,0.75); }
+.gallery-close footer .foot-right a:hover{ color:#F3EDE2; }
+
+@media (max-width:640px){
+  .gallery-hero{ padding:80px 20px 34px; }
+}
