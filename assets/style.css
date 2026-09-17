@@ -152,12 +152,6 @@
     .hero-media .slide{ transition:none; }
   }
 
-  .pills{ display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
-  .pill{
-    font-size:0.76rem; font-weight:700; color:var(--ink);
-    border:1px solid var(--line); border-radius:999px; padding:6px 14px;
-  }
-
   section{ padding-block:60px; }
   .section-head{ max-width:640px; margin-bottom:38px; }
   .section-head h2{ font-size:clamp(1.7rem,3vw,2.3rem); margin-top:8px; }
@@ -197,16 +191,6 @@
   }
   .offer-card .reserve svg{ width:14px; height:14px; transition:transform .15s ease; }
   .offer-card .reserve:hover svg{ transform:translateX(3px); }
-
-  .see-more{
-    font-size:0.82rem; font-weight:700; color:var(--ink);
-    display:inline-flex; align-items:center; gap:6px; text-decoration:none;
-    letter-spacing:0.01em; white-space:nowrap;
-    border-bottom:1px solid var(--ink);
-    width:fit-content; padding-bottom:1px;
-  }
-  .see-more svg{ width:14px; height:14px; flex:none; transition:transform .15s ease; }
-  .see-more:hover svg{ transform:translateX(3px); }
 
   /* ---------- season ---------- */
   .season{
