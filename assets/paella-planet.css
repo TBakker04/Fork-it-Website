@@ -42,7 +42,7 @@
 .planet-stage{
   position:relative; z-index:2;
   max-width:960px; margin-inline:auto;
-  height:clamp(600px, 74vw, 840px);
+  height:clamp(660px, 78vw, 900px);
 }
 
 .planet-photo{
@@ -60,24 +60,24 @@
 
 .planet-float{
   position:absolute; z-index:4;
-  margin:0; max-width:220px;
+  margin:0; max-width:260px;
   text-align:center;
 }
 .planet-float.type-title{
   font-family:'Fraunces',serif; font-weight:700; text-transform:uppercase;
-  font-size:clamp(1.3rem, 2.6vw, 1.9rem); line-height:1.08;
-  color:#F5EAE0; max-width:280px;
+  font-size:clamp(1.6rem, 3.4vw, 2.4rem); line-height:1.08;
+  color:#F5EAE0; max-width:340px;
 }
 .planet-float.type-fact{
   font-family:'Fraunces',serif; font-style:italic; font-weight:500;
-  font-size:0.92rem; line-height:1.35; color:rgba(245,234,224,0.8);
-  max-width:170px;
+  font-size:1.08rem; line-height:1.4; color:rgba(245,234,224,0.8);
+  max-width:210px;
 }
 .planet-float.type-tag{
   display:inline-block; font-family:'Karla',sans-serif; font-weight:700;
-  font-size:0.76rem; letter-spacing:0.08em; text-transform:uppercase;
+  font-size:0.92rem; letter-spacing:0.06em; text-transform:uppercase;
   color:#4A160F; background:#F5EAE0;
-  padding:9px 16px; border-radius:999px; max-width:none; white-space:nowrap;
+  padding:11px 20px; border-radius:999px; max-width:none; white-space:nowrap;
 }
 
 .planet-float--title{ top:0; left:50%; transform:translate(-50%,0) rotate(-2deg); }
@@ -106,6 +106,45 @@
 }
 .planet-btn svg{ width:16px; height:16px; flex:none; }
 .planet-btn:hover{ background:transparent; color:#F5EAE0; }
+
+/* ---------- Choose your workshop ---------- */
+.planet-variants{
+  position:relative; z-index:2;
+  width:min(760px, calc(100% - 40px)); margin:0 auto 56px;
+  text-align:center;
+}
+.planet-variants .eyebrow{ color:rgba(245,234,224,0.7); }
+.planet-variants h2{
+  font-family:'Fraunces',serif; font-weight:700; text-transform:uppercase;
+  font-size:clamp(1.5rem, 3vw, 2rem); color:#F5EAE0; margin-top:8px;
+}
+.variant-grid{
+  margin-top:28px;
+  display:grid; grid-template-columns:1fr 1fr; gap:20px;
+  text-align:left;
+}
+.variant-card{
+  background:#F5EAE0; border-radius:16px;
+  padding:26px 24px;
+  box-shadow:0 16px 40px rgba(0,0,0,0.22);
+}
+.variant-tag{
+  display:inline-block; font-family:'Karla',sans-serif; font-weight:700;
+  font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase;
+  color:#4A160F; background:rgba(74,22,15,0.08);
+  padding:5px 12px; border-radius:999px; margin-bottom:12px;
+}
+.variant-card h3{
+  font-family:'Fraunces',serif; font-weight:700;
+  font-size:1.2rem; color:#4A160F; line-height:1.2;
+}
+.variant-card p{
+  margin-top:10px; font-family:'Karla',sans-serif; font-size:0.92rem;
+  color:rgba(74,22,15,0.85); line-height:1.5;
+}
+@media (max-width:640px){
+  .variant-grid{ grid-template-columns:1fr; }
+}
 
 /* ---------- What's Included ---------- */
 .planet-included{
@@ -146,6 +185,16 @@
 .included-list li.no{ color:rgba(74,22,15,0.5); }
 .included-list li.no::before{
   content:"\2715"; background:transparent; border:1.5px solid rgba(74,22,15,0.4); color:rgba(74,22,15,0.5);
+}
+.included-list li.optional::before{
+  content:"+"; background:transparent; border:1.5px solid #4A160F; color:#4A160F;
+}
+.tag-optional{
+  margin-left:auto; flex:none;
+  font-family:'Karla',sans-serif; font-weight:700; font-size:0.68rem;
+  letter-spacing:0.06em; text-transform:uppercase;
+  color:#4A160F; border:1px solid rgba(74,22,15,0.4);
+  border-radius:999px; padding:3px 10px;
 }
 .included-note{
   margin-top:22px; padding:13px 18px;
