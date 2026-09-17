@@ -140,10 +140,6 @@
     ddNext.addEventListener('click', function(){ ddGoTo(ddIndex + 1); });
     ddPrev.addEventListener('click', function(){ ddGoTo(ddIndex - 1); });
 
-    ddTrack.querySelectorAll('.dd-inline-next').forEach(function(btn){
-      btn.addEventListener('click', function(){ ddGoTo(ddIndex + 1); });
-    });
-
     document.addEventListener('keydown', function(e){
       var page = document.getElementById('page-date-dinner');
       if(!page || page.hidden) return;
