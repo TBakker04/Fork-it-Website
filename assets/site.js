@@ -1,4 +1,10 @@
 (function(){
+  /* Always land at the top on a fresh (non-anchor) page load — stops the
+     browser from restoring a previous scroll position (e.g. via bfcache)
+     when arriving from another page, like the gate page's "Dive In". */
+  if('scrollRestoration' in history){ history.scrollRestoration = 'manual'; }
+  if(!window.location.hash){ window.scrollTo(0, 0); }
+
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function setupCarousel(root, slideSel, dotSel, intervalMs){
