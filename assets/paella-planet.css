@@ -269,4 +269,5 @@ body:has(#page-paella-workshop:not([hidden])) footer .foot-right a:hover{ color:
   }
   .planet-float--title{ order:-2; }
   .planet-cta{ position:static; order:-1; margin:0 0 28px; transform:none; }
+  .planet-float.type-tag{ display:none; }
 }
