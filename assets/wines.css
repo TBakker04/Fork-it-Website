@@ -14,14 +14,11 @@
 }
 
 .wines-sketch{
-  max-width:640px;
+  max-width:680px;
   margin:56px auto 64px;
 }
-.wines-sketch svg{ width:100%; height:auto; display:block; }
-.wines-sketch svg *{
-  fill:none; stroke:var(--ink);
-  stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round;
-}
+.wines-sketch svg{ width:100%; height:auto; display:block; color:var(--ink); }
+.wines-sketch svg .ink-fill{ fill:currentColor; }
 
 .wines-placeholder{
   border:1.5px dashed var(--line); border-radius:12px;

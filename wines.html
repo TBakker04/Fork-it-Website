@@ -47,45 +47,51 @@
     </div>
 
     <div class="wines-sketch" aria-hidden="true">
-      <svg viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
-        <!-- table edge -->
-        <path d="M40,360 L860,360"/>
+      <svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="inkRough" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.017 0.045" numOctaves="2" seed="6" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+          <g id="tableScene" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+            <!-- table edge, loosely wavy -->
+            <path d="M35,275 Q220,262 400,270 T860,255"/>
 
-        <!-- bottle, left -->
-        <rect x="169" y="76" width="22" height="16" rx="2"/>
-        <path d="M172,92 L172,150 C172,165 150,170 145,185 L145,335 Q145,355 165,355 L195,355 Q215,355 215,335 L215,185 C210,170 188,165 188,150 L188,92 Z"/>
-        <path d="M150,230 L210,230" stroke-width="1"/>
+            <!-- bottle, left -->
+            <path d="M84,88 L84,148 C84,163 60,168 56,184 L56,338 Q56,358 78,358 L106,358 Q128,358 128,338 L128,184 C124,168 100,163 100,148 L100,88 Z"/>
 
-        <!-- plate with fork and knife -->
-        <ellipse cx="308" cy="347" rx="72" ry="16"/>
-        <ellipse cx="308" cy="347" rx="56" ry="11"/>
-        <path d="M251,270 L251,292 M259,266 L259,292 M267,266 L267,292 M275,270 L275,292"/>
-        <path d="M251,292 Q263,300 275,292"/>
-        <path d="M263,296 L259,352"/>
-        <path d="M357,266 L369,270 L365,298 L353,298 Z"/>
-        <path d="M359,298 L363,352"/>
+            <!-- fork, left -->
+            <path d="M160,298 L154,398 M178,294 L178,324 M196,298 L196,324 M154,324 Q175,336 196,324"/>
 
-        <!-- wine glass, taller -->
-        <ellipse cx="450" cy="140" rx="34" ry="8"/>
-        <path d="M416,140 C416,190 432,216 450,219 C468,216 484,190 484,140"/>
-        <path d="M428,176 Q450,184 472,176" stroke-width="1"/>
-        <path d="M450,219 L450,330"/>
-        <ellipse cx="450" cy="330" rx="22" ry="6"/>
+            <!-- plate with scribbled food -->
+            <ellipse cx="279" cy="350" rx="55" ry="15"/>
+            <path class="ink-fill" stroke="none" d="M247,346 C255,335 268,356 280,340 C290,354 302,336 313,348 C303,360 288,362 279,357 C267,362 254,358 247,346 Z"/>
 
-        <!-- wine glass, shorter -->
-        <ellipse cx="536" cy="178" rx="26" ry="6"/>
-        <path d="M510,178 C510,212 522,229 536,231 C550,229 562,212 562,178"/>
-        <path d="M519,201 Q536,207 553,201" stroke-width="1"/>
-        <path d="M536,231 L536,330"/>
-        <ellipse cx="536" cy="330" rx="18" ry="5"/>
+            <!-- wine glass, taller -->
+            <ellipse cx="396" cy="128" rx="34" ry="8"/>
+            <path d="M362,128 C362,182 378,210 396,213 C414,210 430,182 430,128"/>
+            <path d="M396,213 L396,336"/>
+            <ellipse cx="396" cy="336" rx="22" ry="6"/>
 
-        <!-- second bottle, right, smaller -->
-        <rect x="666" y="128" width="18" height="13" rx="2"/>
-        <path d="M669,141 L669,185 C669,197 651,201 647,213 L647,335 Q647,352 664,352 L689,352 Q706,352 706,335 L706,213 C702,201 684,197 684,185 L684,141 Z"/>
+            <!-- wine glass, shorter -->
+            <ellipse cx="484" cy="172" rx="26" ry="6"/>
+            <path d="M458,172 C458,208 470,226 484,228 C498,226 510,208 510,172"/>
+            <path d="M484,228 L484,336"/>
+            <ellipse cx="484" cy="336" rx="18" ry="5"/>
 
-        <!-- folded napkin, far right -->
-        <path d="M745,352 L805,352 L775,318 Z"/>
-        <path d="M760,352 L775,326"/>
+            <!-- plate with scribbled food -->
+            <ellipse cx="593" cy="358" rx="55" ry="14"/>
+            <path class="ink-fill" stroke="none" d="M561,354 C569,343 582,364 594,349 C604,362 616,344 627,356 C617,368 602,370 593,364 C581,370 568,366 561,354 Z"/>
+
+            <!-- fork, right -->
+            <path d="M680,298 L680,324 M698,294 L698,324 M716,298 L722,398 M680,324 Q698,336 716,324"/>
+
+            <!-- bottle, right -->
+            <path d="M773,138 L773,183 C773,195 753,199 749,212 L749,338 Q749,356 767,356 L793,356 Q811,356 811,338 L811,212 C807,199 787,195 787,183 L787,138 Z"/>
+          </g>
+        </defs>
+        <use href="#tableScene" transform="translate(3,5)" opacity="0.4" filter="url(#inkRough)"/>
+        <use href="#tableScene" filter="url(#inkRough)"/>
       </svg>
     </div>
 
