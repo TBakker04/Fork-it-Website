@@ -46,72 +46,8 @@
       <p class="lede">How we complement our food with great wines.</p>
     </div>
 
-    <div class="wines-sketch" aria-hidden="true">
-      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id="inkRough" x="-20%" y="-20%" width="140%" height="140%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.02 0.05" numOctaves="2" seed="5" result="noise"/>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
-          </filter>
-        </defs>
-        <g filter="url(#inkRough)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-
-          <!-- loose table line, arcing behind everything -->
-          <path stroke-width="4" opacity="0.75" d="M35,150 Q300,112 520,132 T965,158"/>
-
-          <!-- far-left tall glass -->
-          <g stroke-width="7">
-            <ellipse cx="140" cy="68" rx="32" ry="7"/>
-            <path d="M108,68 C108,118 124,144 140,147 C156,144 172,118 172,68"/>
-            <path d="M140,147 L140,300"/>
-            <ellipse cx="140" cy="300" rx="20" ry="6"/>
-          </g>
-
-          <!-- plate, left, with scribbled food -->
-          <ellipse cx="255" cy="378" rx="96" ry="21" stroke-width="8"/>
-          <path class="ink-fill" stroke="none" d="M190,372 C205,352 228,392 252,364 C268,388 292,358 318,376 C300,398 268,400 252,388 C230,400 202,394 190,372 Z"/>
-
-          <!-- short glass, center-left, tucked near the plate -->
-          <g stroke-width="6">
-            <ellipse cx="345" cy="185" rx="24" ry="6"/>
-            <path d="M321,185 C321,218 332,235 345,237 C358,235 369,218 369,185"/>
-            <path d="M345,237 L345,415"/>
-            <ellipse cx="345" cy="415" rx="16" ry="5"/>
-          </g>
-
-          <!-- fork, left, laid diagonally -->
-          <path stroke-width="7" d="M135,405 L150,440 M163,412 L175,450 M191,420 L200,460 M150,440 Q175,455 200,460 M175,450 L120,495"/>
-
-          <!-- two bottles, center, tilted so the necks cross -->
-          <path stroke-width="10" transform="rotate(-7 470 460)"
-            d="M462,20 L462,140 C462,158 432,164 426,182 L426,436 Q426,460 452,460 L488,460 Q514,460 514,436 L514,182 C508,164 478,158 478,140 L478,20 Z"/>
-          <path stroke-width="10" transform="rotate(7 540 460)"
-            d="M532,40 L532,150 C532,166 502,172 496,188 L496,436 Q496,460 522,460 L558,460 Q584,460 584,436 L584,188 C578,172 548,166 548,150 L548,40 Z"/>
-
-          <!-- short glass, center-right, tucked near the plate -->
-          <g stroke-width="6">
-            <ellipse cx="655" cy="205" rx="24" ry="6"/>
-            <path d="M631,205 C631,238 642,255 655,257 C668,255 679,238 679,205"/>
-            <path d="M655,257 L655,415"/>
-            <ellipse cx="655" cy="415" rx="16" ry="5"/>
-          </g>
-
-          <!-- plate, right, with scribbled food -->
-          <ellipse cx="765" cy="398" rx="92" ry="20" stroke-width="8"/>
-          <path class="ink-fill" stroke="none" d="M700,392 C716,374 738,412 762,386 C778,408 802,380 826,396 C808,416 778,418 762,406 C742,418 714,412 700,392 Z"/>
-
-          <!-- fork, right, laid diagonally -->
-          <path stroke-width="7" d="M865,405 L850,440 M837,412 L825,450 M809,420 L800,460 M850,440 Q825,455 800,460 M825,450 L880,495"/>
-
-          <!-- far-right tall glass -->
-          <g stroke-width="7">
-            <ellipse cx="880" cy="90" rx="32" ry="7"/>
-            <path d="M848,90 C848,140 864,166 880,169 C896,166 912,140 912,90"/>
-            <path d="M880,169 L880,320"/>
-            <ellipse cx="880" cy="320" rx="20" ry="6"/>
-          </g>
-        </g>
-      </svg>
+    <div class="wines-sketch">
+      <img src="images/wine-table-sketch.png" alt="Hand-drawn ink sketch of a table set with wine bottles, glasses, plates and cutlery">
     </div>
 
     <div class="wines-placeholder">Seasonal write-up and photos go here.</div>
