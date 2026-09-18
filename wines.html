@@ -3,17 +3,17 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Our Whines — Fork It Leiden</title>
+<title>Our Wines — Fork It Leiden</title>
 <meta name="description" content="Fork It's wine and food matching in Leiden, Netherlands.">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Fork It Leiden">
-<meta property="og:title" content="Our Whines — Fork It Leiden">
+<meta property="og:title" content="Our Wines — Fork It Leiden">
 <meta property="og:description" content="Fork It's wine and food matching.">
 <meta property="og:image" content="og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Our Whines — Fork It Leiden">
+<meta name="twitter:title" content="Our Wines — Fork It Leiden">
 <meta name="twitter:description" content="Fork It's wine and food matching.">
 <meta name="twitter:image" content="og-image.jpg">
 <link rel="stylesheet" href="assets/style.css">
@@ -29,7 +29,7 @@
       <a class="hide-mobile" href="home.html#menu">What's on</a>
       <a class="hide-mobile" href="menu.html">Menu &amp; Pricing</a>
       <a class="hide-mobile" href="gallery.html">Gallery</a>
-      <a class="hide-mobile" href="wines.html">Our Whines</a>
+      <a class="hide-mobile" href="wines.html">Our Wines</a>
       <a class="btn btn-dark" href="home.html#book">Reserve</a>
     </nav>
   </div>
@@ -41,57 +41,76 @@
     <a class="detail-back" href="home.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to Fork It</a>
 
     <div class="wines-hero">
-      <p class="eyebrow">Our Whines</p>
+      <p class="eyebrow">Our Wines</p>
       <h1>Sipping with the Seasons</h1>
       <p class="lede">How we complement our food with great wines.</p>
     </div>
 
     <div class="wines-sketch" aria-hidden="true">
-      <svg viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <filter id="inkRough" x="-20%" y="-20%" width="140%" height="140%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.017 0.045" numOctaves="2" seed="6" result="noise"/>
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G"/>
+            <feTurbulence type="fractalNoise" baseFrequency="0.02 0.05" numOctaves="2" seed="5" result="noise"/>
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
           </filter>
-          <g id="tableScene" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
-            <!-- table edge, loosely wavy -->
-            <path d="M35,275 Q220,262 400,270 T860,255"/>
-
-            <!-- bottle, left -->
-            <path d="M84,88 L84,148 C84,163 60,168 56,184 L56,338 Q56,358 78,358 L106,358 Q128,358 128,338 L128,184 C124,168 100,163 100,148 L100,88 Z"/>
-
-            <!-- fork, left -->
-            <path d="M160,298 L154,398 M178,294 L178,324 M196,298 L196,324 M154,324 Q175,336 196,324"/>
-
-            <!-- plate with scribbled food -->
-            <ellipse cx="279" cy="350" rx="55" ry="15"/>
-            <path class="ink-fill" stroke="none" d="M247,346 C255,335 268,356 280,340 C290,354 302,336 313,348 C303,360 288,362 279,357 C267,362 254,358 247,346 Z"/>
-
-            <!-- wine glass, taller -->
-            <ellipse cx="396" cy="128" rx="34" ry="8"/>
-            <path d="M362,128 C362,182 378,210 396,213 C414,210 430,182 430,128"/>
-            <path d="M396,213 L396,336"/>
-            <ellipse cx="396" cy="336" rx="22" ry="6"/>
-
-            <!-- wine glass, shorter -->
-            <ellipse cx="484" cy="172" rx="26" ry="6"/>
-            <path d="M458,172 C458,208 470,226 484,228 C498,226 510,208 510,172"/>
-            <path d="M484,228 L484,336"/>
-            <ellipse cx="484" cy="336" rx="18" ry="5"/>
-
-            <!-- plate with scribbled food -->
-            <ellipse cx="593" cy="358" rx="55" ry="14"/>
-            <path class="ink-fill" stroke="none" d="M561,354 C569,343 582,364 594,349 C604,362 616,344 627,356 C617,368 602,370 593,364 C581,370 568,366 561,354 Z"/>
-
-            <!-- fork, right -->
-            <path d="M680,298 L680,324 M698,294 L698,324 M716,298 L722,398 M680,324 Q698,336 716,324"/>
-
-            <!-- bottle, right -->
-            <path d="M773,138 L773,183 C773,195 753,199 749,212 L749,338 Q749,356 767,356 L793,356 Q811,356 811,338 L811,212 C807,199 787,195 787,183 L787,138 Z"/>
-          </g>
         </defs>
-        <use href="#tableScene" transform="translate(3,5)" opacity="0.4" filter="url(#inkRough)"/>
-        <use href="#tableScene" filter="url(#inkRough)"/>
+        <g filter="url(#inkRough)" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+
+          <!-- loose table line, arcing behind everything -->
+          <path stroke-width="4" opacity="0.75" d="M35,150 Q300,112 520,132 T965,158"/>
+
+          <!-- far-left tall glass -->
+          <g stroke-width="7">
+            <ellipse cx="140" cy="68" rx="32" ry="7"/>
+            <path d="M108,68 C108,118 124,144 140,147 C156,144 172,118 172,68"/>
+            <path d="M140,147 L140,300"/>
+            <ellipse cx="140" cy="300" rx="20" ry="6"/>
+          </g>
+
+          <!-- plate, left, with scribbled food -->
+          <ellipse cx="255" cy="378" rx="96" ry="21" stroke-width="8"/>
+          <path class="ink-fill" stroke="none" d="M190,372 C205,352 228,392 252,364 C268,388 292,358 318,376 C300,398 268,400 252,388 C230,400 202,394 190,372 Z"/>
+
+          <!-- short glass, center-left, tucked near the plate -->
+          <g stroke-width="6">
+            <ellipse cx="345" cy="185" rx="24" ry="6"/>
+            <path d="M321,185 C321,218 332,235 345,237 C358,235 369,218 369,185"/>
+            <path d="M345,237 L345,415"/>
+            <ellipse cx="345" cy="415" rx="16" ry="5"/>
+          </g>
+
+          <!-- fork, left, laid diagonally -->
+          <path stroke-width="7" d="M135,405 L150,440 M163,412 L175,450 M191,420 L200,460 M150,440 Q175,455 200,460 M175,450 L120,495"/>
+
+          <!-- two bottles, center, tilted so the necks cross -->
+          <path stroke-width="10" transform="rotate(-7 470 460)"
+            d="M462,20 L462,140 C462,158 432,164 426,182 L426,436 Q426,460 452,460 L488,460 Q514,460 514,436 L514,182 C508,164 478,158 478,140 L478,20 Z"/>
+          <path stroke-width="10" transform="rotate(7 540 460)"
+            d="M532,40 L532,150 C532,166 502,172 496,188 L496,436 Q496,460 522,460 L558,460 Q584,460 584,436 L584,188 C578,172 548,166 548,150 L548,40 Z"/>
+
+          <!-- short glass, center-right, tucked near the plate -->
+          <g stroke-width="6">
+            <ellipse cx="655" cy="205" rx="24" ry="6"/>
+            <path d="M631,205 C631,238 642,255 655,257 C668,255 679,238 679,205"/>
+            <path d="M655,257 L655,415"/>
+            <ellipse cx="655" cy="415" rx="16" ry="5"/>
+          </g>
+
+          <!-- plate, right, with scribbled food -->
+          <ellipse cx="765" cy="398" rx="92" ry="20" stroke-width="8"/>
+          <path class="ink-fill" stroke="none" d="M700,392 C716,374 738,412 762,386 C778,408 802,380 826,396 C808,416 778,418 762,406 C742,418 714,412 700,392 Z"/>
+
+          <!-- fork, right, laid diagonally -->
+          <path stroke-width="7" d="M865,405 L850,440 M837,412 L825,450 M809,420 L800,460 M850,440 Q825,455 800,460 M825,450 L880,495"/>
+
+          <!-- far-right tall glass -->
+          <g stroke-width="7">
+            <ellipse cx="880" cy="90" rx="32" ry="7"/>
+            <path d="M848,90 C848,140 864,166 880,169 C896,166 912,140 912,90"/>
+            <path d="M880,169 L880,320"/>
+            <ellipse cx="880" cy="320" rx="20" ry="6"/>
+          </g>
+        </g>
       </svg>
     </div>
 
