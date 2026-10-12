@@ -94,8 +94,6 @@
   .btn-dark:hover{ background:#3A322A; border-color:#3A322A; }
   .btn-line{ background:transparent; border-color:var(--ink); color:var(--ink); }
   .btn-line:hover{ background:var(--ink); color:#fff; }
-  .btn-invert{ background:#fff; color:var(--ink); border-color:#fff; }
-  .btn-invert:hover{ background:transparent; color:#fff; }
   .navlinks .btn{ padding:9px 20px; }
   @media (max-width:760px){
     .navlinks a.hide-mobile{ display:none; }
@@ -247,40 +245,23 @@
     .offer-slide{ width:min(260px, 68vw); }
   }
 
-  /* ---------- season: full-bleed black section ---------- */
-  #season{
-    width:100vw; position:relative; left:50%; right:50%;
-    margin-left:-50vw; margin-right:-50vw;
-    background:var(--ink); color:#fff;
-    padding-block:70px;
-  }
-  .season-inner{ max-width:1160px; margin-inline:auto; padding-inline:20px; }
-  #season .eyebrow{ color:rgba(255,255,255,0.65); }
-  #season .section-head h2{ color:#fff; }
-  #season .section-head p{ color:rgba(255,255,255,0.78); }
+  /* ---------- season ---------- */
   .season{
-    display:grid; grid-template-columns: 0.85fr 1.15fr; gap:clamp(28px,4vw,56px); align-items:center;
-    position:relative;
+    border:1.5px solid var(--ink);
+    padding:clamp(28px,4vw,56px);
+    text-align:center;
   }
-  @media (max-width:860px){ .season{ grid-template-columns:1fr; } }
-  .season-art{
-    border-radius:18px; overflow:hidden;
-    box-shadow:0 20px 44px rgba(0,0,0,0.4);
-  }
-  .season-art img{
-    width:100%; aspect-ratio:4/5; object-fit:cover;
-    filter:grayscale(0.03);
-  }
+  .menu-card{ max-width:640px; margin-inline:auto; }
   .menu-card h3{
     font-size:0.78rem; letter-spacing:0.2em; text-transform:uppercase;
-    color:rgba(255,255,255,0.65); font-family:'Karla',sans-serif; font-weight:700;
+    color:var(--ink-soft); font-family:'Karla',sans-serif; font-weight:700;
     margin-bottom:10px;
   }
-  .menu-course{ padding-block:18px; border-top:1px solid rgba(255,255,255,0.18); }
+  .menu-course{ padding-block:18px; border-top:1px solid var(--line); }
   .menu-course:first-of-type{ border-top:none; padding-top:0; }
-  .menu-course .dish{ font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:1.3rem; color:#fff; }
-  .menu-course .desc{ color:rgba(255,255,255,0.78); font-size:0.92rem; margin-top:5px; }
-  .season .note{ margin-top:20px; font-size:0.85rem; color:rgba(255,255,255,0.55); font-style:italic; }
+  .menu-course .dish{ font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:1.3rem; }
+  .menu-course .desc{ color:var(--ink-soft); font-size:0.92rem; margin-top:5px; }
+  .season .note{ margin-top:20px; font-size:0.85rem; color:var(--ink-faint); font-style:italic; }
   .menu-card .btn{ margin-top:24px; }
 
   /* ---------- gallery ---------- */
