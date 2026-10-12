@@ -129,6 +129,59 @@
     offerCenterOn(offerPos, false);
   }
 
+  /* ---------- season: flip-book menu card ---------- */
+  var bookRoot = document.getElementById('seasonBook');
+  if(bookRoot){
+    var bookLeaves = Array.prototype.slice.call(bookRoot.querySelectorAll('.book-leaf'));
+    var bookTotal = bookLeaves.length;
+    var bookNav = bookRoot.querySelector('.book-nav');
+    var bookPrevBtn = bookRoot.querySelector('.book-prev');
+    var bookNextBtn = bookRoot.querySelector('.book-next');
+    var bookIndicator = bookRoot.querySelector('.book-pageindicator');
+    var bookCurrent = 0; // number of leaves turned so far
+
+    function bookRestingZ(i, turned){
+      return turned ? i : (1000 + (bookTotal - i));
+    }
+    bookLeaves.forEach(function(leaf, i){ leaf.style.zIndex = bookRestingZ(i, false); });
+
+    function bookRender(){
+      bookRoot.classList.toggle('is-open', bookCurrent > 0);
+      if(bookNav) bookNav.hidden = bookCurrent === 0;
+      if(bookPrevBtn) bookPrevBtn.disabled = bookCurrent === 0;
+      if(bookNextBtn) bookNextBtn.disabled = bookCurrent === bookTotal - 1;
+      if(bookIndicator) bookIndicator.textContent = bookCurrent === 0 ? '' : bookCurrent + ' / ' + (bookTotal - 1);
+    }
+
+    function bookTurnForward(){
+      if(bookCurrent >= bookTotal - 1) return;
+      var i = bookCurrent;
+      var leaf = bookLeaves[i];
+      leaf.style.zIndex = 2000;
+      leaf.classList.add('is-turned');
+      bookCurrent++;
+      bookRender();
+      window.setTimeout(function(){ leaf.style.zIndex = bookRestingZ(i, true); }, 700);
+    }
+
+    function bookTurnBackward(){
+      if(bookCurrent <= 0) return;
+      bookCurrent--;
+      var i = bookCurrent;
+      var leaf = bookLeaves[i];
+      leaf.style.zIndex = 2000;
+      leaf.classList.remove('is-turned');
+      bookRender();
+      window.setTimeout(function(){ leaf.style.zIndex = bookRestingZ(i, false); }, 700);
+    }
+
+    bookLeaves[0].addEventListener('click', function(){ if(bookCurrent === 0) bookTurnForward(); });
+    if(bookNextBtn) bookNextBtn.addEventListener('click', bookTurnForward);
+    if(bookPrevBtn) bookPrevBtn.addEventListener('click', bookTurnBackward);
+
+    bookRender();
+  }
+
   /* ---------- gate page: fade the scroll hint once the visitor starts scrolling ---------- */
   var scrollHint = document.getElementById('gateScrollHint');
   if(scrollHint){

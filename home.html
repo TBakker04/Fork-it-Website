@@ -96,23 +96,73 @@
       <h2>The menu moves with the seasons.</h2>
       <p>We build every menu around what&rsquo;s fresh right now &mdash; here&rsquo;s what&rsquo;s on the table this summer.</p>
     </div>
-    <div class="season">
-      <div class="menu-card">
-        <h3>Summer menu</h3>
-        <div class="menu-course">
-          <p class="dish">Burrata Salad</p>
-          <p class="desc">Tomato and peach, basil oil &mdash; served with crispy bread.</p>
+
+    <div class="season-book" id="seasonBook">
+      <div class="menu-book">
+
+        <div class="book-leaf book-cover" data-leaf="0">
+          <div class="leaf-face leaf-front">
+            <p class="book-title">Summer Menu</p>
+            <p class="book-hint">Click to open<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></p>
+          </div>
+          <div class="leaf-face leaf-back"></div>
         </div>
-        <div class="menu-course">
-          <p class="dish">Roasted Duck Breast</p>
-          <p class="desc">Summer carrots and orange port jus, finished with fresh berries &mdash; served with parsley potatoes.</p>
+
+        <div class="book-leaf" data-leaf="1">
+          <div class="leaf-face leaf-front">
+            <p class="book-page-label">First Course</p>
+            <h3>Burrata Salad</h3>
+            <p>Tomato and peach, basil oil &mdash; served with crispy bread.</p>
+          </div>
+          <div class="leaf-face leaf-back"></div>
         </div>
-        <div class="menu-course">
-          <p class="dish">Vanilla Cr&egrave;me Br&ucirc;l&eacute;e</p>
-          <p class="desc">Served with raspberry ice cream and fresh berries.</p>
+
+        <div class="book-leaf" data-leaf="2">
+          <div class="leaf-face leaf-front">
+            <p class="book-page-label">Main Course</p>
+            <h3>Roasted Duck Breast</h3>
+            <p>Summer carrots and orange port jus, finished with fresh berries &mdash; served with parsley potatoes.</p>
+          </div>
+          <div class="leaf-face leaf-back"></div>
         </div>
-        <p class="note">Seasonal &middot; changes throughout the year. Ask us what&rsquo;s cooking when you reserve.</p>
-        <a class="btn btn-dark" href="menu.html">See Full Menu &amp; Pricing</a>
+
+        <div class="book-leaf" data-leaf="3">
+          <div class="leaf-face leaf-front">
+            <p class="book-page-label">Dessert</p>
+            <h3>Vanilla Cr&egrave;me Br&ucirc;l&eacute;e</h3>
+            <p>Served with raspberry ice cream and fresh berries.</p>
+          </div>
+          <div class="leaf-face leaf-back"></div>
+        </div>
+
+        <div class="book-leaf" data-leaf="4">
+          <div class="leaf-face leaf-front">
+            <p class="book-page-label">Wine Pairings</p>
+            <ul class="book-wines">
+              <li><span class="wine-name">Picpoul de Pinet</span><span class="wine-note">Crisp and citrus-bright, it cuts clean through the burrata.</span></li>
+              <li><span class="wine-name">C&ocirc;tes du Rh&ocirc;ne Rouge</span><span class="wine-note">Soft red fruit and pepper stand up to the duck and berries.</span></li>
+              <li><span class="wine-name">Moscato d&rsquo;Asti</span><span class="wine-note">Light, sweet and lightly sparkling &mdash; echoes the br&ucirc;l&eacute;e without competing.</span></li>
+            </ul>
+          </div>
+          <div class="leaf-face leaf-back"></div>
+        </div>
+
+        <div class="book-leaf book-last" data-leaf="5">
+          <div class="leaf-face leaf-front">
+            <p class="book-page-label">Ready?</p>
+            <h3>Taste the summer menu.</h3>
+            <p>Tell us your date and headcount &mdash; we&rsquo;ll build the night around this menu.</p>
+            <a href="#book" class="btn btn-dark detail-book-btn" data-event="Date Dinner">Book This Now</a>
+          </div>
+          <div class="leaf-face leaf-back"></div>
+        </div>
+
+      </div>
+
+      <div class="book-nav" hidden>
+        <button type="button" class="book-arrow book-prev" aria-label="Previous page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <span class="book-pageindicator"></span>
+        <button type="button" class="book-arrow book-next" aria-label="Next page"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
     </div>
   </section>
