@@ -158,38 +158,86 @@
   .rule{ border:none; border-top:1px solid var(--line); margin:0; }
 
   /* ---------- offerings ---------- */
-  .offer-grid{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:1px;
-    background:var(--line); border:1px solid var(--line);
-  }
-  @media (max-width:920px){ .offer-grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:560px){ .offer-grid{ grid-template-columns:1fr; } }
-  .offer-card{
-    background:var(--surface);
-    padding:28px 24px; display:flex; flex-direction:column; gap:14px;
-    min-height: 100%;
-    text-decoration:none; color:inherit;
-    transition: background .15s ease;
-  }
-  .offer-card:hover{ background:var(--surface-2); }
-  .offer-card:hover .reserve svg{ transform:translateX(3px); }
   .offer-icon{
     width:42px; height:42px; border-radius:999px;
     display:flex; align-items:center; justify-content:center;
     border:1.4px solid var(--ink);
   }
   .offer-icon svg{ width:21px; height:21px; color:var(--ink); }
-  .offer-card h3{ font-size:1.15rem; }
-  .offer-card p{ color:var(--ink-soft); font-size:0.92rem; flex:1; }
-  .offer-card .reserve{
-    font-size:0.82rem; font-weight:700; color:var(--ink);
+
+  /* ---------- offerings: picture carousel ---------- */
+  .offer-carousel{ position:relative; margin-top:12px; }
+  .offer-track{
+    position:relative;
+    aspect-ratio:16/9;
+    border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--line);
+  }
+  @media (max-width:760px){ .offer-track{ aspect-ratio:4/5; } }
+  .offer-slide{
+    position:absolute; inset:0;
+    display:block; text-decoration:none; color:#fff;
+    opacity:0; visibility:hidden;
+    transition:opacity 1s ease, visibility 0s linear 1s;
+  }
+  .offer-slide.is-active{
+    opacity:1; visibility:visible; z-index:1;
+    transition:opacity 1s ease, visibility 0s linear 0s;
+  }
+  .offer-slide-bg{
+    width:100%; height:100%; object-fit:cover;
+    filter:grayscale(0.04) contrast(1.03);
+  }
+  .offer-slide-scrim{
+    position:absolute; inset:0;
+    background:linear-gradient(0deg, rgba(10,8,6,0.92) 0%, rgba(10,8,6,0.52) 42%, rgba(10,8,6,0) 72%);
+  }
+  .offer-slide-content{
+    position:absolute; left:0; right:0; bottom:0;
+    padding:clamp(22px,3.6vw,44px);
+    max-width:520px;
+  }
+  .offer-slide .offer-icon{
+    width:42px; height:42px; border-radius:999px;
+    display:flex; align-items:center; justify-content:center;
+    border:1.4px solid rgba(255,255,255,0.85);
+    margin-bottom:14px;
+  }
+  .offer-slide .offer-icon svg{ width:21px; height:21px; color:#fff; }
+  .offer-slide h3{ color:#fff; font-size:1.35rem; }
+  .offer-slide p{ color:rgba(255,255,255,0.88); font-size:0.94rem; margin-top:10px; }
+  .offer-slide .reserve{
+    margin-top:14px; font-size:0.82rem; font-weight:700; color:#fff;
     display:inline-flex; align-items:center; gap:6px; text-decoration:none;
-    margin-top:4px; letter-spacing:0.01em;
-    border-bottom:1px solid var(--ink);
+    letter-spacing:0.01em;
+    border-bottom:1px solid rgba(255,255,255,0.7);
     width:fit-content; padding-bottom:1px;
   }
-  .offer-card .reserve svg{ width:14px; height:14px; transition:transform .15s ease; }
-  .offer-card .reserve:hover svg{ transform:translateX(3px); }
+  .offer-slide .reserve svg{ width:14px; height:14px; transition:transform .15s ease; }
+  .offer-slide:hover .reserve svg{ transform:translateX(3px); }
+
+  .offer-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:3;
+    width:40px; height:40px; border-radius:999px; padding:0;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(10,8,6,0.45); border:1px solid rgba(255,255,255,0.55);
+    color:#fff; cursor:pointer;
+    transition:background .15s ease;
+  }
+  .offer-arrow:hover{ background:rgba(10,8,6,0.75); }
+  .offer-arrow svg{ width:18px; height:18px; }
+  .offer-arrow-prev{ left:16px; }
+  .offer-arrow-next{ right:16px; }
+  @media (max-width:760px){ .offer-arrow{ top:40%; } }
+
+  .offer-dots{
+    position:absolute; top:16px; right:16px; z-index:3;
+    display:flex; gap:7px;
+  }
+  .offer-dots button{
+    width:7px; height:7px; border-radius:999px; padding:0; border:1px solid #fff;
+    background:transparent; cursor:pointer;
+  }
+  .offer-dots button.is-active{ background:#fff; width:18px; }
 
   /* ---------- season ---------- */
   .season{

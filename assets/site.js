@@ -7,7 +7,7 @@
 
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function setupCarousel(root, slideSel, dotSel, intervalMs){
+  function setupCarousel(root, slideSel, dotSel, intervalMs, prevSel, nextSel){
     if(!root) return;
     var slides = root.querySelectorAll(slideSel);
     var dots = root.querySelectorAll(dotSel);
@@ -17,24 +17,29 @@
     function show(i){
       slides[current].classList.remove('is-active');
       if(dots[current]) dots[current].classList.remove('is-active');
-      current = i;
+      current = (i + slides.length) % slides.length;
       slides[current].classList.add('is-active');
       if(dots[current]) dots[current].classList.add('is-active');
     }
     dots.forEach(function(dot, i){
       dot.addEventListener('click', function(){ show(i); resetTimer(); });
     });
+    var prevBtn = prevSel && root.querySelector(prevSel);
+    var nextBtn = nextSel && root.querySelector(nextSel);
+    if(prevBtn) prevBtn.addEventListener('click', function(){ show(current - 1); resetTimer(); });
+    if(nextBtn) nextBtn.addEventListener('click', function(){ show(current + 1); resetTimer(); });
     var timer;
     function resetTimer(){
       if(reduceMotion) return;
       clearInterval(timer);
-      timer = setInterval(function(){ show((current + 1) % slides.length); }, intervalMs);
+      timer = setInterval(function(){ show(current + 1); }, intervalMs);
     }
     resetTimer();
   }
 
   setupCarousel(document.getElementById('heroCarousel'), '.slide', '.hero-dots button', 4800);
   setupCarousel(document.getElementById('reviewRotator'), '.review-slide', '.review-dots button', 6500);
+  setupCarousel(document.getElementById('offerCarousel'), '.offer-slide', '.offer-dots button', 5500, '.offer-arrow-prev', '.offer-arrow-next');
 
   /* ---------- gate page: fade the scroll hint once the visitor starts scrolling ---------- */
   var scrollHint = document.getElementById('gateScrollHint');
