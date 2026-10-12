@@ -7,7 +7,7 @@
 
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  function setupCarousel(root, slideSel, dotSel, intervalMs, prevSel, nextSel){
+  function setupCarousel(root, slideSel, dotSel, intervalMs){
     if(!root) return;
     var slides = root.querySelectorAll(slideSel);
     var dots = root.querySelectorAll(dotSel);
@@ -17,29 +17,117 @@
     function show(i){
       slides[current].classList.remove('is-active');
       if(dots[current]) dots[current].classList.remove('is-active');
-      current = (i + slides.length) % slides.length;
+      current = i;
       slides[current].classList.add('is-active');
       if(dots[current]) dots[current].classList.add('is-active');
     }
     dots.forEach(function(dot, i){
       dot.addEventListener('click', function(){ show(i); resetTimer(); });
     });
-    var prevBtn = prevSel && root.querySelector(prevSel);
-    var nextBtn = nextSel && root.querySelector(nextSel);
-    if(prevBtn) prevBtn.addEventListener('click', function(){ show(current - 1); resetTimer(); });
-    if(nextBtn) nextBtn.addEventListener('click', function(){ show(current + 1); resetTimer(); });
     var timer;
     function resetTimer(){
       if(reduceMotion) return;
       clearInterval(timer);
-      timer = setInterval(function(){ show(current + 1); }, intervalMs);
+      timer = setInterval(function(){ show((current + 1) % slides.length); }, intervalMs);
     }
     resetTimer();
   }
 
   setupCarousel(document.getElementById('heroCarousel'), '.slide', '.hero-dots button', 4800);
   setupCarousel(document.getElementById('reviewRotator'), '.review-slide', '.review-dots button', 6500);
-  setupCarousel(document.getElementById('offerCarousel'), '.offer-slide', '.offer-dots button', 5500, '.offer-arrow-prev', '.offer-arrow-next');
+
+  /* ---------- offers: centered, circular carousel with faded side peeks ----------
+     The first/last real slides are cloned to the opposite ends of the track so
+     there's always a neighbour to peek at. Stepping onto a clone animates
+     normally, then snaps (no transition) to the matching real slide once the
+     animation ends, so the loop feels seamless. */
+  var offerRoot = document.getElementById('offerCarousel');
+  if(offerRoot){
+    var offerViewport = offerRoot.querySelector('.offer-viewport');
+    var offerTrack = offerRoot.querySelector('.offer-track');
+    var offerDots = offerRoot.querySelectorAll('.offer-dots button');
+    var offerPrevBtn = offerRoot.querySelector('.offer-arrow-prev');
+    var offerNextBtn = offerRoot.querySelector('.offer-arrow-next');
+
+    var offerReal = Array.prototype.slice.call(offerTrack.querySelectorAll('.offer-slide'));
+    offerReal.forEach(function(slide, i){ slide.dataset.index = i; });
+
+    var offerFirstClone = offerReal[0].cloneNode(true);
+    var offerLastClone = offerReal[offerReal.length - 1].cloneNode(true);
+    offerFirstClone.setAttribute('aria-hidden', 'true');
+    offerLastClone.setAttribute('aria-hidden', 'true');
+    offerTrack.insertBefore(offerLastClone, offerReal[0]);
+    offerTrack.appendChild(offerFirstClone);
+
+    var offerTrackSlides = Array.prototype.slice.call(offerTrack.children);
+    var offerPos = 1; // index into offerTrackSlides; starts on the first real slide
+
+    function offerRender(){
+      offerTrackSlides.forEach(function(slide, i){
+        slide.classList.toggle('is-active', i === offerPos);
+      });
+      var realIndex = parseInt(offerTrackSlides[offerPos].dataset.index, 10);
+      offerDots.forEach(function(dot, i){ dot.classList.toggle('is-active', i === realIndex); });
+    }
+
+    function offerCenterOn(targetPos, animate){
+      var slide = offerTrackSlides[targetPos];
+      var offset = offerViewport.clientWidth / 2 - (slide.offsetLeft + slide.offsetWidth / 2);
+      if(!animate){ offerTrack.style.transition = 'none'; }
+      offerTrack.style.transform = 'translateX(' + offset + 'px)';
+      if(!animate){
+        offerTrack.offsetHeight; /* force reflow so the instant jump renders before re-enabling the transition */
+        offerTrack.style.transition = '';
+      }
+    }
+
+    function offerGoToPos(targetPos){
+      offerPos = targetPos;
+      offerRender();
+      offerCenterOn(offerPos, true);
+    }
+
+    offerTrack.addEventListener('transitionend', function(e){
+      if(e.target !== offerTrack || e.propertyName !== 'transform') return;
+      if(offerPos === 0){
+        offerPos = offerTrackSlides.length - 2;
+        offerRender();
+        offerCenterOn(offerPos, false);
+      } else if(offerPos === offerTrackSlides.length - 1){
+        offerPos = 1;
+        offerRender();
+        offerCenterOn(offerPos, false);
+      }
+    });
+
+    offerTrackSlides.forEach(function(slide, i){
+      slide.addEventListener('click', function(e){
+        if(i !== offerPos){
+          e.preventDefault();
+          offerGoToPos(i);
+        }
+      });
+    });
+    offerDots.forEach(function(dot, i){
+      dot.addEventListener('click', function(){ offerGoToPos(i + 1); });
+    });
+    if(offerPrevBtn) offerPrevBtn.addEventListener('click', function(){ offerGoToPos(offerPos - 1); });
+    if(offerNextBtn) offerNextBtn.addEventListener('click', function(){ offerGoToPos(offerPos + 1); });
+
+    var offerTouchStartX = null;
+    offerTrack.addEventListener('touchstart', function(e){ offerTouchStartX = e.touches[0].clientX; }, { passive:true });
+    offerTrack.addEventListener('touchend', function(e){
+      if(offerTouchStartX === null) return;
+      var dx = e.changedTouches[0].clientX - offerTouchStartX;
+      if(Math.abs(dx) > 40){ offerGoToPos(offerPos + (dx < 0 ? 1 : -1)); }
+      offerTouchStartX = null;
+    }, { passive:true });
+
+    window.addEventListener('resize', function(){ offerCenterOn(offerPos, false); });
+
+    offerRender();
+    offerCenterOn(offerPos, false);
+  }
 
   /* ---------- gate page: fade the scroll hint once the visitor starts scrolling ---------- */
   var scrollHint = document.getElementById('gateScrollHint');
