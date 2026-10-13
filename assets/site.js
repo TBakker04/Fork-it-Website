@@ -129,53 +129,74 @@
     offerCenterOn(offerPos, false);
   }
 
-  /* ---------- season: flip-book menu card ---------- */
+  /* ---------- season: two-page flip-book menu ----------
+     The cover spans the full book and is hinged at the book's true left
+     edge (the spine), so opening it swings the whole cover out of view.
+     Underneath, a static title page always occupies the left half; each
+     .book-leaf is half-width and hinged at the book's horizontal center,
+     so turning one reveals its back as the new left page and the next
+     leaf's front as the new right page — a real two-page spread. */
   var bookRoot = document.getElementById('seasonBook');
   if(bookRoot){
+    var bookCover = bookRoot.querySelector('.book-cover');
     var bookLeaves = Array.prototype.slice.call(bookRoot.querySelectorAll('.book-leaf'));
-    var bookTotal = bookLeaves.length;
+    var bookLeafCount = bookLeaves.length;
+    var bookTotalTurns = bookLeafCount + 1; // the cover counts as the first turn
     var bookNav = bookRoot.querySelector('.book-nav');
     var bookPrevBtn = bookRoot.querySelector('.book-prev');
     var bookNextBtn = bookRoot.querySelector('.book-next');
     var bookIndicator = bookRoot.querySelector('.book-pageindicator');
-    var bookCurrent = 0; // number of leaves turned so far
+    var bookTurned = 0; // 0 = closed; N = N turns made (cover, then leaves 1..N-1)
 
-    function bookRestingZ(i, turned){
-      return turned ? i : (1000 + (bookTotal - i));
+    function bookLeafRestingZ(i, turned){
+      return turned ? (2 + i) : (100 + (bookLeafCount - i));
     }
-    bookLeaves.forEach(function(leaf, i){ leaf.style.zIndex = bookRestingZ(i, false); });
+    bookLeaves.forEach(function(leaf, i){ leaf.style.zIndex = bookLeafRestingZ(i, false); });
+    bookCover.style.zIndex = 1000;
 
     function bookRender(){
-      bookRoot.classList.toggle('is-open', bookCurrent > 0);
-      if(bookNav) bookNav.hidden = bookCurrent === 0;
-      if(bookPrevBtn) bookPrevBtn.disabled = bookCurrent === 0;
-      if(bookNextBtn) bookNextBtn.disabled = bookCurrent === bookTotal - 1;
-      if(bookIndicator) bookIndicator.textContent = bookCurrent === 0 ? '' : bookCurrent + ' / ' + (bookTotal - 1);
+      bookRoot.classList.toggle('is-open', bookTurned > 0);
+      if(bookNav) bookNav.hidden = bookTurned === 0;
+      if(bookPrevBtn) bookPrevBtn.disabled = bookTurned === 0;
+      if(bookNextBtn) bookNextBtn.disabled = bookTurned === bookTotalTurns - 1;
+      if(bookIndicator) bookIndicator.textContent = bookTurned === 0 ? '' : bookTurned + ' / ' + (bookTotalTurns - 1);
     }
 
     function bookTurnForward(){
-      if(bookCurrent >= bookTotal - 1) return;
-      var i = bookCurrent;
-      var leaf = bookLeaves[i];
-      leaf.style.zIndex = 2000;
-      leaf.classList.add('is-turned');
-      bookCurrent++;
+      if(bookTurned >= bookTotalTurns - 1) return;
+      if(bookTurned === 0){
+        bookCover.style.zIndex = 2000;
+        bookCover.classList.add('is-turned');
+        window.setTimeout(function(){ bookCover.style.zIndex = 0; }, 800);
+      } else {
+        var i = bookTurned - 1;
+        var leaf = bookLeaves[i];
+        leaf.style.zIndex = 2000;
+        leaf.classList.add('is-turned');
+        window.setTimeout(function(){ leaf.style.zIndex = bookLeafRestingZ(i, true); }, 700);
+      }
+      bookTurned++;
       bookRender();
-      window.setTimeout(function(){ leaf.style.zIndex = bookRestingZ(i, true); }, 700);
     }
 
     function bookTurnBackward(){
-      if(bookCurrent <= 0) return;
-      bookCurrent--;
-      var i = bookCurrent;
-      var leaf = bookLeaves[i];
-      leaf.style.zIndex = 2000;
-      leaf.classList.remove('is-turned');
+      if(bookTurned <= 0) return;
+      bookTurned--;
+      if(bookTurned === 0){
+        bookCover.style.zIndex = 2000;
+        bookCover.classList.remove('is-turned');
+        window.setTimeout(function(){ bookCover.style.zIndex = 1000; }, 800);
+      } else {
+        var i = bookTurned - 1;
+        var leaf = bookLeaves[i];
+        leaf.style.zIndex = 2000;
+        leaf.classList.remove('is-turned');
+        window.setTimeout(function(){ leaf.style.zIndex = bookLeafRestingZ(i, false); }, 700);
+      }
       bookRender();
-      window.setTimeout(function(){ leaf.style.zIndex = bookRestingZ(i, false); }, 700);
     }
 
-    bookLeaves[0].addEventListener('click', function(){ if(bookCurrent === 0) bookTurnForward(); });
+    bookCover.addEventListener('click', function(){ if(bookTurned === 0) bookTurnForward(); });
     if(bookNextBtn) bookNextBtn.addEventListener('click', bookTurnForward);
     if(bookPrevBtn) bookPrevBtn.addEventListener('click', bookTurnBackward);
 
