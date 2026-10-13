@@ -166,7 +166,7 @@
   .offer-icon svg{ width:21px; height:21px; color:var(--ink); }
 
   /* ---------- offerings: centered carousel with faded side peeks ---------- */
-  .offer-carousel{ margin-top:12px; max-width:980px; margin-inline:auto; }
+  .offer-carousel{ --offer-slide-w: min(260px, 24vw); margin-top:12px; max-width:980px; margin-inline:auto; }
   .offer-row{ display:flex; align-items:center; gap:10px; }
   .offer-viewport{ flex:1; overflow:hidden; }
   .offer-track{
@@ -176,7 +176,7 @@
   }
   .offer-slide{
     position:relative; flex:none;
-    width:min(260px, 24vw);
+    width:var(--offer-slide-w);
     aspect-ratio:3/4;
     border-radius:20px; overflow:hidden;
     display:block; text-decoration:none; color:#fff;
@@ -240,9 +240,16 @@
   }
   .offer-dots button.is-active{ background:var(--ink); width:18px; }
 
+  @media (min-width:621px){
+    /* clip the viewport to exactly 3 slides + 2 gaps so no sliver of a
+       4th slide peeks in on in-between desktop widths */
+    .offer-row{ justify-content:center; }
+    .offer-viewport{ max-width:calc(var(--offer-slide-w) * 3 + 44px); margin-inline:auto; }
+  }
+
   @media (max-width:620px){
     .offer-arrow{ display:none; }
-    .offer-slide{ width:min(260px, 68vw); }
+    .offer-carousel{ --offer-slide-w: min(260px, 68vw); }
   }
 
   /* ---------- season: elegant flip-book menu ----------
