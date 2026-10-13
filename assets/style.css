@@ -511,11 +511,22 @@
   }
   .about .lead-line{
     font-family:'Fraunces',serif; font-style:italic; font-weight:500;
-    font-size:1.15rem; color:var(--ink-soft); margin-top:18px;
+    font-size:1.15rem; color:var(--ink-soft); margin-top:22px;
   }
-  .about p{ margin-top:16px; color:var(--ink-soft); font-size:1rem; max-width:64ch; }
+  .about p{ margin-top:20px; color:var(--ink-soft); font-size:1rem; line-height:1.7; max-width:58ch; }
   .about p strong{ color:var(--ink); font-weight:700; }
-  .about .btn{ margin-top:26px; }
+  .about .btn{ margin-top:30px; }
+
+  /* ---------- trial: center text on full-screen/desktop ---------- */
+  @media (min-width:860px){
+    .hero > div:first-child{ text-align:center; }
+    .hero .ctas{ justify-content:center; }
+    .about{ text-align:center; margin-inline:auto; }
+    .about p{ margin-inline:auto; }
+    .section-head{ text-align:center; margin-inline:auto; }
+    .book-intro{ text-align:center; }
+    .book-intro .contact-list{ align-items:center; }
+  }
 
   /* ---------- detail pages ---------- */
   [hidden]{ display:none !important; }
