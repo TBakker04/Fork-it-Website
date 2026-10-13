@@ -247,24 +247,36 @@
 
   /* ---------- season: elegant flip-book menu ----------
      Closed = a single page, like the front of a book. Opening it both
-     turns the cover AND widens the book into a two-page spread. */
+     turns the cover AND widens the book into a two-page spread. The
+     width transition is deliberately much faster than the cover's
+     rotation so the book reaches full width before the cover has
+     rotated far enough to reveal any text underneath — otherwise the
+     page content visibly reflows mid-animation. */
+  .season-box{
+    border:1.5px solid var(--ink);
+    padding:clamp(28px,4vw,56px);
+    text-align:center;
+  }
   .season-book{
+    width:100%;
     display:flex; flex-direction:column; align-items:center; gap:22px;
+    margin-top:28px;
   }
   .menu-book{
-    --page-w: min(280px, 46vw);
+    --page-w: min(280px, 50%);
+    container-type:inline-size;
     position:relative;
     width:var(--page-w);
-    height:calc(var(--page-w) * 4 / 3);
+    aspect-ratio:3/4;
     perspective:2200px;
     margin-inline:auto;
     overflow:hidden;
     border:1px solid var(--ink);
     background:#fff;
     box-shadow:0 14px 32px rgba(22,19,17,0.12);
-    transition:width .8s cubic-bezier(.45,.05,.2,1);
+    transition:width .25s ease-out, aspect-ratio .25s ease-out;
   }
-  #seasonBook.is-open .menu-book{ width:calc(var(--page-w) * 2); }
+  #seasonBook.is-open .menu-book{ width:calc(var(--page-w) * 2); aspect-ratio:3/2; }
   .menu-book::after{
     content:"";
     position:absolute; top:0; left:50%; width:18px; height:100%;
@@ -293,28 +305,48 @@
   .book-cover.is-turned{ transform:rotateY(-180deg); }
   .book-cover .leaf-front{
     background:#fff; color:var(--ink);
-    align-items:center; justify-content:flex-end;
-    text-align:center; padding-bottom:30px;
+    align-items:center; justify-content:center;
+    text-align:center;
+    padding-bottom:clamp(46px, 16vw, 64px);
     cursor:pointer;
   }
+  .book-cover .book-cover-kicker{
+    position:relative; z-index:2;
+    font-family:'Karla',sans-serif; font-weight:700; font-size:0.7rem;
+    letter-spacing:0.22em; text-transform:uppercase; color:var(--ink-soft);
+    margin-bottom:10px;
+  }
   .book-cover .book-cover-title{
+    position:relative; z-index:2;
     writing-mode:vertical-rl;
     transform:rotate(180deg);
     font-family:'Fraunces',serif; font-style:italic; font-weight:600;
-    font-size:clamp(2.4rem, 11vw, 3.6rem);
+    font-size:clamp(1.5rem, 24cqw, 3.2rem);
     letter-spacing:0.02em;
     margin:0 auto;
   }
   .book-cover-rule{
-    display:block; width:1px; height:14%;
-    background:var(--ink); margin:18px auto 0;
+    position:relative; z-index:2;
+    display:block; width:1px; height:12%;
+    background:var(--ink); margin:16px auto 0;
   }
   .book-cover .leaf-back{ transform:rotateY(180deg); background:var(--ink); }
+  .book-cover-trees{
+    position:absolute; left:0; right:0; bottom:0; height:19%;
+    pointer-events:none; z-index:1;
+  }
+  .book-cover-trees svg{ width:100%; height:100%; display:block; }
+  .tree-a{ fill:#5B8276; }
+  .tree-b{ fill:#2F5560; }
+  .tree-c{ fill:#7FA3A1; }
+  .tree-trunk{ fill:#6B5847; }
   .book-cover .book-hint{
-    margin-top:22px;
+    position:relative; z-index:2;
+    margin-top:18px;
     display:inline-flex; align-items:center; gap:6px;
+    white-space:nowrap;
     font-family:'Karla',sans-serif; font-weight:700;
-    font-size:0.68rem; letter-spacing:0.16em; text-transform:uppercase;
+    font-size:0.64rem; letter-spacing:0.12em; text-transform:uppercase;
     color:var(--ink-soft);
   }
   .book-hint svg{ width:13px; height:13px; }
@@ -374,6 +406,19 @@
   .book-pageindicator{
     font-family:'Karla',sans-serif; font-size:0.78rem; color:var(--ink-faint);
     min-width:4ch; text-align:center;
+  }
+
+  @media (max-width:480px){
+    .menu-book{ aspect-ratio:2/3; }
+    #seasonBook.is-open .menu-book{ aspect-ratio:4/3; }
+    .leaf-face{ padding:16px 14px; }
+    .book-titlepage .book-page-label, .leaf-face .book-page-label{ font-size:0.6rem; margin-bottom:6px; }
+    .leaf-face h3{ font-size:1.02rem; }
+    .leaf-face p{ font-size:0.78rem; margin-top:5px; line-height:1.4; }
+    .book-wines{ gap:7px; }
+    .book-wines .wine-name{ font-size:0.84rem; }
+    .book-wines .wine-note{ font-size:0.7rem; }
+    .leaf-face .btn{ margin-top:10px; padding:10px 16px; font-size:0.78rem; }
   }
 
   /* ---------- gallery ---------- */
