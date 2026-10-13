@@ -166,7 +166,7 @@
   .offer-icon svg{ width:21px; height:21px; color:var(--ink); }
 
   /* ---------- offerings: centered carousel with faded side peeks ---------- */
-  .offer-carousel{ margin-top:12px; max-width:720px; margin-inline:auto; }
+  .offer-carousel{ margin-top:12px; max-width:980px; margin-inline:auto; }
   .offer-row{ display:flex; align-items:center; gap:10px; }
   .offer-viewport{ flex:1; overflow:hidden; }
   .offer-track{
@@ -176,7 +176,7 @@
   }
   .offer-slide{
     position:relative; flex:none;
-    width:min(300px, 62vw);
+    width:min(260px, 24vw);
     aspect-ratio:3/4;
     border-radius:20px; overflow:hidden;
     display:block; text-decoration:none; color:#fff;
@@ -327,7 +327,7 @@
   }
   .book-cover-rule{
     position:relative; z-index:2;
-    display:block; width:1px; height:12%;
+    display:block; width:1px; height:6%;
     background:var(--ink); margin:16px auto 0;
   }
   .book-cover .leaf-back{ transform:rotateY(180deg); background:var(--ink); }
@@ -338,7 +338,7 @@
   .tree-cluster{ width:100%; height:auto; display:block; }
   .book-cover .book-hint{
     position:relative; z-index:2;
-    margin-top:18px;
+    margin-top:10px;
     display:inline-flex; align-items:center; gap:6px;
     white-space:nowrap;
     font-family:'Karla',sans-serif; font-weight:700;
