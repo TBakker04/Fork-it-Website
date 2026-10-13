@@ -7,6 +7,27 @@
 
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------- mobile nav toggle ---------- */
+  var navToggle = document.querySelector('.nav-toggle');
+  var mobileNav = document.getElementById('mobileNav');
+  if(navToggle && mobileNav){
+    function closeMobileNav(){
+      mobileNav.hidden = true;
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+    navToggle.addEventListener('click', function(){
+      var isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+      if(isOpen){ closeMobileNav(); }
+      else{ mobileNav.hidden = false; navToggle.setAttribute('aria-expanded', 'true'); }
+    });
+    mobileNav.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', closeMobileNav);
+    });
+    window.addEventListener('resize', function(){
+      if(window.innerWidth > 760){ closeMobileNav(); }
+    });
+  }
+
   function setupCarousel(root, slideSel, dotSel, intervalMs){
     if(!root) return;
     var slides = root.querySelectorAll(slideSel);
