@@ -307,7 +307,7 @@
     background:#fff; color:var(--ink);
     align-items:center; justify-content:center;
     text-align:center;
-    padding-bottom:clamp(84px, 48cqw, 142px);
+    padding-bottom:13%;
     cursor:pointer;
   }
   .book-cover .book-cover-kicker{
@@ -332,11 +332,10 @@
   }
   .book-cover .leaf-back{ transform:rotateY(180deg); background:var(--ink); }
   .book-cover-trees{
-    position:absolute; left:0; right:0; bottom:0;
-    display:flex; justify-content:center;
+    position:absolute; right:0; bottom:0; width:38%;
     pointer-events:none; z-index:1;
   }
-  .tree-cluster{ width:84%; height:auto; display:block; }
+  .tree-cluster{ width:100%; height:auto; display:block; }
   .book-cover .book-hint{
     position:relative; z-index:2;
     margin-top:18px;
