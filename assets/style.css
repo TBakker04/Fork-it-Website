@@ -332,14 +332,16 @@
   }
   .book-cover .leaf-back{ transform:rotateY(180deg); background:var(--ink); }
   .book-cover-trees{
-    position:absolute; left:0; right:0; bottom:0; height:19%;
+    position:absolute; left:0; right:0; bottom:0; height:22%;
     pointer-events:none; z-index:1;
   }
-  .book-cover-trees svg{ width:100%; height:100%; display:block; }
-  .tree-a{ fill:#5B8276; }
-  .tree-b{ fill:#2F5560; }
-  .tree-c{ fill:#7FA3A1; }
-  .tree-trunk{ fill:#6B5847; }
+  .book-cover-trees .tree{
+    position:absolute; bottom:0; width:auto;
+    display:block;
+  }
+  .tree-1{ left:14%; height:78%; }
+  .tree-2{ left:36%; height:100%; }
+  .tree-3{ left:60%; height:68%; transform:scaleX(-1); }
   .book-cover .book-hint{
     position:relative; z-index:2;
     margin-top:18px;
