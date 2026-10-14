@@ -136,7 +136,7 @@
   /* ---------- hero ---------- */
   .hero{
     display:grid; grid-template-columns: 1.05fr 0.95fr;
-    gap:56px; align-items:center;
+    gap:56px; align-items:start;
     padding-block: 60px 44px;
   }
   @media (max-width:860px){ .hero{ grid-template-columns:1fr; padding-block:36px 24px; } }
