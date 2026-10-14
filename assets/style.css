@@ -141,12 +141,14 @@
   }
   @media (max-width:860px){ .hero{ grid-template-columns:1fr; padding-block:36px 24px; } }
   .hero h1{
-    font-size: clamp(2.1rem, 4.6vw, 3.5rem);
+    font-size: clamp(2rem, 3.7vw, 3rem);
     line-height:1.12;
     margin-block:10px 16px;
     font-weight:600;
     font-style:italic;
+    white-space:nowrap;
   }
+  @media (max-width:860px){ .hero h1{ white-space:normal; } }
   .hero h1 em{ font-style:normal; font-weight:700; }
   .hero p.lede{
     font-size:1.02rem; color:var(--ink-soft); max-width:46ch; margin-block:16px;
