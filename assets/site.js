@@ -430,9 +430,12 @@
     return lines.join('\n');
   }
 
+  var bookingForm = document.getElementById('bookingForm');
+
   var waBtn = document.getElementById('sendWhatsapp');
   if(waBtn){
-    waBtn.addEventListener('click', function(){
+    waBtn.addEventListener('click', function(e){
+      if(bookingForm && !bookingForm.reportValidity()){ e.preventDefault(); return; }
       var text = encodeURIComponent(buildMessage());
       waBtn.href = 'https://wa.me/31630036888?text=' + text;
     });
@@ -440,7 +443,8 @@
 
   var emailBtn = document.getElementById('sendEmail');
   if(emailBtn){
-    emailBtn.addEventListener('click', function(){
+    emailBtn.addEventListener('click', function(e){
+      if(bookingForm && !bookingForm.reportValidity()){ e.preventDefault(); return; }
       var subject = encodeURIComponent('Fork It reservation — ' + (eventSelect.value || ''));
       var body = encodeURIComponent(buildMessage());
       emailBtn.href = 'mailto:Bookings@forkit.nl?subject=' + subject + '&body=' + body;
