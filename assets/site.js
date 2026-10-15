@@ -1,9 +1,37 @@
 (function(){
-  /* Always land at the top on a fresh (non-anchor) page load — stops the
-     browser from restoring a previous scroll position (e.g. via bfcache)
-     when arriving from another page, like the gate page's "Dive In". */
+  /* Always land at the top when a page opens — overrides both the
+     browser's scroll-restoration on back/forward (e.g. via bfcache) and
+     its default jump to a URL hash, so a link like home.html#menu or
+     home.html#book (nav links, "Get a Quote" buttons) still opens at the
+     top of the page instead of mid-scroll at that section. */
   if('scrollRestoration' in history){ history.scrollRestoration = 'manual'; }
-  if(!window.location.hash){ window.scrollTo(0, 0); }
+  function forceTop(){ window.scrollTo(0, 0); }
+  forceTop();
+  window.addEventListener('load', forceTop);
+  /* pageshow also covers a page served from the back/forward cache
+     (bfcache), where the browser resumes the document instead of
+     reloading it, so neither our script nor the 'load' event re-run. */
+  window.addEventListener('pageshow', forceTop);
+  /* Chromium keeps re-applying the URL hash's scroll position for a
+     short window after load while the page is still settling (web
+     fonts swapping in, images loading in) — reassert the top a few
+     more times so that retry doesn't win the race. Stops the instant
+     the visitor actually scrolls, so it never fights a fast reader. */
+  var pendingTopScrolls = [50, 150, 300, 500].map(function(ms){
+    return window.setTimeout(forceTop, ms);
+  });
+  function cancelForceTop(){
+    pendingTopScrolls.forEach(function(id){ window.clearTimeout(id); });
+    pendingTopScrolls.length = 0;
+  }
+  window.addEventListener('wheel', cancelForceTop, { passive:true, once:true });
+  window.addEventListener('touchmove', cancelForceTop, { passive:true, once:true });
+  window.addEventListener('keydown', cancelForceTop, { once:true });
+  /* A click (e.g. a same-page "#menu" nav link) can trigger the
+     browser's own anchor scroll; hashchange covers that precisely,
+     and a generic click is a catch-all for any other interaction. */
+  window.addEventListener('hashchange', cancelForceTop, { once:true });
+  window.addEventListener('click', cancelForceTop, { once:true });
 
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
