@@ -487,7 +487,10 @@
           window.setTimeout(function(){ waBtn.textContent = waBtnLabel; }, 2000);
         }).catch(function(){});
       }
-      if(popup){ popup.location.href = 'https://wa.me/31630036888?text=' + encodeURIComponent(message); }
+      /* web.whatsapp.com/send stays a plain HTTPS page, unlike wa.me, which
+         redirects through api.whatsapp.com's app-launch handoff — a step
+         some browsers block outright. */
+      if(popup){ popup.location.href = 'https://web.whatsapp.com/send?phone=31630036888&text=' + encodeURIComponent(message); }
     });
   }
 
@@ -516,7 +519,7 @@
       var review = window.prompt('Tell us about your Fork It experience:');
       if(review === null || !review.trim()) return;
       var text = encodeURIComponent('Hi Fork It! Here\'s my review:\n\nName: ' + (name || 'Anonymous') + '\nReview: ' + review.trim());
-      window.open('https://wa.me/31630036888?text=' + text, '_blank');
+      window.open('https://web.whatsapp.com/send?phone=31630036888&text=' + text, '_blank');
     });
   }
 })();
