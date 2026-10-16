@@ -1,48 +1,79 @@
-/* ---------- Private Dinners: clean, chic single-scroll page ----------
-   Sits between the existing hero and the gallery/CTA: a short concept
-   intro, a 3/4/5-course selector, and a quiet wine-pairing band. Same
-   ink/paper palette and thin-line, serif-accent language as the rest
-   of the site — understated rather than loud, to match a bespoke
-   private-chef tone rather than the Borrel page's vibe-first one. */
+/* ---------- Private Dinners: full-bleed photo/text scroll ----------
+   Five sections in scroll order: big hero photo, a text+photo split,
+   a full-width banner with text, a plain text section, then the
+   booking close. Same ink/paper palette and Fraunces-serif language
+   as the rest of the site, but laid out as a vertical story rather
+   than the hero+gallery+CTA template used elsewhere. */
 
-.pd-intro{
-  max-width:640px; margin:0 auto 64px; text-align:center;
+.pd-flow{ padding-top:0 !important; }
+
+.pd-full-bleed{
+  width:100vw; position:relative; left:50%; right:50%;
+  margin-left:-50vw; margin-right:-50vw;
 }
-.pd-intro h2{
+
+/* ---------- 1. hero photo ---------- */
+.pd-hero{
+  margin-top:18px; margin-bottom:76px;
+}
+.pd-hero img{
+  display:block; width:100%; height:min(78vh,760px); object-fit:cover;
+}
+
+/* ---------- 2. text left / photo right ---------- */
+.pd-split{
+  display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:clamp(32px,6vw,72px);
+  margin-bottom:84px;
+}
+@media (max-width:860px){
+  .pd-split{ grid-template-columns:1fr; gap:28px; }
+  .pd-split-img{ order:-1; }
+}
+.pd-split-text h2{
   font-family:'Fraunces',Georgia,serif; font-weight:600;
-  font-size:clamp(1.6rem,3vw,2.1rem); line-height:1.22; margin-top:12px;
+  font-size:clamp(1.7rem,3.2vw,2.3rem); line-height:1.2; margin-top:12px;
 }
-.pd-intro p{ color:var(--ink-soft); margin-top:16px; line-height:1.7; }
+.pd-split-text p{ color:var(--ink-soft); margin-top:16px; line-height:1.75; max-width:46ch; }
+.pd-split-img img{
+  display:block; width:100%; aspect-ratio:4/5; object-fit:cover;
+}
 
-.pd-courses{ margin-bottom:64px; }
-.pd-courses-head{ text-align:center; max-width:640px; margin:0 auto 32px; }
-.pd-courses-head h2{
-  font-family:'Fraunces',Georgia,serif; font-weight:600;
-  font-size:clamp(1.5rem,2.8vw,2rem); line-height:1.25; margin-top:12px;
+/* ---------- 3. full-width photo banner with text ---------- */
+.pd-banner{
+  position:relative; margin-bottom:84px;
+  min-height:420px; display:flex; align-items:center; justify-content:center;
+  text-align:center; overflow:hidden;
 }
-.pd-course-grid{
-  display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
-  background:var(--line); border:1px solid var(--line);
+.pd-banner-bg{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:saturate(1.02) contrast(1.02) brightness(0.52);
 }
-@media (max-width:760px){ .pd-course-grid{ grid-template-columns:1fr; } }
-.pd-course-card{
-  background:var(--surface); padding:clamp(28px,3vw,40px) clamp(22px,3vw,32px);
-  display:flex; flex-direction:column; gap:10px;
+.pd-banner::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(22,19,17,0.3) 0%, rgba(22,19,17,0.5) 100%);
 }
-.pd-course-num{
-  font-family:'Fraunces',serif; font-style:italic; font-weight:500;
-  font-size:2.4rem; line-height:1; color:var(--ink-faint);
+.pd-banner-content{ position:relative; z-index:2; max-width:680px; padding:48px 24px; }
+.pd-banner-content .eyebrow{ color:#fff; opacity:0.85; }
+.pd-banner-content h2{
+  font-family:'Fraunces',Georgia,serif; font-weight:600; color:#fff;
+  font-size:clamp(1.8rem,3.6vw,2.6rem); line-height:1.2; margin-top:12px;
 }
-.pd-course-card h3{ font-size:1.25rem; }
-.pd-course-card p{ color:var(--ink-soft); font-size:0.94rem; line-height:1.6; }
+.pd-banner-content p{ color:rgba(255,255,255,0.88); margin-top:16px; line-height:1.7; max-width:50ch; margin-inline:auto; }
 
-.pd-wine{
-  border:1.5px solid var(--ink); background:var(--surface-2);
-  padding:clamp(32px,4vw,48px) clamp(24px,4vw,56px);
-  margin-bottom:64px; text-align:center;
+/* ---------- 4. plain text section ---------- */
+.pd-text{
+  max-width:640px; margin:0 auto 84px; text-align:center;
 }
-.pd-wine h3{
+.pd-text h2{
   font-family:'Fraunces',serif; font-style:italic; font-weight:600;
-  font-size:clamp(1.3rem,2.4vw,1.7rem); margin-top:10px;
+  font-size:clamp(1.5rem,2.8vw,2rem); margin-top:12px;
 }
-.pd-wine p{ color:var(--ink-soft); margin:14px auto 0; max-width:54ch; line-height:1.65; }
+.pd-text p{ color:var(--ink-soft); margin-top:16px; line-height:1.75; }
+
+/* ---------- 5. booking close ---------- */
+.pd-close{
+  border:1.5px solid var(--ink); padding:clamp(28px,4vw,52px); text-align:center; margin-bottom:60px;
+}
+.pd-close h2{ font-size:clamp(1.5rem,2.8vw,2rem); }
+.pd-close p{ color:var(--ink-soft); margin-top:12px; max-width:52ch; margin-inline:auto; }
+.pd-close .btn{ margin-top:26px; }
