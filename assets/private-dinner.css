@@ -1,9 +1,11 @@
 /* ---------- Private Dinners: full-bleed photo/text scroll ----------
-   Five sections in scroll order: big hero photo, a text+photo split,
-   a full-width banner with text, a plain text section, then the
-   booking close. Same ink/paper palette and Fraunces-serif language
-   as the rest of the site, but laid out as a vertical story rather
-   than the hero+gallery+CTA template used elsewhere. */
+   Five sections in scroll order: big hero photo with an overlaid
+   title, a text+photo split, a full-width banner with text, a plain
+   text section, then the booking close. Structural rhythm (an italic
+   accent word over a bold line, text centered within its column,
+   full-bleed photo banners as dividers) is modeled on a reference
+   layout; palette and typeface stay Fork It's own ink/paper and
+   Fraunces/Karla system. */
 
 .pd-flow{ padding-top:0 !important; }
 
@@ -12,13 +14,32 @@
   margin-left:-50vw; margin-right:-50vw;
 }
 
-/* ---------- 1. hero photo ---------- */
+.pd-kicker{
+  display:block; font-family:'Fraunces',serif; font-style:italic; font-weight:500;
+  font-size:clamp(1.6rem,3.2vw,2.3rem); line-height:1; color:var(--ink);
+}
+.pd-sub{
+  font-family:'Karla',sans-serif; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;
+  font-size:clamp(0.92rem,1.6vw,1.15rem); color:var(--ink);
+}
+
+/* ---------- 1. hero photo with overlaid title ---------- */
 .pd-hero{
-  margin-top:18px; margin-bottom:76px;
+  position:relative; margin-top:18px; margin-bottom:76px;
+  min-height:min(78vh,760px); display:flex; align-items:center; justify-content:center;
+  text-align:center; overflow:hidden;
 }
 .pd-hero img{
-  display:block; width:100%; height:min(78vh,760px); object-fit:cover;
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:saturate(1.02) contrast(1.02) brightness(0.58);
 }
+.pd-hero::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(22,19,17,0.3) 0%, rgba(22,19,17,0.12) 45%, rgba(22,19,17,0.58) 100%);
+}
+.pd-hero-content{ position:relative; z-index:2; padding:24px; }
+.pd-hero-content .pd-kicker{ color:#fff; font-size:clamp(2.4rem,6vw,4rem); }
+.pd-hero-content .pd-sub{ color:#fff; margin-top:16px; }
 
 /* ---------- 2. text left / photo right ---------- */
 .pd-split{
@@ -29,11 +50,12 @@
   .pd-split{ grid-template-columns:1fr; gap:28px; }
   .pd-split-img{ order:-1; }
 }
+.pd-split-text{ text-align:center; }
 .pd-split-text h2{
   font-family:'Fraunces',Georgia,serif; font-weight:600;
-  font-size:clamp(1.7rem,3.2vw,2.3rem); line-height:1.2; margin-top:12px;
+  font-size:clamp(1.7rem,3.2vw,2.3rem); line-height:1.2; margin-top:10px;
 }
-.pd-split-text p{ color:var(--ink-soft); margin-top:16px; line-height:1.75; max-width:46ch; }
+.pd-split-text p{ color:var(--ink-soft); margin:16px auto 0; line-height:1.75; max-width:46ch; }
 .pd-split-img img{
   display:block; width:100%; aspect-ratio:4/5; object-fit:cover;
 }
@@ -53,11 +75,8 @@
   background:linear-gradient(180deg, rgba(22,19,17,0.3) 0%, rgba(22,19,17,0.5) 100%);
 }
 .pd-banner-content{ position:relative; z-index:2; max-width:680px; padding:48px 24px; }
-.pd-banner-content .eyebrow{ color:#fff; opacity:0.85; }
-.pd-banner-content h2{
-  font-family:'Fraunces',Georgia,serif; font-weight:600; color:#fff;
-  font-size:clamp(1.8rem,3.6vw,2.6rem); line-height:1.2; margin-top:12px;
-}
+.pd-banner-content .pd-kicker{ color:#fff; }
+.pd-banner-content .pd-sub{ color:#fff; margin-top:14px; display:block; }
 .pd-banner-content p{ color:rgba(255,255,255,0.88); margin-top:16px; line-height:1.7; max-width:50ch; margin-inline:auto; }
 
 /* ---------- 4. plain text section ---------- */
@@ -66,7 +85,7 @@
 }
 .pd-text h2{
   font-family:'Fraunces',serif; font-style:italic; font-weight:600;
-  font-size:clamp(1.5rem,2.8vw,2rem); margin-top:12px;
+  font-size:clamp(1.5rem,2.8vw,2rem); margin-top:10px;
 }
 .pd-text p{ color:var(--ink-soft); margin-top:16px; line-height:1.75; }
 
