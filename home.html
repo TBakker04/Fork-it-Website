@@ -9,7 +9,7 @@
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Karla:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Karla:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
 <title>Fork It Leiden</title>
 <meta name="description" content="Fork It — Date Dinners, Private Dinners, Paella Workshops and Borrel Catering in Leiden, Netherlands. Cooked fresh, wherever you are.">
 <meta property="og:type" content="website">
@@ -26,6 +26,7 @@
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="assets/paella-planet.css">
 <link rel="stylesheet" href="assets/date-dinner-carousel.css">
+<link rel="stylesheet" href="assets/borrel-takeover.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -572,29 +573,47 @@
   </div>
 
   <!-- DETAIL: BORREL CATERING -->
-  <div id="page-borrel-catering" class="detail-page" hidden>
-    <a class="detail-back" href="#top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to Fork It</a>
-    <div class="detail-hero">
-      <div>
+  <div id="page-borrel-catering" class="detail-page borrel-takeover" hidden>
+    <a class="borrel-back" href="#top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>Back to Fork It</a>
+
+    <section class="borrel-scene borrel-scene-photo">
+      <img class="borrel-scene-bg" loading="lazy" src="images/cheers-with-beer-glasses-over-a-plate-of-nachos.jpg" alt="Friends with beers and loaded nachos in front of the big screen on match day">
+      <div class="borrel-scene-content">
         <p class="eyebrow">Borrel Catering</p>
-        <h1>Match days, birthdays,<br>and everything in between.</h1>
-        <p class="lede">Loaded fries, nachos, and every borrel classic &mdash; cooked fresh and dropped off (or served) right where your gathering is happening.</p>
-        <p class="lede">Built for groups who want great food without anyone having to leave the couch, the terrace, or the match.</p>
+        <h1>Game On.</h1>
+        <p class="borrel-lede">Big screen, cold beers, and a full spread of borrel classics &mdash; wherever the match is playing.</p>
       </div>
-      <div class="detail-hero-img"><img loading="lazy" src="images/loaded-nachos-with-guacamole-and-jalape-o-being.jpg" alt="A spread of loaded fries and snacks for a Fork It borrel catering"></div>
-    </div>
-    <div class="detail-gallery">
-      <img loading="lazy" src="images/two-friends-celebrating-with-beers-and-nachos-du.jpg" alt="A hand digging into a tray of loaded nachos">
-      <img loading="lazy" src="images/a-spread-of-loaded-fries-nachos-and-crispy-chick.jpg" alt="Friends in orange football shirts celebrating match day">
-      <img loading="lazy" src="images/loaded-fries-and-bites-held-up-during-a-football.jpg" alt="Friends in orange football shirts posing for a photo">
-      <img loading="lazy" src="images/cheers-with-beer-glasses-over-a-plate-of-nachos.jpg" alt="Loaded fries being served from a takeaway tray">
-      <img loading="lazy" src="images/a-group-in-orange-football-shirts-celebrating-wi.jpg" alt="A hand holding a tray of nachos with jalapeños">
-    </div>
-    <div class="detail-cta">
-      <h2>Ready to book your borrel?</h2>
-      <p>Tell us the occasion, the headcount, and the date &mdash; we&rsquo;ll sort the spread.</p>
-      <a href="#book" class="btn btn-dark detail-book-btn" data-event="Borrel Catering">Book This Now</a>
-    </div>
+      <div class="borrel-scroll-hint">Scroll<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></div>
+    </section>
+
+    <section class="borrel-scene borrel-scene-plain">
+      <div class="borrel-scene-content">
+        <p class="eyebrow">What&rsquo;s on offer</p>
+        <h2>Built for match days, birthdays, and everything in between.</h2>
+        <p>We&rsquo;re predominantly your go-to for sports events &mdash; loaded fries and nachos dropped off (or served) right by the beamer, so nobody misses a second of the match. Throwing a birthday or a terrace hangout instead? Same spread, same energy, any excuse to gather.</p>
+        <div class="borrel-tags">
+          <span>Sports &amp; Beamer Nights</span>
+          <span>Parties &amp; Birthdays</span>
+          <span>Snacks &amp; Small Bites</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="borrel-scene borrel-scene-photo">
+      <img class="borrel-scene-bg" loading="lazy" src="images/a-group-in-orange-football-shirts-celebrating-wi.jpg" alt="A group of friends in orange football shirts celebrating together">
+      <div class="borrel-scene-content">
+        <p class="borrel-quote-text">Ordered the borrel spread for a match day and it disappeared in ten minutes. Already booking again for the next one.</p>
+        <p class="borrel-quote-meta">Milan K. &middot; Borrel Catering</p>
+      </div>
+    </section>
+
+    <section class="borrel-scene borrel-scene-end">
+      <div class="borrel-scene-content">
+        <h2>Ready for your next borrel?</h2>
+        <p>Tell us the occasion, the headcount, and the date &mdash; we&rsquo;ll sort the spread.</p>
+        <a href="#book" class="borrel-btn detail-book-btn" data-event="Borrel Catering">Book This Now</a>
+      </div>
+    </section>
   </div>
 
 </main>

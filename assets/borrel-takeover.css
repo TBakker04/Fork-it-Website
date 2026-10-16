@@ -1,0 +1,170 @@
+/* ---------- Borrel Catering: full-screen scroll story ----------
+   Four scenes, one per viewport: photo+headline, a plain "breather"
+   page with the pitch, photo+quote, then a solid-black close with
+   the book button. Bold/uppercase and orange — louder and less
+   polished than the Date Dinner/Paella takeovers on purpose, to
+   match a match-day-and-birthdays vibe rather than a dinner one. */
+.borrel-takeover{
+  --borrel-ink:#141210;
+  --borrel-paper:#F3EDE2;
+  --borrel-accent:#F2642A;
+  width:100vw; position:relative; left:50%; right:50%;
+  margin-left:-50vw; margin-right:-50vw;
+  padding-block:0 !important;
+}
+
+html:has(#page-borrel-catering:not([hidden])){
+  scroll-snap-type:y mandatory;
+}
+body:has(#page-borrel-catering:not([hidden])){
+  background:var(--borrel-ink);
+}
+body:has(#page-borrel-catering:not([hidden])) header,
+body:has(#page-borrel-catering:not([hidden])) footer{
+  display:none;
+}
+
+.borrel-back{
+  position:fixed; top:20px; left:20px; z-index:20;
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:'Karla',sans-serif; font-weight:700; font-size:0.82rem;
+  color:rgba(243,237,226,0.9); text-decoration:none;
+  padding:9px 16px; border-radius:999px;
+  background:rgba(20,18,16,0.5);
+  border:1px solid rgba(243,237,226,0.25);
+  backdrop-filter:blur(6px);
+  transition:background .15s ease, color .15s ease;
+}
+.borrel-back svg{ width:16px; height:16px; flex:none; }
+.borrel-back:hover{ color:#F3EDE2; background:rgba(20,18,16,0.85); }
+
+.borrel-scene{
+  position:relative;
+  min-height:100vh; min-height:100dvh;
+  display:flex; align-items:center; justify-content:center;
+  scroll-snap-align:start; scroll-snap-stop:always;
+  padding:100px 24px;
+  text-align:center;
+  overflow:hidden;
+}
+
+/* ---------- photo scenes (1 and 3) ---------- */
+.borrel-scene-photo{ color:var(--borrel-paper); }
+.borrel-scene-bg{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  filter:saturate(1.08) contrast(1.03) brightness(0.56);
+}
+.borrel-scene-photo::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(20,18,16,0.55) 0%, rgba(20,18,16,0.25) 40%, rgba(20,18,16,0.7) 100%);
+}
+.borrel-scene-content{
+  position:relative; z-index:2;
+  max-width:720px;
+}
+.borrel-scene-photo .eyebrow{
+  color:var(--borrel-accent);
+  font-weight:800;
+}
+.borrel-scene-photo h1{
+  font-family:'Karla',sans-serif; font-weight:800; text-transform:uppercase;
+  font-size:clamp(3rem, 11vw, 7rem); line-height:0.96; letter-spacing:-0.01em;
+  color:#fff; margin-top:14px;
+}
+.borrel-lede{
+  font-family:'Karla',sans-serif; font-weight:600;
+  font-size:clamp(1.05rem, 2vw, 1.3rem); line-height:1.5;
+  color:rgba(243,237,226,0.92);
+  max-width:46ch; margin:20px auto 0;
+}
+
+.borrel-scroll-hint{
+  position:absolute; left:0; right:0; bottom:40px; z-index:2;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  font-family:'Karla',sans-serif; font-size:0.68rem; font-weight:800;
+  letter-spacing:0.18em; text-transform:uppercase;
+  color:rgba(243,237,226,0.8);
+}
+.borrel-scroll-hint svg{ width:15px; height:15px; animation:borrel-bounce 1.8s ease-in-out infinite; }
+@keyframes borrel-bounce{
+  0%, 100%{ transform:translateY(0); }
+  50%{ transform:translateY(6px); }
+}
+@media (prefers-reduced-motion: reduce){
+  .borrel-scroll-hint svg{ animation:none; }
+}
+
+/* ---------- scene 2: the plain "breather" page ---------- */
+.borrel-scene-plain{
+  background:var(--borrel-paper);
+  color:var(--borrel-ink);
+}
+.borrel-scene-plain .eyebrow{ color:#B2521E; font-weight:800; }
+.borrel-scene-plain h2{
+  font-family:'Karla',sans-serif; font-weight:800; text-transform:uppercase;
+  font-size:clamp(1.8rem, 4.4vw, 3rem); line-height:1.08; letter-spacing:-0.01em;
+  margin-top:14px;
+}
+.borrel-scene-plain p{
+  font-size:1.05rem; line-height:1.6; color:rgba(20,18,16,0.78);
+  max-width:56ch; margin:20px auto 0;
+}
+.borrel-tags{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:10px;
+  margin-top:30px;
+}
+.borrel-tags span{
+  font-family:'Karla',sans-serif; font-weight:800; font-size:0.78rem;
+  letter-spacing:0.04em; text-transform:uppercase;
+  color:var(--borrel-ink);
+  background:#fff;
+  border:1.5px solid var(--borrel-ink);
+  padding:11px 18px; border-radius:999px;
+}
+
+/* ---------- scene 3: quote over photo ---------- */
+.borrel-quote-text{
+  font-family:'Karla',sans-serif; font-weight:700;
+  font-size:clamp(1.4rem, 3.4vw, 2.3rem); line-height:1.3;
+  color:#fff;
+}
+.borrel-quote-text::before{ content:"\201C"; }
+.borrel-quote-text::after{ content:"\201D"; }
+.borrel-quote-meta{
+  margin-top:22px;
+  font-family:'Karla',sans-serif; font-weight:800; font-size:0.78rem;
+  letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--borrel-accent);
+}
+
+/* ---------- scene 4: black close + book button ---------- */
+.borrel-scene-end{
+  background:#0c0a09;
+  color:var(--borrel-paper);
+}
+.borrel-scene-end h2{
+  font-family:'Karla',sans-serif; font-weight:800; text-transform:uppercase;
+  font-size:clamp(2rem, 5vw, 3.2rem); line-height:1.05; letter-spacing:-0.01em;
+  color:#fff;
+}
+.borrel-scene-end p{
+  font-size:1.02rem; color:rgba(243,237,226,0.78);
+  max-width:48ch; margin:18px auto 0;
+}
+.borrel-btn{
+  display:inline-flex; align-items:center; gap:8px; white-space:nowrap;
+  font-family:'Karla',sans-serif; font-weight:800; font-size:0.9rem;
+  letter-spacing:0.02em; text-transform:uppercase;
+  padding:17px 36px; border-radius:999px; margin-top:32px;
+  background:var(--borrel-accent); color:#fff; border:1px solid var(--borrel-accent);
+  text-decoration:none;
+  transition:background .15s ease, color .15s ease, transform .1s ease;
+}
+.borrel-btn:hover{ background:transparent; color:var(--borrel-accent); }
+.borrel-btn:active{ transform:scale(0.98); }
+
+@media (max-width:640px){
+  .borrel-back{ top:14px; left:14px; padding:8px 14px; }
+  .borrel-scene{ padding:90px 20px; }
+  .borrel-scene-photo h1{ font-size:clamp(2.6rem, 15vw, 4rem); }
+}
