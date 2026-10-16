@@ -462,11 +462,21 @@
 
   var waBtn = document.getElementById('sendWhatsapp');
   if(waBtn){
+    var waBtnLabel = waBtn.textContent;
     waBtn.addEventListener('click', function(e){
       e.preventDefault();
       if(bookingForm && !bookingForm.reportValidity()){ return; }
-      var text = encodeURIComponent(buildMessage());
-      window.open('https://wa.me/31630036888?text=' + text, '_blank', 'noopener');
+      var message = buildMessage();
+      /* WhatsApp's wa.me link already drops the message straight into the
+         chat box, ready to send — copy it to the clipboard too, as a
+         fallback the visitor can paste in manually if that doesn't happen. */
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(message).then(function(){
+          waBtn.textContent = 'Copied! Opening WhatsApp…';
+          window.setTimeout(function(){ waBtn.textContent = waBtnLabel; }, 2000);
+        }).catch(function(){});
+      }
+      window.open('https://wa.me/31630036888?text=' + encodeURIComponent(message), '_blank', 'noopener');
     });
   }
 
