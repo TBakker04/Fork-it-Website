@@ -122,19 +122,11 @@ body:has(#page-borrel-catering:not([hidden])) footer{
   padding:11px 18px; border-radius:999px;
 }
 
-/* ---------- scene 3: quote over photo ---------- */
-.borrel-quote-text{
-  font-family:'Karla',sans-serif; font-weight:700;
-  font-size:clamp(1.4rem, 3.4vw, 2.3rem); line-height:1.3;
+/* ---------- scene 3: bold statement over photo ---------- */
+.borrel-statement{
+  font-family:'Karla',sans-serif; font-weight:800; text-transform:uppercase;
+  font-size:clamp(1.7rem, 4.2vw, 2.9rem); line-height:1.15; letter-spacing:-0.01em;
   color:#fff;
-}
-.borrel-quote-text::before{ content:"\201C"; }
-.borrel-quote-text::after{ content:"\201D"; }
-.borrel-quote-meta{
-  margin-top:22px;
-  font-family:'Karla',sans-serif; font-weight:800; font-size:0.78rem;
-  letter-spacing:0.1em; text-transform:uppercase;
-  color:var(--borrel-accent);
 }
 
 /* ---------- scene 4: black close + book button ---------- */
