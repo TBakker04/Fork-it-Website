@@ -136,7 +136,7 @@ body:has(#page-borrel-catering:not([hidden])) footer{
   max-width:46ch; margin-inline:auto;
 }
 .borrel-included-label{
-  font-weight:800; text-transform:uppercase; letter-spacing:0.04em;
+  font-weight:800;
   color:var(--borrel-accent);
 }
 
