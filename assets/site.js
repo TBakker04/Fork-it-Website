@@ -487,10 +487,12 @@
       if(bookingForm && !bookingForm.reportValidity()){ return; }
       var subject = encodeURIComponent('Fork It reservation — ' + (eventSelect.value || ''));
       var body = encodeURIComponent(buildMessage());
-      /* window.open (not window.location.href) so this isn't blocked as a
-         same-frame navigation to an external protocol in restricted or
-         embedded contexts — same approach as the WhatsApp button. */
-      window.open('mailto:Bookings@forkit.nl?subject=' + subject + '&body=' + body, '_blank', 'noopener');
+      /* Gmail's web compose window, opened in a new tab — window.open
+         (not window.location.href) so this isn't blocked as a same-frame
+         navigation in restricted or embedded contexts, same approach as
+         the WhatsApp button. */
+      var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=bookings@forkitleiden.nl&su=' + subject + '&body=' + body;
+      window.open(gmailUrl, '_blank', 'noopener');
     });
   }
 
