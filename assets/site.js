@@ -460,12 +460,23 @@
 
   var bookingForm = document.getElementById('bookingForm');
 
+  /* Open the popup as the very first synchronous action of the click
+     handler, before validation or anything else runs. Some browsers only
+     treat window.open() as a trusted, user-gesture-triggered popup when
+     nothing else happens first in the handler — if other logic (like
+     form validation) runs before it, the popup can get silently blocked.
+     Opening blank immediately and redirecting it afterward sidesteps
+     that: if the form turns out invalid, the blank tab is just closed. */
   var waBtn = document.getElementById('sendWhatsapp');
   if(waBtn){
     var waBtnLabel = waBtn.textContent;
     waBtn.addEventListener('click', function(e){
       e.preventDefault();
-      if(bookingForm && !bookingForm.reportValidity()){ return; }
+      var popup = window.open('', '_blank');
+      if(bookingForm && !bookingForm.reportValidity()){
+        if(popup){ popup.close(); }
+        return;
+      }
       var message = buildMessage();
       /* WhatsApp's wa.me link already drops the message straight into the
          chat box, ready to send — copy it to the clipboard too, as a
@@ -476,7 +487,7 @@
           window.setTimeout(function(){ waBtn.textContent = waBtnLabel; }, 2000);
         }).catch(function(){});
       }
-      window.open('https://wa.me/31630036888?text=' + encodeURIComponent(message), '_blank', 'noopener');
+      if(popup){ popup.location.href = 'https://wa.me/31630036888?text=' + encodeURIComponent(message); }
     });
   }
 
@@ -484,15 +495,15 @@
   if(emailBtn){
     emailBtn.addEventListener('click', function(e){
       e.preventDefault();
-      if(bookingForm && !bookingForm.reportValidity()){ return; }
+      var popup = window.open('', '_blank');
+      if(bookingForm && !bookingForm.reportValidity()){
+        if(popup){ popup.close(); }
+        return;
+      }
       var subject = encodeURIComponent('Fork It reservation — ' + (eventSelect.value || ''));
       var body = encodeURIComponent(buildMessage());
-      /* Gmail's web compose window, opened in a new tab — window.open
-         (not window.location.href) so this isn't blocked as a same-frame
-         navigation in restricted or embedded contexts, same approach as
-         the WhatsApp button. */
       var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=bookings@forkitleiden.nl&su=' + subject + '&body=' + body;
-      window.open(gmailUrl, '_blank', 'noopener');
+      if(popup){ popup.location.href = gmailUrl; }
     });
   }
 
