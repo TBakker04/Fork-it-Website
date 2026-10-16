@@ -487,7 +487,10 @@
       if(bookingForm && !bookingForm.reportValidity()){ return; }
       var subject = encodeURIComponent('Fork It reservation — ' + (eventSelect.value || ''));
       var body = encodeURIComponent(buildMessage());
-      window.location.href = 'mailto:Bookings@forkit.nl?subject=' + subject + '&body=' + body;
+      /* window.open (not window.location.href) so this isn't blocked as a
+         same-frame navigation to an external protocol in restricted or
+         embedded contexts — same approach as the WhatsApp button. */
+      window.open('mailto:Bookings@forkit.nl?subject=' + subject + '&body=' + body, '_blank', 'noopener');
     });
   }
 
