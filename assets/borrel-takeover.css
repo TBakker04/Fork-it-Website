@@ -128,6 +128,17 @@ body:has(#page-borrel-catering:not([hidden])) footer{
   font-size:clamp(1.7rem, 4.2vw, 2.9rem); line-height:1.15; letter-spacing:-0.01em;
   color:#fff;
 }
+.borrel-included{
+  margin-top:22px;
+  font-family:'Karla',sans-serif; font-weight:600;
+  font-size:1.05rem; line-height:1.5;
+  color:rgba(243,237,226,0.9);
+  max-width:46ch; margin-inline:auto;
+}
+.borrel-included-label{
+  font-weight:800; text-transform:uppercase; letter-spacing:0.04em;
+  color:var(--borrel-accent);
+}
 
 /* ---------- scene 4: black close + book button ---------- */
 .borrel-scene-end{
