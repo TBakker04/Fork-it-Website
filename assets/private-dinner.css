@@ -60,10 +60,11 @@
   display:block; width:100%; aspect-ratio:4/5; object-fit:cover;
 }
 
-/* ---------- 3. full-width photo banner with text ---------- */
+/* ---------- 3. full-screen scenes: photo, text, photo+text ---------- */
 .pd-banner{
-  position:relative; margin-bottom:84px;
-  min-height:420px; display:flex; align-items:center; justify-content:center;
+  position:relative;
+  min-height:100vh; min-height:100dvh;
+  display:flex; align-items:center; justify-content:center;
   text-align:center; overflow:hidden;
 }
 .pd-banner-bg{
@@ -79,15 +80,39 @@
 .pd-banner-content .pd-sub{ color:#fff; margin-top:14px; display:block; }
 .pd-banner-content p{ color:rgba(255,255,255,0.88); margin-top:16px; line-height:1.7; max-width:50ch; margin-inline:auto; }
 
+.pd-scene-text{
+  min-height:100vh; min-height:100dvh;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--surface-2);
+  text-align:center; padding:60px 24px;
+}
+.pd-scene-text .pd-scene-inner{ max-width:640px; }
+.pd-scene-text p{ color:var(--ink-soft); margin-top:16px; line-height:1.75; }
+
 /* ---------- 4. plain text section ---------- */
 .pd-text{
-  max-width:640px; margin:0 auto 84px; text-align:center;
+  max-width:640px; margin:84px auto; text-align:center;
 }
 .pd-text h2{
   font-family:'Fraunces',serif; font-style:italic; font-weight:600;
   font-size:clamp(1.5rem,2.8vw,2rem); margin-top:10px;
 }
 .pd-text p{ color:var(--ink-soft); margin-top:16px; line-height:1.75; }
+
+.pd-wine-table{
+  width:100%; max-width:480px; margin:32px auto 0; border-collapse:collapse;
+}
+.pd-wine-table th, .pd-wine-table td{
+  padding:14px 6px; border-bottom:1px solid var(--line);
+  font-family:'Karla',sans-serif; font-size:0.95rem; color:var(--ink);
+}
+.pd-wine-table thead th{
+  font-weight:800; text-transform:uppercase; letter-spacing:0.06em;
+  font-size:0.72rem; color:var(--ink-soft); border-bottom:1.5px solid var(--ink);
+}
+.pd-wine-table td:last-child, .pd-wine-table th:last-child{ text-align:right; }
+.pd-wine-table tbody tr:last-child td{ border-bottom:1.5px solid var(--ink); }
+.pd-wine-note{ margin-top:14px; font-size:0.85rem; color:var(--ink-faint); }
 
 /* ---------- 5. booking close ---------- */
 .pd-close{
