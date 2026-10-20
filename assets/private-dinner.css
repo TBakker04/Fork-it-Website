@@ -1,106 +1,101 @@
-/* ---------- Private Dinners: full-bleed photo/text scroll ----------
-   Five sections in scroll order: big hero photo with an overlaid
-   title, a text+photo split, a full-width banner with text, a plain
-   text section, then the booking close. Structural rhythm (an italic
-   accent word over a bold line, text centered within its column,
-   full-bleed photo banners as dividers) is modeled on a reference
-   layout; palette and typeface stay Fork It's own ink/paper and
-   Fraunces/Karla system. */
+/* ---------- Private Dinners: full-screen scroll story ----------
+   Five scenes, one per viewport: photo+title, a plain white "concept"
+   page, photo+course info, a plain white wine-pairing page with a
+   price table, then a photo close with the book button. Same
+   scroll-snap full takeover used for Borrel Catering and the same
+   sizing the gallery page's opening uses (100dvh), kept in Fork It's
+   own ink/paper palette and Fraunces/Karla system rather than
+   Borrel's louder one. */
 
-.pd-flow{ padding-top:0 !important; }
-
-.pd-full-bleed{
+.pd-takeover{
   width:100vw; position:relative; left:50%; right:50%;
   margin-left:-50vw; margin-right:-50vw;
+  padding-block:0 !important;
+}
+
+html:has(#page-private-dinner:not([hidden])){
+  scroll-snap-type:y mandatory;
+}
+body:has(#page-private-dinner:not([hidden])){
+  background:#fff;
+}
+body:has(#page-private-dinner:not([hidden])) header,
+body:has(#page-private-dinner:not([hidden])) footer{
+  display:none;
+}
+
+.pd-back{
+  position:fixed; top:20px; left:20px; z-index:20;
+  display:inline-flex; align-items:center; gap:6px;
+  font-family:'Karla',sans-serif; font-weight:700; font-size:0.82rem;
+  color:var(--ink); text-decoration:none;
+  padding:9px 16px; border-radius:999px;
+  background:rgba(255,255,255,0.72);
+  border:1px solid var(--line);
+  backdrop-filter:blur(6px);
+  transition:background .15s ease, color .15s ease;
+}
+.pd-back svg{ width:16px; height:16px; flex:none; }
+.pd-back:hover{ background:#fff; }
+
+.pd-scene{
+  position:relative;
+  min-height:100vh; min-height:100dvh;
+  display:flex; align-items:center; justify-content:center;
+  scroll-snap-align:start; scroll-snap-stop:always;
+  padding:100px 24px;
+  text-align:center;
+  overflow:hidden;
 }
 
 .pd-kicker{
   display:block; font-family:'Fraunces',serif; font-style:italic; font-weight:500;
-  font-size:clamp(1.6rem,3.2vw,2.3rem); line-height:1; color:var(--ink);
+  font-size:clamp(1.8rem,3.6vw,2.6rem); line-height:1; color:var(--ink);
 }
 .pd-sub{
-  font-family:'Karla',sans-serif; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;
-  font-size:clamp(0.92rem,1.6vw,1.15rem); color:var(--ink);
+  display:block; font-family:'Karla',sans-serif; font-weight:800; letter-spacing:0.1em; text-transform:uppercase;
+  font-size:clamp(0.92rem,1.6vw,1.15rem); color:var(--ink); margin-top:14px;
 }
 
-/* ---------- 1. hero photo with overlaid title ---------- */
-.pd-hero{
-  position:relative; margin-top:18px; margin-bottom:76px;
-  min-height:min(78vh,760px); display:flex; align-items:center; justify-content:center;
-  text-align:center; overflow:hidden;
-}
-.pd-hero img{
+/* ---------- photo scenes (1, 3, 5) ---------- */
+.pd-scene-photo{ color:#fff; }
+.pd-scene-bg{
   position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-  filter:saturate(1.02) contrast(1.02) brightness(0.58);
+  filter:saturate(1.02) contrast(1.02) brightness(0.46);
 }
-.pd-hero::after{
+.pd-scene-photo::after{
   content:""; position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(22,19,17,0.3) 0%, rgba(22,19,17,0.12) 45%, rgba(22,19,17,0.58) 100%);
+  background:linear-gradient(180deg, rgba(22,19,17,0.4) 0%, rgba(22,19,17,0.38) 42%, rgba(22,19,17,0.65) 100%);
 }
-.pd-hero-content{ position:relative; z-index:2; padding:24px; }
-.pd-hero-content .pd-kicker{ color:#fff; font-size:clamp(2.4rem,6vw,4rem); }
-.pd-hero-content .pd-sub{ color:#fff; margin-top:16px; }
+.pd-scene-content{ position:relative; z-index:2; max-width:680px; }
+.pd-scene-photo .pd-scene-content{
+  padding:36px 40px; border-radius:6px;
+  background:rgba(10,9,8,0.24);
+  backdrop-filter:blur(3px);
+}
+.pd-scene-photo .pd-kicker,
+.pd-scene-photo .pd-sub{ color:#fff; text-shadow:0 2px 14px rgba(0,0,0,0.45); }
+.pd-scene-photo p{
+  color:rgba(255,255,255,0.92); margin-top:16px; line-height:1.7; max-width:50ch; margin-inline:auto;
+  text-shadow:0 2px 10px rgba(0,0,0,0.45);
+}
+.pd-scene-photo h2{
+  font-family:'Fraunces',Georgia,serif; font-weight:600; color:#fff;
+  font-size:clamp(1.8rem,3.6vw,2.6rem); line-height:1.2;
+  text-shadow:0 2px 14px rgba(0,0,0,0.45);
+}
+.pd-scene-photo .btn{ margin-top:28px; }
 
-/* ---------- 2. text left / photo right ---------- */
-.pd-split{
-  display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:clamp(32px,6vw,72px);
-  margin-bottom:84px;
-}
-@media (max-width:860px){
-  .pd-split{ grid-template-columns:1fr; gap:28px; }
-  .pd-split-img{ order:-1; }
-}
-.pd-split-text{ text-align:center; }
-.pd-split-text h2{
+/* ---------- plain white scenes (2, 4) ---------- */
+.pd-scene-plain{ background:#fff; color:var(--ink); }
+.pd-scene-content p{ color:var(--ink-soft); margin-top:16px; line-height:1.75; }
+.pd-scene-plain h2{
   font-family:'Fraunces',Georgia,serif; font-weight:600;
-  font-size:clamp(1.7rem,3.2vw,2.3rem); line-height:1.2; margin-top:10px;
+  font-size:clamp(1.7rem,3.2vw,2.3rem); line-height:1.2; margin-top:12px;
 }
-.pd-split-text p{ color:var(--ink-soft); margin:16px auto 0; line-height:1.75; max-width:46ch; }
-.pd-split-img img{
-  display:block; width:100%; aspect-ratio:4/5; object-fit:cover;
-}
-
-/* ---------- 3. full-screen scenes: photo, text, photo+text ---------- */
-.pd-banner{
-  position:relative;
-  min-height:100vh; min-height:100dvh;
-  display:flex; align-items:center; justify-content:center;
-  text-align:center; overflow:hidden;
-}
-.pd-banner-bg{
-  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-  filter:saturate(1.02) contrast(1.02) brightness(0.52);
-}
-.pd-banner::after{
-  content:""; position:absolute; inset:0;
-  background:linear-gradient(180deg, rgba(22,19,17,0.3) 0%, rgba(22,19,17,0.5) 100%);
-}
-.pd-banner-content{ position:relative; z-index:2; max-width:680px; padding:48px 24px; }
-.pd-banner-content .pd-kicker{ color:#fff; }
-.pd-banner-content .pd-sub{ color:#fff; margin-top:14px; display:block; }
-.pd-banner-content p{ color:rgba(255,255,255,0.88); margin-top:16px; line-height:1.7; max-width:50ch; margin-inline:auto; }
-
-.pd-scene-text{
-  min-height:100vh; min-height:100dvh;
-  display:flex; align-items:center; justify-content:center;
-  background:var(--surface-2);
-  text-align:center; padding:60px 24px;
-}
-.pd-scene-text .pd-scene-inner{ max-width:640px; }
-.pd-scene-text p{ color:var(--ink-soft); margin-top:16px; line-height:1.75; }
-
-/* ---------- 4. plain text section ---------- */
-.pd-text{
-  max-width:640px; margin:84px auto; text-align:center;
-}
-.pd-text h2{
-  font-family:'Fraunces',serif; font-style:italic; font-weight:600;
-  font-size:clamp(1.5rem,2.8vw,2rem); margin-top:10px;
-}
-.pd-text p{ color:var(--ink-soft); margin-top:16px; line-height:1.75; }
 
 .pd-wine-table{
-  width:100%; max-width:480px; margin:32px auto 0; border-collapse:collapse;
+  width:100%; max-width:480px; margin:28px auto 0; border-collapse:collapse;
 }
 .pd-wine-table th, .pd-wine-table td{
   padding:14px 6px; border-bottom:1px solid var(--line);
@@ -114,10 +109,7 @@
 .pd-wine-table tbody tr:last-child td{ border-bottom:1.5px solid var(--ink); }
 .pd-wine-note{ margin-top:14px; font-size:0.85rem; color:var(--ink-faint); }
 
-/* ---------- 5. booking close ---------- */
-.pd-close{
-  border:1.5px solid var(--ink); padding:clamp(28px,4vw,52px); text-align:center; margin-bottom:60px;
+@media (max-width:640px){
+  .pd-back{ top:14px; left:14px; padding:8px 14px; }
+  .pd-scene{ padding:90px 20px; }
 }
-.pd-close h2{ font-size:clamp(1.5rem,2.8vw,2rem); }
-.pd-close p{ color:var(--ink-soft); margin-top:12px; max-width:52ch; margin-inline:auto; }
-.pd-close .btn{ margin-top:26px; }
