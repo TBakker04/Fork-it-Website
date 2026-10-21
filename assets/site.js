@@ -505,7 +505,7 @@
       }
       var subject = encodeURIComponent('Fork It reservation — ' + (eventSelect.value || ''));
       var body = encodeURIComponent(buildMessage());
-      var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=bookings@forkitleiden.nl&su=' + subject + '&body=' + body;
+      var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=Bookings@forkit.nl&su=' + subject + '&body=' + body;
       if(popup){ popup.location.href = gmailUrl; }
     });
   }
