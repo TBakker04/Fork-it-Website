@@ -4,6 +4,10 @@ Static HTML/CSS/JS, no build step, deployed to GitHub Pages on push (`.github/wo
 
 See `forkit-website-analytics-plan.md` for the full analytics/automation rollout plan this README supports.
 
+## Booking form backend
+
+The booking form (WhatsApp/email buttons) also posts to a Google Apps Script backend — a Sheet row, an instant owner alert, and a customer confirmation email — once it's deployed. Setup and deploy instructions: `apps-script/README.md`. Until `assets/analytics-config.js`'s `appsScriptUrl` is set, this is a silent no-op and the WhatsApp/email buttons work exactly as before.
+
 ## Analytics & tracking
 
 All IDs (GA4 measurement ID, Clarity project ID, production hostnames) live in one place: `assets/analytics-config.js`. Nothing else should hard-code them.
@@ -48,7 +52,7 @@ Convention:
 | `form_start` | First focus inside the booking form, once per page view |
 | `contact_click` | WhatsApp, Instagram, or email link clicked |
 | `workshop_view` | A Date Dinner / Private Dinner / Paella Workshop / Borrel Catering page is opened |
-| `generate_lead` | Not wired yet — waiting on Phase 3's backend to confirm a real submission. See the `TODO(Phase 3)` comments in `assets/site.js`. |
+| `generate_lead` | Fires once the Apps Script backend confirms a booking was actually saved (not just that a WhatsApp/email tab opened). Only active once `appsScriptUrl` is set — see "Booking form backend" above. |
 
 ### Checking it works (GA4 DebugView)
 

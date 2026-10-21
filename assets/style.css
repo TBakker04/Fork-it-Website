@@ -519,6 +519,24 @@
   .form-actions{ display:flex; gap:12px; flex-wrap:wrap; margin-top:6px; }
   .btn-full{ flex:1; }
   .hint{ font-size:0.8rem; color:var(--ink-faint); }
+  .field-checkbox{
+    display:flex; align-items:center; gap:9px;
+    font-size:0.85rem; font-weight:600; color:var(--ink-soft);
+    cursor:pointer;
+  }
+  .field-checkbox input{ width:auto; accent-color:var(--ink); }
+  /* Honeypot: hidden from sighted users and screen readers, but still
+     present in the DOM/tab order of nothing a human would reach. */
+  .field-honeypot{
+    position:absolute; left:-9999px; top:-9999px;
+    width:1px; height:1px; overflow:hidden;
+  }
+  .form-status{
+    font-size:0.85rem; font-weight:700; padding:10px 14px;
+    border-radius:var(--radius-sm); margin:0;
+  }
+  .form-status.is-success{ background:#EAF4EA; color:#1E5C26; }
+  .form-status.is-error{ background:#FBEAE8; color:#8A2A20; }
 
   footer{
     border-top:1px solid var(--line); margin-top:20px; padding-block:36px 48px;

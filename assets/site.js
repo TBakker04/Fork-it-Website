@@ -1,4 +1,28 @@
 (function(){
+  /* Capture first-touch UTM params + landing page once per browser
+     session (sessionStorage), on whichever page the visitor lands on
+     first — so the booking form can send them along later even if
+     they arrived via gallery.html or menu.html, not home.html. */
+  (function captureAttribution(){
+    try {
+      if(sessionStorage.getItem('forkit_attribution')) return;
+      var params = new URLSearchParams(window.location.search);
+      sessionStorage.setItem('forkit_attribution', JSON.stringify({
+        utmSource: params.get('utm_source') || '',
+        utmMedium: params.get('utm_medium') || '',
+        utmCampaign: params.get('utm_campaign') || '',
+        landingPage: window.location.pathname + window.location.search
+      }));
+    } catch(e){ /* sessionStorage unavailable — attribution stays empty */ }
+  })();
+  function getAttribution(){
+    try {
+      var raw = sessionStorage.getItem('forkit_attribution');
+      if(raw) return JSON.parse(raw);
+    } catch(e){ /* ignore */ }
+    return { utmSource:'', utmMedium:'', utmCampaign:'', landingPage: window.location.pathname };
+  }
+
   /* Always land at the top when a page opens — overrides both the
      browser's scroll-restoration on back/forward (e.g. via bfcache) and
      its default jump to a URL hash, so a link like home.html#menu or
@@ -453,6 +477,8 @@
 
   function buildMessage(){
     var name = document.getElementById('name').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var phone = document.getElementById('phone').value.trim();
     var event = eventSelect.value;
     var date = document.getElementById('date').value;
     var guests = document.getElementById('guests').value;
@@ -461,13 +487,79 @@
     var lines = ['Hi Fork It! I\'d like to reserve a spot.'];
     lines.push('Event: ' + event);
     if(name) lines.push('Name: ' + name);
+    if(email) lines.push('Email: ' + email);
+    if(phone) lines.push('Phone: ' + phone);
     if(date) lines.push('Preferred date: ' + date);
     if(guests) lines.push('Guests: ' + guests);
     if(message) lines.push('Details: ' + message);
     return lines.join('\n');
   }
 
+  function groupSizeBand(n){
+    n = Number(n);
+    if(!n || n < 1) return 'unknown';
+    if(n <= 5) return '1-5';
+    if(n <= 10) return '6-10';
+    if(n <= 20) return '11-20';
+    return '20+';
+  }
+
+  function buildSubmissionPayload(){
+    var attribution = getAttribution();
+    return {
+      name: document.getElementById('name').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      inquiryType: eventSelect.value,
+      preferredDate: document.getElementById('date').value,
+      groupSize: document.getElementById('guests').value,
+      message: document.getElementById('message').value.trim(),
+      language: 'en',
+      utmSource: attribution.utmSource,
+      utmMedium: attribution.utmMedium,
+      utmCampaign: attribution.utmCampaign,
+      landingPage: attribution.landingPage,
+      newsletterOptIn: !!document.getElementById('newsletterOptIn').checked,
+      company: document.getElementById('company').value, /* honeypot */
+      renderedAt: Number(document.getElementById('renderedAt').value || 0)
+    };
+  }
+
+  function showFormStatus(kind, text){
+    var el = document.getElementById('formStatus');
+    if(!el) return;
+    el.textContent = text;
+    el.hidden = false;
+    el.className = 'form-status ' + (kind === 'success' ? 'is-success' : 'is-error');
+  }
+
+  /* Fire-and-forget: WhatsApp/email already fired by the time this is
+     called, so a slow or failed backend never blocks the visitor's
+     request from reaching us. Only on a confirmed server-side success
+     do we show the extra status line and fire generate_lead. */
+  function submitToBackend(payload){
+    var url = (window.FORKIT_CONFIG && window.FORKIT_CONFIG.appsScriptUrl) || '';
+    if(!url) return; /* backend not deployed yet (Phase 3 setup pending) */
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' }, /* avoids a CORS preflight against Apps Script */
+      body: JSON.stringify(payload)
+    }).then(function(res){ return res.json(); }).then(function(data){
+      if(data && data.ok){
+        showFormStatus('success', 'Got it — we’ll reply within 24 hours.');
+        if(window.FORKIT_TRACK){
+          window.FORKIT_TRACK('generate_lead', {
+            inquiry_type: payload.inquiryType,
+            group_size_band: groupSizeBand(payload.groupSize)
+          });
+        }
+      }
+    }).catch(function(){ /* silent — WhatsApp/email already carried the request */ });
+  }
+
   var bookingForm = document.getElementById('bookingForm');
+  var renderedAtField = document.getElementById('renderedAt');
+  if(renderedAtField) renderedAtField.value = String(Date.now());
 
   /* Open the popup as the very first synchronous action of the click
      handler, before validation or anything else runs. Some browsers only
@@ -500,9 +592,7 @@
          redirects through api.whatsapp.com's app-launch handoff — a step
          some browsers block outright. */
       if(popup){ popup.location.href = 'https://web.whatsapp.com/send?phone=31630036888&text=' + encodeURIComponent(message); }
-      /* TODO(Phase 3): this only confirms the WhatsApp tab was opened, not
-         that the visitor actually sent the message — fire generate_lead
-         here only once there's a real backend confirming submission. */
+      submitToBackend(buildSubmissionPayload());
     });
   }
 
@@ -519,9 +609,7 @@
       var body = encodeURIComponent(buildMessage());
       var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=Bookings@forkit.nl&su=' + subject + '&body=' + body;
       if(popup){ popup.location.href = gmailUrl; }
-      /* TODO(Phase 3): same as the WhatsApp button above — wire generate_lead
-         to a real backend-confirmed submission, not just "the compose
-         window opened". */
+      submitToBackend(buildSubmissionPayload());
     });
   }
 

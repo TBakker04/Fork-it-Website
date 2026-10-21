@@ -320,6 +320,16 @@
             <input id="name" type="text" placeholder="Jane Appleseed" required>
           </div>
           <div>
+            <label for="email">Email</label>
+            <input id="email" type="email" placeholder="jane@email.com" required>
+          </div>
+        </div>
+        <div class="field-row">
+          <div>
+            <label for="phone">Phone</label>
+            <input id="phone" type="tel" placeholder="+31 6 1234 5678" required>
+          </div>
+          <div>
             <label for="event">Event</label>
             <select id="event" required>
               <option>Date Dinner</option>
@@ -344,11 +354,22 @@
           <label for="message">Tell us a bit more</label>
           <textarea id="message" placeholder="Location, occasion, dietary wishes..."></textarea>
         </div>
+        <label class="field-checkbox">
+          <input id="newsletterOptIn" type="checkbox">
+          Keep me updated about new workshops
+        </label>
+        <!-- Spam traps: real visitors never see or fill these. -->
+        <div class="field-honeypot" aria-hidden="true">
+          <label for="company">Company</label>
+          <input id="company" name="company" type="text" tabindex="-1" autocomplete="off">
+        </div>
+        <input type="hidden" id="renderedAt" value="">
         <div class="form-actions">
           <a href="https://wa.me/31630036888" target="_blank" rel="noopener" class="btn btn-dark btn-full" id="sendWhatsapp" data-track="contact_click" data-method="whatsapp">Send via WhatsApp</a>
           <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=Bookings@forkit.nl" target="_blank" rel="noopener" class="btn btn-line btn-full" id="sendEmail" data-track="contact_click" data-method="email">Send via email</a>
         </div>
         <p class="hint">This opens WhatsApp, or Gmail in a new tab, with everything filled in, ready to send.</p>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite" hidden></p>
       </form>
     </div>
   </section>
