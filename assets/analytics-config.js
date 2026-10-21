@@ -8,8 +8,5 @@ window.FORKIT_CONFIG = {
   ga4MeasurementId: 'G-WG8CTZZBGB',
   clarityProjectId: 'z15u1rb2gc',
   productionHostnames: ['forkit.nl', 'www.forkit.nl'],
-  /* Set after deploying /apps-script as a web app (see its README).
-     Until then, booking submissions still work via WhatsApp/email —
-     this only turns on the Sheet/alert/confirmation backend. */
-  appsScriptUrl: ''
+  appsScriptUrl: 'https://script.google.com/macros/s/AKfycbwsCKZRLSwwNhsuQUYXknyOgPzNwDFFxlgVG7X22uMgkOOZhAGylafUQ2fcHG6v9W99wg/exec'
 };
