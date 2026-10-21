@@ -62,7 +62,7 @@
       <a class="hide-mobile" href="menu.html">Menu &amp; Pricing</a>
       <a class="hide-mobile" href="gallery.html">Gallery</a>
       <a class="hide-mobile" href="wines.html">Our Wines</a>
-      <a class="btn btn-dark" href="#book">Reserve</a>
+      <a class="btn btn-dark" href="#book" data-track="book_click" data-location="nav">Reserve</a>
       <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
@@ -92,7 +92,7 @@
       <p class="kicker">There&rsquo;s a seat for everyone.</p>
       <p class="lede">Good food brings people together. Great food creates the memories you talk about long after the plates are cleared. At Fork It, we create dinners, experiences and moments worth sharing, bringing great food and even better people around the same table.</p>
       <div class="ctas">
-        <a class="btn btn-dark" href="#book">Join the Table</a>
+        <a class="btn btn-dark" href="#book" data-track="book_click" data-location="hero">Join the Table</a>
       </div>
     </div>
     <div class="hero-media" id="heroCarousel">
@@ -195,7 +195,7 @@
             <p class="book-page-label">Ready?</p>
             <h3>Taste the winter menu.</h3>
             <p>Tell us your date and headcount &mdash; we&rsquo;ll build the night around this menu.</p>
-            <a href="#book" class="btn btn-dark detail-book-btn" data-event="Date Dinner">Book This Now</a>
+            <a href="#book" class="btn btn-dark detail-book-btn" data-event="Date Dinner" data-track="book_click" data-location="menu_flipbook" data-workshop="date-dinner">Book This Now</a>
           </div>
           <div class="leaf-face leaf-back"></div>
         </div>
@@ -298,15 +298,15 @@
         <h2>Let&rsquo;s plan your table.</h2>
         <p>Fill in the details and send it straight to us on WhatsApp or email &mdash; we&rsquo;ll get back to you to lock in the date.</p>
         <div class="contact-list">
-          <a href="mailto:Bookings@forkit.nl">
+          <a href="mailto:Bookings@forkit.nl" data-track="contact_click" data-method="email">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
             Bookings@forkit.nl
           </a>
-          <a href="https://wa.me/31630036888" target="_blank" rel="noopener">
+          <a href="https://wa.me/31630036888" target="_blank" rel="noopener" data-track="contact_click" data-method="whatsapp">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.6-4.8A8.5 8.5 0 1 1 8.3 19.5z"/><path d="M8.5 9.3c0 3.6 2.9 6.4 6.4 6.4"/></svg>
             +31 6 3003 6888
           </a>
-          <a href="https://instagram.com/fork_it_leiden" target="_blank" rel="noopener">
+          <a href="https://instagram.com/fork_it_leiden" target="_blank" rel="noopener" data-track="contact_click" data-method="instagram">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r="1"/></svg>
             @fork_it_leiden
           </a>
@@ -345,8 +345,8 @@
           <textarea id="message" placeholder="Location, occasion, dietary wishes..."></textarea>
         </div>
         <div class="form-actions">
-          <a href="https://wa.me/31630036888" target="_blank" rel="noopener" class="btn btn-dark btn-full" id="sendWhatsapp">Send via WhatsApp</a>
-          <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=Bookings@forkit.nl" target="_blank" rel="noopener" class="btn btn-line btn-full" id="sendEmail">Send via email</a>
+          <a href="https://wa.me/31630036888" target="_blank" rel="noopener" class="btn btn-dark btn-full" id="sendWhatsapp" data-track="contact_click" data-method="whatsapp">Send via WhatsApp</a>
+          <a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=Bookings@forkit.nl" target="_blank" rel="noopener" class="btn btn-line btn-full" id="sendEmail" data-track="contact_click" data-method="email">Send via email</a>
         </div>
         <p class="hint">This opens WhatsApp, or Gmail in a new tab, with everything filled in, ready to send.</p>
       </form>
@@ -456,7 +456,7 @@
           <div class="dd-slide-content">
             <h2>Ready to book your date dinner?</h2>
             <p class="dd-lede">Tell us your date, your headcount, and any dietary wishes &mdash; we&rsquo;ll take it from there.</p>
-            <a href="#book" class="btn dd-btn detail-book-btn" data-event="Date Dinner">Book This Now<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a href="#book" class="btn dd-btn detail-book-btn" data-event="Date Dinner" data-track="book_click" data-location="workshop_page" data-workshop="date-dinner">Book This Now<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
           </div>
         </div>
 
@@ -533,7 +533,7 @@
       <div class="pd-scene-content">
         <h2>Ready to plan your private dinner?</h2>
         <p>Tell us your group size, your space, and the occasion &mdash; we&rsquo;ll build a night around it.</p>
-        <a href="#book" class="btn btn-dark detail-book-btn" data-event="Private Dinner">Book This Now</a>
+        <a href="#book" class="btn btn-dark detail-book-btn" data-event="Private Dinner" data-track="book_click" data-location="workshop_page" data-workshop="private-dinner">Book This Now</a>
       </div>
     </section>
   </div>
@@ -615,7 +615,7 @@
         <li class="no">Table + seating</li>
       </ul>
       <p class="included-note">Kitchen area required!</p>
-      <a href="#book" class="planet-btn detail-book-btn" data-event="Paella Workshop">Book This Now<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a href="#book" class="planet-btn detail-book-btn" data-event="Paella Workshop" data-track="book_click" data-location="workshop_page" data-workshop="paella-workshop">Book This Now<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </div>
 
@@ -658,7 +658,7 @@
       <div class="borrel-scene-content">
         <h2>Ready for your main event?</h2>
         <p>Tell us the occasion, the headcount, and the date &mdash; we&rsquo;ll sort the spread.</p>
-        <a href="#book" class="borrel-btn detail-book-btn" data-event="Borrel Catering">Book This Now</a>
+        <a href="#book" class="borrel-btn detail-book-btn" data-event="Borrel Catering" data-track="book_click" data-location="workshop_page" data-workshop="borrel-catering">Book This Now</a>
       </div>
     </section>
   </div>
@@ -674,15 +674,16 @@
     <p class="foot-legal"><a href="privacy.html">Privacy &amp; Cookies</a> &middot; <button type="button" data-cc="show-preferencesModal">Cookie settings</button></p>
   </div>
   <div class="foot-right">
-    <a href="mailto:Bookings@forkit.nl">Bookings@forkit.nl</a>
-    <a href="https://wa.me/31630036888" target="_blank" rel="noopener">WhatsApp</a>
-    <a href="https://instagram.com/fork_it_leiden" target="_blank" rel="noopener">Instagram</a>
+    <a href="mailto:Bookings@forkit.nl" data-track="contact_click" data-method="email">Bookings@forkit.nl</a>
+    <a href="https://wa.me/31630036888" target="_blank" rel="noopener" data-track="contact_click" data-method="whatsapp">WhatsApp</a>
+    <a href="https://instagram.com/fork_it_leiden" target="_blank" rel="noopener" data-track="contact_click" data-method="instagram">Instagram</a>
   </div>
 </footer>
 
 <script src="assets/vendor/cookieconsent/cookieconsent.umd.js"></script>
 <script src="assets/analytics-config.js"></script>
 <script src="assets/analytics-consent.js"></script>
+<script src="assets/analytics-events.js"></script>
 <script src="assets/site.js"></script>
 </body>
 </html>

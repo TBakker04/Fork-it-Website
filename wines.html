@@ -38,7 +38,7 @@
       <a class="hide-mobile" href="menu.html">Menu &amp; Pricing</a>
       <a class="hide-mobile" href="gallery.html">Gallery</a>
       <a class="hide-mobile" href="wines.html">Our Wines</a>
-      <a class="btn btn-dark" href="home.html#book">Reserve</a>
+      <a class="btn btn-dark" href="home.html#book" data-track="book_click" data-location="nav">Reserve</a>
       <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
@@ -83,15 +83,16 @@
     <p class="foot-legal"><a href="privacy.html">Privacy &amp; Cookies</a> &middot; <button type="button" data-cc="show-preferencesModal">Cookie settings</button></p>
   </div>
   <div class="foot-right">
-    <a href="mailto:Bookings@forkit.nl">Bookings@forkit.nl</a>
-    <a href="https://wa.me/31630036888" target="_blank" rel="noopener">WhatsApp</a>
-    <a href="https://instagram.com/fork_it_leiden" target="_blank" rel="noopener">Instagram</a>
+    <a href="mailto:Bookings@forkit.nl" data-track="contact_click" data-method="email">Bookings@forkit.nl</a>
+    <a href="https://wa.me/31630036888" target="_blank" rel="noopener" data-track="contact_click" data-method="whatsapp">WhatsApp</a>
+    <a href="https://instagram.com/fork_it_leiden" target="_blank" rel="noopener" data-track="contact_click" data-method="instagram">Instagram</a>
   </div>
 </footer>
 
 <script src="assets/vendor/cookieconsent/cookieconsent.umd.js"></script>
 <script src="assets/analytics-config.js"></script>
 <script src="assets/analytics-consent.js"></script>
+<script src="assets/analytics-events.js"></script>
 <script src="assets/site.js"></script>
 </body>
 </html>

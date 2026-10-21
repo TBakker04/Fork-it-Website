@@ -299,6 +299,12 @@
   };
 
   var currentView = 'home';
+  var workshopSlugByPageId = {
+    'page-date-dinner': 'date-dinner',
+    'page-private-dinner': 'private-dinner',
+    'page-paella-workshop': 'paella-workshop',
+    'page-borrel-catering': 'borrel-catering'
+  };
 
   function showView(id){
     var changed = (id !== currentView);
@@ -312,6 +318,9 @@
        #season, #book...) while already on the home view
        should scroll natively to that section, not get reset to 0,0. */
     if(changed){ window.scrollTo(0, 0); }
+    if(changed && window.FORKIT_TRACK && workshopSlugByPageId[id]){
+      window.FORKIT_TRACK('workshop_view', { workshop: workshopSlugByPageId[id] });
+    }
   }
 
   function applyRoute(){
@@ -491,6 +500,9 @@
          redirects through api.whatsapp.com's app-launch handoff — a step
          some browsers block outright. */
       if(popup){ popup.location.href = 'https://web.whatsapp.com/send?phone=31630036888&text=' + encodeURIComponent(message); }
+      /* TODO(Phase 3): this only confirms the WhatsApp tab was opened, not
+         that the visitor actually sent the message — fire generate_lead
+         here only once there's a real backend confirming submission. */
     });
   }
 
@@ -507,6 +519,9 @@
       var body = encodeURIComponent(buildMessage());
       var gmailUrl = 'https://mail.google.com/mail/?view=cm&fs=1&to=Bookings@forkit.nl&su=' + subject + '&body=' + body;
       if(popup){ popup.location.href = gmailUrl; }
+      /* TODO(Phase 3): same as the WhatsApp button above — wire generate_lead
+         to a real backend-confirmed submission, not just "the compose
+         window opened". */
     });
   }
 
