@@ -86,3 +86,15 @@ This is the one job that talks to a different Google API (GA4's Analytics Data A
 3. In the Cloud Console, search for **"Google Analytics Data API"** → click **Enable**.
 4. Go back to the Apps Script editor, run `exportWeeklyAnalytics` again. It may ask you to re-authorize (same "unsafe" warning flow as before) — click through it.
 5. If it still fails, check the **Log** tab for the exact error and send it to me.
+
+### Getting the "contact method" breakdown to populate (`contact_click_by_method`)
+
+This one column needs a one-time setup step in GA4 itself, separate from the API-enabling step above — GA4 only lets you query a custom event parameter (here, `method` on `contact_click` events — whatsapp/instagram/email) through the API once it's registered as a **custom dimension**:
+
+1. In GA4: **Admin** (gear icon) → **Custom definitions** → **Custom dimensions** tab → **Create custom dimension**.
+2. Dimension name: `Contact Method` (or anything you'll recognize).
+3. Scope: **Event**.
+4. Event parameter: `method`.
+5. Save.
+
+This only applies going forward — it can take up to a day or two after registering before GA4 has collected enough data for it to show up. Until then (or if you skip this step entirely), that one column in the Weekly analytics tab just comes back empty — every other column, and the row itself, are unaffected. A single report failing like this never blocks the whole weekly export from running; it only blanks that one piece.

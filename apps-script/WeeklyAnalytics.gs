@@ -20,7 +20,11 @@ function exportWeeklyAnalytics(){
   var property = 'properties/' + propertyId;
   var range = getLastWeekRange();
 
-  var overview = runReport(property, {
+  /* Each report is fetched independently through safeRunReport, so one
+     bad/unavailable dimension (e.g. a custom dimension that isn't
+     registered in GA4 yet) only blanks that one column — it can't
+     abort the whole export and skip the row entirely. */
+  var overview = safeRunReport('overview', property, {
     dateRanges: [{ startDate: range.start, endDate: range.end }],
     metrics: [
       { name: 'activeUsers' },
@@ -30,7 +34,7 @@ function exportWeeklyAnalytics(){
     ]
   });
 
-  var customEvents = runReport(property, {
+  var customEvents = safeRunReport('customEvents', property, {
     dateRanges: [{ startDate: range.start, endDate: range.end }],
     dimensions: [{ name: 'eventName' }],
     metrics: [{ name: 'eventCount' }],
@@ -42,7 +46,12 @@ function exportWeeklyAnalytics(){
     }
   });
 
-  var contactByMethod = runReport(property, {
+  /* Requires a GA4 custom dimension registered for the "method" event
+     parameter (Admin -> Custom definitions -> Custom dimensions,
+     scope "Event", parameter name "method") — see the README. Until
+     that's registered (and has had a little time to start collecting
+     data), this column comes back empty rather than failing the job. */
+  var contactByMethod = safeRunReport('contactByMethod', property, {
     dateRanges: [{ startDate: range.start, endDate: range.end }],
     dimensions: [{ name: 'customEvent:method' }],
     metrics: [{ name: 'eventCount' }],
@@ -52,7 +61,7 @@ function exportWeeklyAnalytics(){
     orderBys: [{ metric: { metricName: 'eventCount' }, desc: true }]
   });
 
-  var sourceMedium = runReport(property, {
+  var sourceMedium = safeRunReport('sourceMedium', property, {
     dateRanges: [{ startDate: range.start, endDate: range.end }],
     dimensions: [{ name: 'sessionSource' }, { name: 'sessionMedium' }],
     metrics: [{ name: 'sessions' }],
@@ -60,7 +69,7 @@ function exportWeeklyAnalytics(){
     limit: 8
   });
 
-  var campaignLeads = runReport(property, {
+  var campaignLeads = safeRunReport('campaignLeads', property, {
     dateRanges: [{ startDate: range.start, endDate: range.end }],
     dimensions: [{ name: 'sessionCampaignName' }],
     metrics: [{ name: 'sessions' }],
@@ -68,7 +77,7 @@ function exportWeeklyAnalytics(){
     limit: 8
   });
 
-  var topPages = runReport(property, {
+  var topPages = safeRunReport('topPages', property, {
     dateRanges: [{ startDate: range.start, endDate: range.end }],
     dimensions: [{ name: 'pagePath' }],
     metrics: [{ name: 'screenPageViews' }],
@@ -91,6 +100,18 @@ function exportWeeklyAnalytics(){
 
 function runReport(property, requestBody){
   return AnalyticsData.Properties.runReport(requestBody, property);
+}
+
+/* Logs and swallows a single report's failure instead of letting it
+   abort the whole weekly export. Returns {} on failure, which every
+   formatter here already treats the same as "no data this week". */
+function safeRunReport(label, property, requestBody){
+  try {
+    return runReport(property, requestBody);
+  } catch (err){
+    logEvent('exportWeeklyAnalytics', 'ERROR', label + ' report failed: ' + err);
+    return {};
+  }
 }
 
 function getLastWeekRange(){
