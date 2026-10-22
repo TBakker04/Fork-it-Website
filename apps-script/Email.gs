@@ -1,5 +1,6 @@
 /**
- * Email.gs — the instant owner alert and the customer confirmation.
+ * Email.gs — every outbound email template: owner alert, customer
+ * confirmation, and the review request + its one reminder.
  */
 
 function sendOwnerAlert(id, data){
@@ -134,27 +135,4 @@ function sendReviewReminder(r){
   lines.push(businessName);
 
   MailApp.sendEmail(r.email, 'One more thing, ' + r.name + ' — how did we do?', lines.join('\n'), { name: businessName });
-}
-
-/* "Still interested?" nudge for a "quoted" lead that hasn't moved to
-   "booked" (or "lost") a few days after being quoted. Sent at most
-   once per inquiry — see LeadFollowUp.gs. */
-function sendLeadFollowUp(r){
-  var siteUrl = getSetting('site_url', 'https://forkit.nl');
-  var businessName = getSetting('business_name', 'Fork It');
-
-  var lines = [
-    'Hi ' + r.name + ',',
-    '',
-    'Just checking in — are you still interested in a ' + r.inquiry_type + ' with ' + businessName + '?',
-    '',
-    'If the date or details changed, just reply to this email and we’ll sort out a new quote. Or take another look at what we offer:',
-    siteUrl,
-    '',
-    'No pressure either way — happy to help whenever you’re ready.',
-    '',
-    businessName
-  ];
-
-  MailApp.sendEmail(r.email, 'Still interested in your ' + r.inquiry_type + ', ' + r.name + '?', lines.join('\n'), { name: businessName });
 }

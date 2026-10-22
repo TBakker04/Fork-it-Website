@@ -10,8 +10,7 @@ var INQUIRY_COLUMNS = [
   'preferred_date', 'group_size', 'message', 'language',
   'utm_source', 'utm_medium', 'utm_campaign', 'landing_page',
   'newsletter_opt_in', 'status', 'event_date', 'notes',
-  'calendar_event_id', 'review_requested_at', 'review_reminder_sent_at',
-  'quoted_at', 'lead_follow_up_sent_at'
+  'calendar_event_id', 'review_requested_at', 'review_reminder_sent_at'
 ];
 
 var WEEKLY_ANALYTICS_COLUMNS = [
@@ -27,7 +26,7 @@ var STATUS_COLUMNS = ['job', 'last_run_at', 'last_status', 'last_message'];
    JobRunner.gs's recordJobStatus() on every run — see the Status tab. */
 var JOB_NAMES = [
   'leadDigest', 'calendarSync', 'reviewRequests', 'uptimeCheck',
-  'weeklyAnalytics', 'monthlyCleanup', 'leadFollowUp'
+  'weeklyAnalytics', 'monthlyCleanup'
 ];
 
 var DEFAULT_SETTINGS = [
