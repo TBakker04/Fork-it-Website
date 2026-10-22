@@ -10,7 +10,8 @@ var INQUIRY_COLUMNS = [
   'preferred_date', 'group_size', 'message', 'language',
   'utm_source', 'utm_medium', 'utm_campaign', 'landing_page',
   'newsletter_opt_in', 'status', 'event_date', 'notes',
-  'calendar_event_id', 'review_requested_at'
+  'calendar_event_id', 'review_requested_at', 'review_reminder_sent_at',
+  'quoted_at', 'lead_follow_up_sent_at'
 ];
 
 var WEEKLY_ANALYTICS_COLUMNS = [
@@ -18,6 +19,15 @@ var WEEKLY_ANALYTICS_COLUMNS = [
   'avg_engagement_time', 'generate_lead', 'form_start', 'book_click',
   'contact_click_by_method', 'sessions_by_source_medium',
   'leads_by_campaign', 'top_pages', 'inquiries_count'
+];
+
+var STATUS_COLUMNS = ['job', 'last_run_at', 'last_status', 'last_message'];
+
+/* One row per scheduled job, seeded by setup() and kept current by
+   JobRunner.gs's recordJobStatus() on every run — see the Status tab. */
+var JOB_NAMES = [
+  'leadDigest', 'calendarSync', 'reviewRequests', 'uptimeCheck',
+  'weeklyAnalytics', 'monthlyCleanup', 'leadFollowUp'
 ];
 
 var DEFAULT_SETTINGS = [
@@ -38,6 +48,7 @@ function setup(){
   setupWeeklyAnalyticsSheet(ss);
   setupSettingsSheet(ss);
   setupLogSheet(ss);
+  setupStatusSheet(ss);
   SpreadsheetApp.flush();
   Logger.log('Setup complete. Fill in the Settings tab (owner_email at least), then deploy as a web app.');
 }
@@ -86,6 +97,25 @@ function setupLogSheet(ss){
   var sheet = getOrCreateSheet(ss, 'Log');
   sheet.getRange(1, 1, 1, 4).setValues([['timestamp', 'job', 'level', 'message']]);
   sheet.setFrozenRows(1);
+}
+
+/* One row per scheduled job, so "is everything still running?" is a
+   glance at this tab instead of hunting through old emails. Pre-seeded
+   with "never run" rows so it's useful even before the first run; after
+   that, JobRunner.gs's recordJobStatus() keeps each row current. */
+function setupStatusSheet(ss){
+  var sheet = getOrCreateSheet(ss, 'Status');
+  sheet.getRange(1, 1, 1, STATUS_COLUMNS.length).setValues([STATUS_COLUMNS]);
+  sheet.setFrozenRows(1);
+
+  var existingJobs = sheet.getLastRow() > 1
+    ? sheet.getRange(2, 1, sheet.getLastRow() - 1, 1).getValues().map(function(r){ return r[0]; })
+    : [];
+  JOB_NAMES.forEach(function(job){
+    if (existingJobs.indexOf(job) === -1){
+      sheet.appendRow([job, '', 'never run', '']);
+    }
+  });
 }
 
 function getSheet(name){

@@ -47,17 +47,19 @@ clasp deploy -i <deploymentId>   # redeploys to the SAME url — find deployment
 - `Setup.gs` — `setup()`, run once to create the sheet tabs; also the column definitions
 - `Settings.gs` — reads the Settings tab so nothing is hard-coded
 - `Validation.gs` — spam checks (honeypot, timing), required-field checks, formula-injection escaping
-- `Email.gs` — the owner alert and the customer confirmation (rate-limited to 1/hour/email)
+- `Email.gs` — every outbound email template: owner alert, customer confirmation, review ask + reminder, lead follow-up
 - `Log.gs` — every job writes errors/info here instead of failing silently
-- `JobRunner.gs` — wraps every scheduled job so a failure gets logged and emails you at most once per day, not once per hour
+- `JobRunner.gs` — wraps every scheduled job so a failure gets logged, the **Status** tab is updated, and you get at most one failure email per job per day, not once per hour
 - `SheetRecords.gs` — shared helpers for reading/writing Inquiries rows as plain objects
+- `InquiryEdits.gs` — `onEdit(e)`, runs automatically (no trigger install needed) the moment you set a row's status to "quoted" in the Sheet; stamps `quoted_at`
 - `LeadDigest.gs` — daily 08:00, emails you inquiries that have gone too long without a reply
 - `CalendarSync.gs` — daily 08:00, creates/updates a Calendar event for each "booked" row
-- `ReviewRequests.gs` — daily 10:00, thanks customers 1-3 days after a "done" event and asks for a review
+- `ReviewRequests.gs` — daily 10:00, thanks customers 1-3 days after a "done" event and asks for a review; one reminder 7 days later if they haven't been reminded yet
+- `LeadFollowUp.gs` — daily 09:00, "still interested?" nudge for a "quoted" lead that hasn't moved to "booked" 3+ days after being quoted — sent once per inquiry
 - `Uptime.gs` — hourly, checks the site's actually up; alerts if not, alerts again when it recovers
 - `WeeklyAnalytics.gs` — Tuesday 06:00, pulls last week's GA4 numbers into the Weekly analytics tab
 - `PrivacyCleanup.gs` — monthly, anonymises inquiries older than `retention_months`
-- `Triggers.gs` — `installTriggers()`, run once to schedule all six jobs above
+- `Triggers.gs` — `installTriggers()`, run once to schedule all seven time-based jobs above (everything except `InquiryEdits.gs`, which needs no trigger)
 
 ## Phase 5: adding the scheduled jobs (follow-ups, calendar, reviews, reports, uptime)
 
@@ -76,6 +78,24 @@ You already have the Phase 3 files in place. Now add the Phase 5 ones the same w
 5. Once each job above ran cleanly: select **`installTriggers`** from the dropdown and click **Run**. This schedules all six jobs and removes any old triggers first, so it's always safe to re-run after a code update.
 6. Check it worked: **Triggers** icon (clock icon) in the left sidebar — you should see 6 triggers listed, one per job.
 7. Redeploy the web app so the live site picks up the latest code: **Deploy → Manage deployments → pencil icon → New version → Deploy** (same as any other code update — keeps the same URL).
+
+## Phase 5.1: Status tab, review reminders, lead follow-up
+
+Three small additions on top of Phase 5 — same copy-paste workflow:
+
+1. Create 2 new files (**+ → Script**): `LeadFollowUp`, `InquiryEdits` — paste each one's contents in.
+2. Re-paste the updated `Setup.gs`, `JobRunner.gs`, `ReviewRequests.gs`, `Email.gs`, and `Triggers.gs` over their existing contents (all five changed).
+3. Save everything (**Ctrl+S**), then re-run **`setup`** from the function dropdown. It's safe to re-run — it only adds the new columns/tabs, never touches existing data. You should now see a **Status** tab with 7 rows (one per job, all "never run" until their first run), and the **Inquiries** tab should have 3 new columns at the end: `review_reminder_sent_at`, `quoted_at`, `lead_follow_up_sent_at`.
+4. Test the new pieces:
+   - **`InquiryEdits.gs`'s `onEdit`** needs no test run from the dropdown — just open the **Inquiries** tab in the Sheet itself and change any row's `status` cell to `quoted`. Its `quoted_at` cell should fill in within a second or two, automatically.
+   - **`sendLeadFollowUps`** — set a test row's status to `quoted` with `quoted_at` (or `received_at`, as a fallback) at least 3 days in the past, run it, check that row's email inbox for a "Still interested in your ..." message.
+   - **`sendReviewRequests`** — it now also covers reminders: set a test row's status to `done` with `review_requested_at` 7+ days ago and `review_reminder_sent_at` empty, run it, check for a "One more thing, ... — how did we do?" email.
+5. Re-run **`installTriggers`** — it now schedules **7** jobs (the new `job_leadFollowUp`, daily 09:00, alongside the original six). Check the **Triggers** panel shows 7.
+6. Redeploy the web app (**Deploy → Manage deployments → pencil icon → New version → Deploy**) so the live site picks up the latest code — strictly speaking this phase didn't touch `doPost`, but it's good habit to keep the deployed version in sync with what's in the editor.
+
+### Reading the Status tab
+
+One row per scheduled job: `job`, `last_run_at`, `last_status` (`OK` / `ERROR` / `never run`), `last_message` (the error, when there is one). Updated automatically by every job run through `JobRunner.gs`'s `runJob()` — which is all of them. If a job's `last_run_at` looks stale (hasn't updated when it should have), check the **Triggers** panel first (maybe it got deleted or disabled), then the **Log** tab for details.
 
 ### If `exportWeeklyAnalytics` fails
 

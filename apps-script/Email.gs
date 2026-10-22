@@ -88,3 +88,73 @@ function sendCustomerConfirmation(data){
 
   MailApp.sendEmail(data.email, subject, body, options);
 }
+
+/* First review ask, sent 1-3 days after a "done" event. */
+function sendReviewRequest(r){
+  var reviewLink = getSetting('google_review_link', '');
+  var instagramUrl = getSetting('instagram_url', 'https://instagram.com/fork_it_leiden');
+  var businessName = getSetting('business_name', 'Fork It');
+
+  var lines = [
+    'Hi ' + r.name + ',',
+    '',
+    'Thanks again for having ' + businessName + ' cook for your ' + r.inquiry_type + '! We hope it was a great night.',
+    '',
+    'If you have a minute, a quick review helps us a lot:'
+  ];
+  if (reviewLink) lines.push(reviewLink);
+  lines.push('');
+  lines.push('And if you snapped any photos, tag us on Instagram — we love seeing them: ' + instagramUrl);
+  lines.push('');
+  lines.push('Talk soon,');
+  lines.push(businessName);
+
+  MailApp.sendEmail(r.email, 'How was your ' + r.inquiry_type + ', ' + r.name + '?', lines.join('\n'), { name: businessName });
+}
+
+/* One reminder, 7 days after the first ask, only if review_requested_at
+   is set and review_reminder_sent_at isn't yet (see ReviewRequests.gs).
+   We have no way to know if they actually left a review — this fires
+   regardless, but never more than once. */
+function sendReviewReminder(r){
+  var reviewLink = getSetting('google_review_link', '');
+  var businessName = getSetting('business_name', 'Fork It');
+
+  var lines = [
+    'Hi ' + r.name + ',',
+    '',
+    'Just a quick one — we asked last week how your ' + r.inquiry_type + ' with ' + businessName + ' went. No worries if you missed it!',
+    '',
+    'If you have 30 seconds, a review really helps us out:'
+  ];
+  if (reviewLink) lines.push(reviewLink);
+  lines.push('');
+  lines.push('Thanks either way — it was a pleasure cooking for you.');
+  lines.push('');
+  lines.push(businessName);
+
+  MailApp.sendEmail(r.email, 'One more thing, ' + r.name + ' — how did we do?', lines.join('\n'), { name: businessName });
+}
+
+/* "Still interested?" nudge for a "quoted" lead that hasn't moved to
+   "booked" (or "lost") a few days after being quoted. Sent at most
+   once per inquiry — see LeadFollowUp.gs. */
+function sendLeadFollowUp(r){
+  var siteUrl = getSetting('site_url', 'https://forkit.nl');
+  var businessName = getSetting('business_name', 'Fork It');
+
+  var lines = [
+    'Hi ' + r.name + ',',
+    '',
+    'Just checking in — are you still interested in a ' + r.inquiry_type + ' with ' + businessName + '?',
+    '',
+    'If the date or details changed, just reply to this email and we’ll sort out a new quote. Or take another look at what we offer:',
+    siteUrl,
+    '',
+    'No pressure either way — happy to help whenever you’re ready.',
+    '',
+    businessName
+  ];
+
+  MailApp.sendEmail(r.email, 'Still interested in your ' + r.inquiry_type + ', ' + r.name + '?', lines.join('\n'), { name: businessName });
+}

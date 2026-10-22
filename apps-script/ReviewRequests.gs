@@ -1,41 +1,33 @@
 /**
  * ReviewRequests.gs — daily 10:00. Thanks customers 1-3 days after a
- * "done" event and asks for a review. Never sends twice (checks and
- * sets review_requested_at).
+ * "done" event and asks for a review. If they haven't left one a week
+ * later (we can't actually detect that, so: haven't been reminded
+ * yet), sends one reminder — and only one, ever, per inquiry.
  */
 
 function sendReviewRequests(){
   var records = getAllInquiryRecords();
   var now = new Date();
-  var reviewLink = getSetting('google_review_link', '');
-  var instagramUrl = getSetting('instagram_url', 'https://instagram.com/fork_it_leiden');
-  var businessName = getSetting('business_name', 'Fork It');
 
   records.forEach(function(r){
     if (r.status !== 'done') return;
-    if (r.review_requested_at) return;
-    var eventDate = toDateOnly(r.event_date);
-    if (!eventDate) return;
 
-    var daysAgo = daysSince(eventDate, now);
-    if (daysAgo < 1 || daysAgo > 3) return;
+    if (!r.review_requested_at){
+      var eventDate = toDateOnly(r.event_date);
+      if (!eventDate) return;
+      var daysAgo = daysSince(eventDate, now);
+      if (daysAgo < 1 || daysAgo > 3) return;
+      sendReviewRequest(r);
+      setInquiryField(r._rowIndex, 'review_requested_at', now);
+      return;
+    }
 
-    var lines = [
-      'Hi ' + r.name + ',',
-      '',
-      'Thanks again for having ' + businessName + ' cook for your ' + r.inquiry_type + '! We hope it was a great night.',
-      '',
-      'If you have a minute, a quick review helps us a lot:'
-    ];
-    if (reviewLink) lines.push(reviewLink);
-    lines.push('');
-    lines.push('And if you snapped any photos, tag us on Instagram — we love seeing them: ' + instagramUrl);
-    lines.push('');
-    lines.push('Talk soon,');
-    lines.push(businessName);
-
-    MailApp.sendEmail(r.email, 'How was your ' + r.inquiry_type + ', ' + r.name + '?', lines.join('\n'), { name: businessName });
-    setInquiryField(r._rowIndex, 'review_requested_at', now);
+    if (r.review_reminder_sent_at) return;
+    var requestedAt = toDateOnly(r.review_requested_at);
+    if (!requestedAt) return;
+    if (daysSince(requestedAt, now) < 7) return;
+    sendReviewReminder(r);
+    setInquiryField(r._rowIndex, 'review_reminder_sent_at', now);
   });
 }
 

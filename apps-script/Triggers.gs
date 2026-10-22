@@ -17,6 +17,9 @@ function installTriggers(){
   ScriptApp.newTrigger('job_reviewRequests')
     .timeBased().atHour(10).everyDays(1).inTimezone('Europe/Amsterdam').create();
 
+  ScriptApp.newTrigger('job_leadFollowUp')
+    .timeBased().atHour(9).everyDays(1).inTimezone('Europe/Amsterdam').create();
+
   ScriptApp.newTrigger('job_uptimeCheck')
     .timeBased().everyHours(1).create();
 
