@@ -54,10 +54,11 @@ clasp deploy -i <deploymentId>   # redeploys to the SAME url — find deployment
 - `LeadDigest.gs` — daily 08:00, emails you inquiries that have gone too long without a reply
 - `CalendarSync.gs` — daily 08:00, creates/updates a Calendar event for each "booked" row
 - `ReviewRequests.gs` — daily 10:00, thanks customers 1-3 days after a "done" event and asks for a review; one reminder 7 days later if they haven't been reminded yet
+- `BookingConflicts.gs` — fires the instant you set a row to "booked" (or edit its `event_date`); if another row is already "booked" for that same day, reverts this one back to "quoted" and emails you — see "Double-booking protection" below
 - `Uptime.gs` — hourly, checks the site's actually up; alerts if not, alerts again when it recovers
 - `WeeklyAnalytics.gs` — Tuesday 06:00, pulls last week's GA4 numbers into the Weekly analytics tab
 - `PrivacyCleanup.gs` — monthly, anonymises inquiries older than `retention_months`
-- `Triggers.gs` — `installTriggers()`, run once to schedule all six time-based jobs above
+- `Triggers.gs` — `installTriggers()`, run once to schedule all six time-based jobs above, plus the `BookingConflicts.gs` edit-trigger
 
 ## Phase 5: adding the scheduled jobs (follow-ups, calendar, reviews, reports, uptime)
 
@@ -88,6 +89,20 @@ Two small additions on top of Phase 5 — same copy-paste workflow:
 5. Redeploy the web app (**Deploy → Manage deployments → pencil icon → New version → Deploy**) so the live site picks up the latest code — strictly speaking this phase didn't touch `doPost`, but it's good habit to keep the deployed version in sync with what's in the editor.
 
 (A fourth idea from this round — an automatic "still interested?" nudge for leads stuck on "quoted" — is on hold for now, not built.)
+
+## Phase 5.2: double-booking protection
+
+You already manually control which rows become "booked" — nothing on the site books anything automatically. This adds a safety net for that manual step: if you ever set two rows to "booked" on the *same day*, the second one gets silently reverted and you get warned, instead of it just sitting there as two confirmed jobs on one day.
+
+1. Create 1 new file (**+ → Script**): `BookingConflicts` — paste its contents in.
+2. Re-paste the updated `Triggers.gs` (it now also installs an edit-trigger, not just the six time-based ones).
+3. Save everything (**Ctrl+S**), then re-run **`installTriggers`**. Check the **Triggers** panel — you should now see **7** entries: the six jobs, plus one event-driven trigger (`onInquiryStatusEdit`, type "On edit", instead of "Time-driven").
+4. Test it: pick two different rows, set an `event_date` on both to the same day, then set both rows' `status` to `booked` (one at a time). The second one should flip back to `quoted` within a second or two, and you should get an email titled "[ForkIt] Double booking on ...". Set them to different dates and repeat — this time both should stay `booked`.
+
+Notes:
+- It only compares `booked` rows against other `booked` rows — a `quoted` or `lost` row on the same day never blocks anything.
+- It checks on edits to either `status` or `event_date`, so it also catches the case where you book something first and only fill in the date afterwards.
+- There's currently no override: if you genuinely want two things booked on the same day, setting the reverted row back to `booked` will just get reverted again. Say the word if you ever need an exception path (e.g. a bigger crew day) and we'll add one.
 
 ### Reading the Status tab
 
