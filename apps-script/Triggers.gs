@@ -26,9 +26,6 @@ function installTriggers(){
   ScriptApp.newTrigger('job_monthlyCleanup')
     .timeBased().onMonthDay(1).atHour(3).inTimezone('Europe/Amsterdam').create();
 
-  ScriptApp.newTrigger('job_financeReport')
-    .timeBased().onMonthDay(1).atHour(7).inTimezone('Europe/Amsterdam').create();
-
   /* Installable (not simple) onEdit trigger — needs MailApp access to
      warn about a double booking, which a plain onEdit(e) can't do. */
   ScriptApp.newTrigger('onInquiryStatusEdit')

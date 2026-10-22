@@ -58,8 +58,7 @@ clasp deploy -i <deploymentId>   # redeploys to the SAME url — find deployment
 - `Uptime.gs` — hourly, checks the site's actually up; alerts if not, alerts again when it recovers
 - `WeeklyAnalytics.gs` — Tuesday 06:00, pulls last week's GA4 numbers into the Weekly analytics tab
 - `PrivacyCleanup.gs` — monthly, anonymises inquiries older than `retention_months`
-- `Finance.gs` — 1st of every month, a turnover/cost overview from the Income/Expenses tabs, plus a BTW-quarter section after March/June/September/December close — see "Finance tracking" below
-- `Triggers.gs` — `installTriggers()`, run once to schedule all seven time-based jobs above, plus the `BookingConflicts.gs` edit-trigger
+- `Triggers.gs` — `installTriggers()`, run once to schedule all six time-based jobs above, plus the `BookingConflicts.gs` edit-trigger
 
 ## Phase 5: adding the scheduled jobs (follow-ups, calendar, reviews, reports, uptime)
 
@@ -104,24 +103,6 @@ Notes:
 - It only compares `booked` rows against other `booked` rows — a `quoted` or `lost` row on the same day never blocks anything.
 - It checks on edits to either `status` or `event_date`, so it also catches the case where you book something first and only fill in the date afterwards.
 - There's currently no override: if you genuinely want two things booked on the same day, setting the reverted row back to `booked` will just get reverted again. Say the word if you ever need an exception path (e.g. a bigger crew day) and we'll add one.
-
-## Phase 5.3: finance tracking + BTW overview (draft, not a filing tool)
-
-Two new tabs, **Income** and **Expenses**, that you fill in by hand, plus a job that sums them up and emails you an overview.
-
-**This is a prep/draft tool, not a certified bookkeeping system or an actual BTW-aangifte.** Dutch BTW rates for catering (food vs. alcohol vs. service, dine-in vs. off-site) are genuinely situation-dependent and changed as recently as January 2026 — nothing in this code assumes, defaults, or hardcodes a rate. You fill in `btw_rate_pct` yourself, per line, from the actual invoice/receipt. Verify the correct rate at belastingdienst.nl (or with an accountant, even just a one-off check) before trusting the totals for an actual filing.
-
-1. Create 1 new file (**+ → Script**): `Finance` — paste its contents in.
-2. Re-paste the updated `Setup.gs`, `SheetRecords.gs`, and `Triggers.gs` over their existing contents (all three changed — `SheetRecords.gs`'s change is just a safe refactor, `getAllInquiryRecords()` behaves exactly as before).
-3. Save everything (**Ctrl+S**), then re-run **`setup`**. You should now see two new tabs: **Income** and **Expenses**, each with a `paid` checkbox column and a euro-formatted `amount_excl_btw` column.
-4. Fill in a few rows by hand to test:
-   - **Income**: `date`, `description`, `client`, `amount_excl_btw` (what you charged, excl. BTW), `btw_rate_pct` (the rate for that line, e.g. `21` or `9` — leave blank if you haven't verified it yet, the report will flag it instead of guessing).
-   - **Expenses**: same idea — `date`, `description`, `category` (e.g. "ingredients", "equipment"), `amount_excl_btw`, `btw_rate_pct`.
-5. Test the report: select **`sendFinanceReport`** from the function dropdown and run it. You'll get an email titled "[ForkIt] Financieel overzicht — ..." covering last month's Income/Expenses rows. (If today isn't the 1st of a BTW-quarter month, the email won't have a quarterly section yet — that's expected; it only appears when the run date's previous month was March, June, September, or December.)
-6. Re-run **`installTriggers`** — it now schedules **8** jobs total (the new `job_financeReport`, 1st of every month at 07:00) plus the edit-trigger. Check the **Triggers** panel shows 8 entries.
-7. Redeploy the web app (**Deploy → Manage deployments → pencil icon → New version → Deploy**) to keep the editor and the live deployment in sync.
-
-What the monthly email covers: turnover and BTW received (excl./incl. split), costs and BTW paid (deductible voorbelasting), net result, and BTW owed/reclaimable — each total flagged with how many rows had no `btw_rate_pct` filled in yet (those still count toward turnover/costs, just not toward the BTW totals, so the report never silently assumes 0%). Every email ends with a reminder to verify the numbers yourself before filing.
 
 ### Reading the Status tab
 
