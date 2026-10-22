@@ -26,7 +26,20 @@ var STATUS_COLUMNS = ['job', 'last_run_at', 'last_status', 'last_message'];
    JobRunner.gs's recordJobStatus() on every run — see the Status tab. */
 var JOB_NAMES = [
   'leadDigest', 'calendarSync', 'reviewRequests', 'uptimeCheck',
-  'weeklyAnalytics', 'monthlyCleanup'
+  'weeklyAnalytics', 'monthlyCleanup', 'financeReport'
+];
+
+/* Income/Expenses: you fill in amount_excl_btw and btw_rate_pct by
+   hand, per line, from the actual invoice/receipt/quote — the rate is
+   never assumed or hardcoded anywhere in this project. See Finance.gs. */
+var INCOME_COLUMNS = [
+  'id', 'date', 'description', 'client', 'inquiry_id',
+  'amount_excl_btw', 'btw_rate_pct', 'paid', 'paid_at', 'notes'
+];
+
+var EXPENSE_COLUMNS = [
+  'id', 'date', 'description', 'category',
+  'amount_excl_btw', 'btw_rate_pct', 'paid', 'notes'
 ];
 
 var DEFAULT_SETTINGS = [
@@ -48,6 +61,8 @@ function setup(){
   setupSettingsSheet(ss);
   setupLogSheet(ss);
   setupStatusSheet(ss);
+  setupIncomeSheet(ss);
+  setupExpensesSheet(ss);
   SpreadsheetApp.flush();
   Logger.log('Setup complete. Fill in the Settings tab (owner_email at least), then deploy as a web app.');
 }
@@ -115,6 +130,37 @@ function setupStatusSheet(ss){
       sheet.appendRow([job, '', 'never run', '']);
     }
   });
+}
+
+/* amount_excl_btw: what you charged (or paid) before BTW. btw_rate_pct:
+   the rate you looked up for that specific line (e.g. 21, 9, 0) — fill
+   in by hand, never auto-filled or guessed. A blank btw_rate_pct is
+   fine (the line still counts toward turnover) but Finance.gs will
+   flag it as "not counted in BTW" in the report until it's filled in. */
+function setupIncomeSheet(ss){
+  var sheet = getOrCreateSheet(ss, 'Income');
+  sheet.getRange(1, 1, 1, INCOME_COLUMNS.length).setValues([INCOME_COLUMNS]);
+  sheet.setFrozenRows(1);
+
+  var amountCol = INCOME_COLUMNS.indexOf('amount_excl_btw') + 1;
+  sheet.getRange(2, amountCol, Math.max(sheet.getMaxRows() - 1, 1), 1).setNumberFormat('€ #,##0.00');
+
+  var paidCol = INCOME_COLUMNS.indexOf('paid') + 1;
+  sheet.getRange(2, paidCol, Math.max(sheet.getMaxRows() - 1, 1), 1)
+    .setDataValidation(SpreadsheetApp.newDataValidation().requireCheckbox().build());
+}
+
+function setupExpensesSheet(ss){
+  var sheet = getOrCreateSheet(ss, 'Expenses');
+  sheet.getRange(1, 1, 1, EXPENSE_COLUMNS.length).setValues([EXPENSE_COLUMNS]);
+  sheet.setFrozenRows(1);
+
+  var amountCol = EXPENSE_COLUMNS.indexOf('amount_excl_btw') + 1;
+  sheet.getRange(2, amountCol, Math.max(sheet.getMaxRows() - 1, 1), 1).setNumberFormat('€ #,##0.00');
+
+  var paidCol = EXPENSE_COLUMNS.indexOf('paid') + 1;
+  sheet.getRange(2, paidCol, Math.max(sheet.getMaxRows() - 1, 1), 1)
+    .setDataValidation(SpreadsheetApp.newDataValidation().requireCheckbox().build());
 }
 
 function getSheet(name){

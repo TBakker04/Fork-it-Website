@@ -1,10 +1,12 @@
 /**
- * SheetRecords.gs — shared helpers for reading/writing the Inquiries
- * tab as plain objects instead of raw row/column indexes.
+ * SheetRecords.gs — shared helpers for reading/writing a tab's rows as
+ * plain objects instead of raw row/column indexes. Originally just for
+ * Inquiries; getAllRecords() is the generic version Finance.gs reuses
+ * for Income/Expenses.
  */
 
-function getAllInquiryRecords(){
-  var sheet = getSheet('Inquiries');
+function getAllRecords(sheetName){
+  var sheet = getSheet(sheetName);
   var values = sheet.getDataRange().getValues();
   var headers = values[0];
   var records = [];
@@ -17,6 +19,10 @@ function getAllInquiryRecords(){
     records.push(record);
   }
   return records;
+}
+
+function getAllInquiryRecords(){
+  return getAllRecords('Inquiries');
 }
 
 function setInquiryField(rowIndex, columnName, value){
