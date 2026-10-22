@@ -128,7 +128,9 @@
     var offerFirstClone = offerReal[0].cloneNode(true);
     var offerLastClone = offerReal[offerReal.length - 1].cloneNode(true);
     offerFirstClone.setAttribute('aria-hidden', 'true');
+    offerFirstClone.setAttribute('tabindex', '-1');
     offerLastClone.setAttribute('aria-hidden', 'true');
+    offerLastClone.setAttribute('tabindex', '-1');
     offerTrack.insertBefore(offerLastClone, offerReal[0]);
     offerTrack.appendChild(offerFirstClone);
 

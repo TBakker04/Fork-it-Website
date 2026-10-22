@@ -4,7 +4,7 @@
     --surface-2:#F7F6F3;
     --ink:#161311;
     --ink-soft:#5B5650;
-    --ink-faint:#8B857C;
+    --ink-faint:#6F6A61;
     --line:rgba(22,19,17,0.16);
     --line-strong:rgba(22,19,17,0.9);
     --radius-lg: 4px;
@@ -174,13 +174,16 @@
   .hero-media .tag svg{ width:14px; height:14px; }
   .hero-dots{
     position:absolute; right:14px; bottom:14px; z-index:3;
-    display:flex; gap:7px;
+    display:flex;
   }
   .hero-dots button{
-    width:7px; height:7px; border-radius:999px; padding:0; border:1px solid #fff;
-    background:transparent; cursor:pointer;
+    width:24px; height:24px; padding:0; border:none; background:transparent; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
   }
-  .hero-dots button.is-active{ background:#fff; width:18px; }
+  .hero-dots button::after{
+    content:""; display:block; width:7px; height:7px; border-radius:999px; border:1px solid #fff;
+  }
+  .hero-dots button.is-active::after{ background:#fff; width:18px; }
   @media (prefers-reduced-motion: reduce){
     .hero-media .slide{ transition:none; }
   }
@@ -266,13 +269,16 @@
 
   .offer-dots{
     margin-top:20px;
-    display:flex; justify-content:center; gap:8px;
+    display:flex; justify-content:center;
   }
   .offer-dots button{
-    width:7px; height:7px; border-radius:999px; padding:0; border:1px solid var(--ink);
-    background:transparent; cursor:pointer;
+    width:24px; height:24px; padding:0; border:none; background:transparent; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
   }
-  .offer-dots button.is-active{ background:var(--ink); width:18px; }
+  .offer-dots button::after{
+    content:""; display:block; width:7px; height:7px; border-radius:999px; border:1px solid var(--ink);
+  }
+  .offer-dots button.is-active::after{ background:var(--ink); width:18px; }
 
   @media (min-width:621px){
     /* clip the viewport to exactly 3 slides + 2 gaps so no sliver of a
@@ -694,18 +700,21 @@
     text-transform:uppercase; letter-spacing:0.08em;
   }
   .review-dots{
-    margin-top:32px; display:flex; justify-content:center; gap:8px;
+    margin-top:32px; display:flex; justify-content:center;
   }
   .review-dots button{
-    width:7px; height:7px; border-radius:999px; padding:0; border:1px solid var(--ink);
-    background:transparent; cursor:pointer;
+    width:24px; height:24px; padding:0; border:none; background:transparent; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
   }
-  .review-dots button.is-active{ background:var(--ink); width:18px; }
+  .review-dots button::after{
+    content:""; display:block; width:7px; height:7px; border-radius:999px; border:1px solid var(--ink);
+  }
+  .review-dots button.is-active::after{ background:var(--ink); width:18px; }
   .review-cta{
     margin-top:40px; padding-top:28px; border-top:1px solid var(--line);
     text-align:center;
   }
-  .review-cta h4{ font-size:1.1rem; font-family:'Fraunces',serif; font-style:italic; font-weight:600; }
+  .review-cta h3{ font-size:1.1rem; font-family:'Fraunces',serif; font-style:italic; font-weight:600; }
   .review-cta p{ color:var(--ink-soft); font-size:0.92rem; margin-top:6px; margin-bottom:18px; }
   @media (prefers-reduced-motion: reduce){
     .review-slide{ transition:none; }

@@ -9,7 +9,8 @@
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Karla:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Karla:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Karla:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"></noscript>
 <title>Fork It Leiden</title>
 <meta name="description" content="Fork It — Date Dinners, Private Dinners, Paella Workshops and Borrel Catering in Leiden, Netherlands. Cooked fresh, wherever you are.">
 <link rel="canonical" href="https://forkit.nl/home.html">
@@ -27,10 +28,18 @@
 <meta name="twitter:image" content="og-image.jpg">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="assets/vendor/cookieconsent/cookieconsent.css">
+<!-- These four only style the hidden detail pages (shown after a click), so they're
+     loaded without blocking first paint on the homepage view. -->
+<link rel="preload" as="style" href="assets/paella-planet.css" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="assets/date-dinner-carousel.css" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="assets/borrel-takeover.css" onload="this.onload=null;this.rel='stylesheet'">
+<link rel="preload" as="style" href="assets/private-dinner.css" onload="this.onload=null;this.rel='stylesheet'">
+<noscript>
 <link rel="stylesheet" href="assets/paella-planet.css">
 <link rel="stylesheet" href="assets/date-dinner-carousel.css">
 <link rel="stylesheet" href="assets/borrel-takeover.css">
 <link rel="stylesheet" href="assets/private-dinner.css">
+</noscript>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -107,7 +116,7 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-8-4.5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 6.5-8 11-8 11z"/></svg>
         Cooked fresh, served with love
       </span>
-      <span class="hero-dots" role="tablist" aria-label="Hero photo selector">
+      <span class="hero-dots" role="group" aria-label="Hero photo selector">
         <button type="button" class="is-active" aria-label="Show photo 1"></button>
         <button type="button" aria-label="Show photo 2"></button>
         <button type="button" aria-label="Show photo 3"></button>
@@ -283,7 +292,7 @@
       <button type="button" class="offer-arrow offer-arrow-next" aria-label="Next event"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
 
-      <div class="offer-dots" role="tablist" aria-label="Event selector">
+      <div class="offer-dots" role="group" aria-label="Event selector">
         <button type="button" class="is-active" aria-label="Show Date Dinners"></button>
         <button type="button" aria-label="Show Private Dinners"></button>
         <button type="button" aria-label="Show Paella Workshops"></button>
@@ -402,7 +411,7 @@
           <p class="review-meta">Milan K. &middot; Borrel Catering</p>
         </div>
       </div>
-      <div class="review-dots" role="tablist" aria-label="Review selector">
+      <div class="review-dots" role="group" aria-label="Review selector">
         <button type="button" class="is-active" aria-label="Show review 1"></button>
         <button type="button" aria-label="Show review 2"></button>
         <button type="button" aria-label="Show review 3"></button>
@@ -411,7 +420,7 @@
     </div>
 
     <div class="review-cta">
-      <h4>Had a great time with us?</h4>
+      <h3>Had a great time with us?</h3>
       <p>We&rsquo;d love to hear about it &mdash; and maybe feature it.</p>
       <a class="btn btn-line" id="reviewBtn" href="#">Share your experience</a>
     </div>
