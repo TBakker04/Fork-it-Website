@@ -70,6 +70,11 @@ body.is-gallery-scrolled .gate-cell img{ filter:saturate(1.05) contrast(1.02) br
 .gallery-close footer .foot-left p{ color:rgba(243,237,226,0.55); }
 .gallery-close footer .foot-right a{ color:rgba(243,237,226,0.75); }
 .gallery-close footer .foot-right a:hover{ color:#F3EDE2; }
+.gallery-close footer .foot-legal,
+.gallery-close footer .foot-legal a,
+.gallery-close footer .foot-legal button{ color:rgba(243,237,226,0.55); }
+.gallery-close footer .foot-legal a:hover,
+.gallery-close footer .foot-legal button:hover{ color:#F3EDE2; }
 
 @media (max-width:640px){
   .gallery-hero{ padding:80px 20px 34px; }
