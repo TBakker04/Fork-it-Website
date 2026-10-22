@@ -49,3 +49,40 @@ clasp deploy -i <deploymentId>   # redeploys to the SAME url — find deployment
 - `Validation.gs` — spam checks (honeypot, timing), required-field checks, formula-injection escaping
 - `Email.gs` — the owner alert and the customer confirmation (rate-limited to 1/hour/email)
 - `Log.gs` — every job writes errors/info here instead of failing silently
+- `JobRunner.gs` — wraps every scheduled job so a failure gets logged and emails you at most once per day, not once per hour
+- `SheetRecords.gs` — shared helpers for reading/writing Inquiries rows as plain objects
+- `LeadDigest.gs` — daily 08:00, emails you inquiries that have gone too long without a reply
+- `CalendarSync.gs` — daily 08:00, creates/updates a Calendar event for each "booked" row
+- `ReviewRequests.gs` — daily 10:00, thanks customers 1-3 days after a "done" event and asks for a review
+- `Uptime.gs` — hourly, checks the site's actually up; alerts if not, alerts again when it recovers
+- `WeeklyAnalytics.gs` — Tuesday 06:00, pulls last week's GA4 numbers into the Weekly analytics tab
+- `PrivacyCleanup.gs` — monthly, anonymises inquiries older than `retention_months`
+- `Triggers.gs` — `installTriggers()`, run once to schedule all six jobs above
+
+## Phase 5: adding the scheduled jobs (follow-ups, calendar, reviews, reports, uptime)
+
+You already have the Phase 3 files in place. Now add the Phase 5 ones the same way:
+
+1. In the Apps Script editor, create 8 new files (**+ → Script**, same as before): `JobRunner`, `SheetRecords`, `LeadDigest`, `CalendarSync`, `ReviewRequests`, `Uptime`, `WeeklyAnalytics`, `PrivacyCleanup`, `Triggers` — paste each one's contents in, delete the `myFunction` placeholder first.
+2. Update `appsscript.json` (the one already in your editor) with the new version from this folder — it now declares the GA4 **AnalyticsData** advanced service, needed for the weekly report.
+3. Save everything (**Ctrl+S**).
+4. **Test each job manually first**, one at a time, from the function dropdown at the top — select the function, click **Run**, check the result, before scheduling anything automatically:
+   - **`sendLeadDigest`** — only emails you if there's something stale in Inquiries; add a test row with status "new" and an old `received_at` if you want to see it fire.
+   - **`syncCalendarEvents`** — set a test row's status to "booked" with an `event_date`, run this, then check your Google Calendar for a new "ForkIt: ..." event.
+   - **`sendReviewRequests`** — set a test row's status to "done" with `event_date` 2 days ago and `review_requested_at` empty, run this, check that row's email inbox.
+   - **`checkUptime`** — should run with no errors and (if the site's up) do nothing visible. To test the alert itself, temporarily change `site_url` in Settings to something broken, run it, confirm you get a "DOWN" email, then change it back and run again to confirm the "back up" email.
+   - **`exportWeeklyAnalytics`** — run this one last, since it needs the GA4 API connection. See "If exportWeeklyAnalytics fails" below if it errors. On success, a new row appears in the **Weekly analytics** tab.
+   - **`anonymizeOldInquiries`** — safe to run anytime; it only touches rows older than `retention_months` (18 by default), so on a fresh sheet it'll just log "anonymized 0 inquiries" and do nothing visible.
+5. Once each job above ran cleanly: select **`installTriggers`** from the dropdown and click **Run**. This schedules all six jobs and removes any old triggers first, so it's always safe to re-run after a code update.
+6. Check it worked: **Triggers** icon (clock icon) in the left sidebar — you should see 6 triggers listed, one per job.
+7. Redeploy the web app so the live site picks up the latest code: **Deploy → Manage deployments → pencil icon → New version → Deploy** (same as any other code update — keeps the same URL).
+
+### If `exportWeeklyAnalytics` fails
+
+This is the one job that talks to a different Google API (GA4's Analytics Data API), so it needs one extra authorization step the others don't:
+
+1. Run `exportWeeklyAnalytics` once from the dropdown — if it fails with something like "API not enabled" or "AnalyticsData is not defined", that's expected the first time.
+2. In the Apps Script editor, click **Project Settings** (gear icon) → find the **Google Cloud Platform (GCP) Project** section → click the project number link. This opens the Cloud Console.
+3. In the Cloud Console, search for **"Google Analytics Data API"** → click **Enable**.
+4. Go back to the Apps Script editor, run `exportWeeklyAnalytics` again. It may ask you to re-authorize (same "unsafe" warning flow as before) — click through it.
+5. If it still fails, check the **Log** tab for the exact error and send it to me.
