@@ -1,0 +1,45 @@
+name: Quality gate
+
+on:
+  push:
+    branches:
+      - main
+      - claude/website-build-artifact-gc6358
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: quality-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Build (verify required pages exist)
+        run: node scripts/check-build.js
+
+      - name: Check for broken internal links
+        run: node scripts/check-links.js
+
+      - name: Cache Lighthouse CI's Chromium download
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/puppeteer
+          key: lhci-puppeteer-${{ runner.os }}
+
+      - name: Run Lighthouse CI (mobile, homepage + booking page)
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: './lighthouserc.json'
+          uploadArtifacts: true
+          temporaryPublicStorage: false

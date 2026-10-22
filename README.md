@@ -60,3 +60,21 @@ Convention:
 2. In GA4, go to **Admin → DebugView**.
 3. Click around the site — `book_click`, `contact_click`, `workshop_view`, `form_start` should appear in the DebugView stream within a few seconds, each with its parameters.
 4. Once you've confirmed `generate_lead` is live (Phase 3), mark it as a **key event**: **Admin → Events → find `generate_lead` → toggle "Mark as key event"**. This is what makes it show up in GA4's conversion reports.
+
+## Quality gate (Phase 7)
+
+`.github/workflows/quality-gate.yml` runs on every push and pull request to `main` (and on the dev branch), alongside the deploy workflow. No scheduled runs, and Lighthouse's Chromium download is cached — it stays well within GitHub's free Actions minutes.
+
+Three steps, in order:
+
+1. **Build** (`scripts/check-build.js`) — checks that every required page (`index.html`, `home.html`, `menu.html`, `gallery.html`, `wines.html`, `privacy.html`, `404.html`) exists and isn't empty. There's no bundler, so this is the static-site equivalent of "does it compile."
+2. **Broken internal links** (`scripts/check-links.js`) — scans every top-level `.html` page's `href`/`src` attributes and flags any internal (same-repo) target that doesn't resolve to a real file. External links, `mailto:`/`tel:`, and same-page `#anchor` links are skipped.
+3. **Lighthouse CI** (mobile) — runs against `index.html` (homepage) and `home.html` (booking page), using the repo as a static server so it tests exactly what gets deployed.
+
+### Reading a failed run
+
+Open the run under the **Actions** tab and look at which step failed:
+
+- **Build** step failing → the log names the missing or empty page. Check if a file got renamed or deleted by mistake.
+- **Broken internal links** step failing → the log lists each broken link as `file.html -> "target" (resolved path not found: target)`. Fix the `href`/`src`, or restore the missing file.
+- **Lighthouse CI** step failing → accessibility or SEO scored below 90 (this fails the run; performance below 90 only prints a warning, it won't go red). The step's log prints each failing assertion with the actual score. For the full report (what exactly tanked the score), open the run summary page — the "Run Lighthouse CI" step uploads the Lighthouse JSON/HTML report as a workflow artifact you can download, or check the direct links the action prints in its log.
