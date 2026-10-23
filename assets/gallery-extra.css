@@ -17,6 +17,20 @@ html{ scroll-snap-type: y proximity; }
 .gallery-back svg{ width:16px; height:16px; flex:none; }
 .gallery-back:hover{ color:#F3EDE2; background:rgba(20,18,16,0.85); }
 
+.gallery-lang-toggle{
+  position:fixed; top:20px; right:20px; z-index:5;
+  width:38px; height:38px; border-radius:999px;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-family:'Karla',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:0.02em;
+  color:rgba(243,237,226,0.9);
+  background:rgba(20,18,16,0.55);
+  border:1px solid rgba(243,237,226,0.25);
+  backdrop-filter:blur(6px);
+  cursor:pointer;
+  transition:background .15s ease, color .15s ease;
+}
+.gallery-lang-toggle:hover{ color:#F3EDE2; background:rgba(20,18,16,0.85); }
+
 /* ---------- fixed hero text, stays above the scrolling photos ---------- */
 .gallery-hero{
   position:fixed; top:0; left:0; right:0; z-index:4;

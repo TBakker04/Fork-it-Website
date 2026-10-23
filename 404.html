@@ -12,7 +12,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Karla:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500;1,9..144,600&family=Karla:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap"></noscript>
 <title>Page not found — Fork It Leiden</title>
-<meta name="description" content="This page doesn't exist — but Fork It's Date Dinners, Private Dinners, Paella Workshops and Borrel Catering still do.">
+<meta name="description" content="This page doesn't exist — but Fork It's Date Dinners, Private Dinners, Paella Workshops and Borrel Catering still do." data-nl-content="Deze pagina bestaat niet &mdash; maar de Date Dinners, Private Dinners, Paella Workshops en Borrel Catering van Fork It wel.">
 <meta name="robots" content="noindex">
 <link rel="stylesheet" href="assets/style.css">
 <link rel="stylesheet" href="assets/vendor/cookieconsent/cookieconsent.css">
@@ -24,12 +24,13 @@
       <img class="logo-mark" src="images/logo.png" alt="Fork It">
     </a>
     <nav class="navlinks">
-      <a class="hide-mobile" href="home.html#menu">What's on</a>
-      <a class="hide-mobile" href="menu.html">Menu &amp; Pricing</a>
-      <a class="hide-mobile" href="gallery.html">Gallery</a>
-      <a class="hide-mobile" href="wines.html">Our Wines</a>
-      <a class="btn btn-dark" href="home.html#book" data-track="book_click" data-location="nav">Reserve</a>
-      <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav">
+      <a class="hide-mobile" href="home.html#menu" data-nl="Wat we bieden">What's on</a>
+      <a class="hide-mobile" href="menu.html" data-nl="Menu &amp; Prijzen">Menu &amp; Pricing</a>
+      <a class="hide-mobile" href="gallery.html" data-nl="Galerij">Gallery</a>
+      <a class="hide-mobile" href="wines.html" data-nl="Onze Wijnen">Our Wines</a>
+      <a class="btn btn-dark" href="home.html#book" data-track="book_click" data-location="nav" data-nl="Reserveren">Reserve</a>
+      <button type="button" class="lang-toggle" data-lang-toggle aria-label="Switch to Dutch"><span data-lang-label>NL</span></button>
+      <button type="button" class="nav-toggle" aria-label="Open menu" data-nl-aria-label="Menu openen" aria-expanded="false" aria-controls="mobileNav">
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
         <span class="nav-toggle-bar"></span>
@@ -37,10 +38,11 @@
     </nav>
   </div>
   <nav class="mobile-nav" id="mobileNav" hidden>
-    <a href="home.html#menu">What's on</a>
-    <a href="menu.html">Menu &amp; Pricing</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="wines.html">Our Wines</a>
+    <a href="home.html#menu" data-nl="Wat we bieden">What's on</a>
+    <a href="menu.html" data-nl="Menu &amp; Prijzen">Menu &amp; Pricing</a>
+    <a href="gallery.html" data-nl="Galerij">Gallery</a>
+    <a href="wines.html" data-nl="Onze Wijnen">Our Wines</a>
+    <button type="button" class="lang-toggle" data-lang-toggle aria-label="Switch to Dutch"><span data-lang-label>NL</span></button>
   </nav>
 </header>
 
@@ -49,14 +51,14 @@
 
     <div class="section-head">
       <p class="eyebrow">404</p>
-      <h2>This page wandered off the table.</h2>
-      <p>The link you followed doesn&rsquo;t lead anywhere &mdash; but everything else is right where you left it.</p>
+      <h2 data-nl="Deze pagina is van tafel verdwenen.">This page wandered off the table.</h2>
+      <p data-nl-html="De link die je volgde leidt nergens naartoe &mdash; maar alles verder staat precies waar je het achterliet.">The link you followed doesn&rsquo;t lead anywhere &mdash; but everything else is right where you left it.</p>
     </div>
 
     <div class="detail-cta" style="margin-top:12px;">
-      <h2>Hungry for the real thing?</h2>
-      <p>Tell us the occasion, your headcount and the date &mdash; we&rsquo;ll build a night around it.</p>
-      <a href="home.html#book" class="btn btn-dark">Back to Fork It</a>
+      <h2 data-nl="Trek in het echte werk?">Hungry for the real thing?</h2>
+      <p data-nl-html="Vertel ons de gelegenheid, het aantal gasten en de datum &mdash; wij bouwen er een avond omheen.">Tell us the occasion, your headcount and the date &mdash; we&rsquo;ll build a night around it.</p>
+      <a href="home.html#book" class="btn btn-dark" data-nl="Terug naar Fork It">Back to Fork It</a>
     </div>
 
   </div>
@@ -67,8 +69,8 @@
     <a class="logo" href="home.html">
       <img class="logo-mark" loading="lazy" src="images/logo.png" alt="Fork It">
     </a>
-    <p>Leiden, Netherlands &middot; Eat it, Drink it, Fork it!</p>
-    <p class="foot-legal"><a href="privacy.html">Privacy &amp; Cookies</a> &middot; <button type="button" data-cc="show-preferencesModal">Cookie settings</button></p>
+    <p><span data-nl="Leiden, Nederland">Leiden, Netherlands</span> &middot; Eat it, Drink it, Fork it!</p>
+    <p class="foot-legal"><a href="privacy.html">Privacy &amp; Cookies</a> &middot; <button type="button" data-cc="show-preferencesModal" data-nl="Cookie-instellingen">Cookie settings</button></p>
   </div>
   <div class="foot-right">
     <a href="mailto:Bookings@forkit.nl" data-track="contact_click" data-method="email">Bookings@forkit.nl</a>
@@ -82,5 +84,6 @@
 <script src="assets/analytics-consent.js"></script>
 <script src="assets/analytics-events.js"></script>
 <script src="assets/site.js"></script>
+<script src="assets/i18n.js"></script>
 </body>
 </html>

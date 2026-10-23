@@ -82,6 +82,21 @@ html, body{ margin:0; padding:0; background:#141210; }
 .gate-cta:hover svg{ transform:translateX(4px); }
 .gate-cta:active{ transform:scale(0.97); }
 
+/* ---------- fixed language toggle ---------- */
+.gate-lang-toggle{
+  position:fixed; top:20px; right:20px; z-index:5;
+  width:38px; height:38px; border-radius:999px;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-family:'Karla',sans-serif; font-weight:700; font-size:0.72rem; letter-spacing:0.02em;
+  color:rgba(243,237,226,0.9);
+  background:rgba(20,18,16,0.55);
+  border:1px solid rgba(243,237,226,0.25);
+  backdrop-filter:blur(6px);
+  cursor:pointer;
+  transition:background .15s ease, color .15s ease;
+}
+.gate-lang-toggle:hover{ color:#F3EDE2; background:rgba(20,18,16,0.85); }
+
 /* ---------- fixed footer tagline ---------- */
 .gate-footer{
   position:fixed; left:0; right:0; bottom:22px; z-index:4; pointer-events:none;
