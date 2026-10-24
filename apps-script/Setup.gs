@@ -13,6 +13,11 @@ var INQUIRY_COLUMNS = [
   'calendar_event_id', 'review_requested_at', 'review_reminder_sent_at'
 ];
 
+var NEWSLETTER_COLUMNS = [
+  'id', 'received_at', 'email', 'language',
+  'utm_source', 'utm_medium', 'utm_campaign', 'landing_page', 'status'
+];
+
 var WEEKLY_ANALYTICS_COLUMNS = [
   'week_start', 'week_end', 'active_users', 'sessions', 'engagement_rate',
   'avg_engagement_time', 'generate_lead', 'form_start', 'book_click',
@@ -44,6 +49,7 @@ var DEFAULT_SETTINGS = [
 function setup(){
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   setupInquiriesSheet(ss);
+  setupNewsletterSheet(ss);
   setupWeeklyAnalyticsSheet(ss);
   setupSettingsSheet(ss);
   setupLogSheet(ss);
@@ -64,6 +70,19 @@ function setupInquiriesSheet(ss){
   var statusCol = INQUIRY_COLUMNS.indexOf('status') + 1;
   var rule = SpreadsheetApp.newDataValidation()
     .requireValueInList(['new', 'replied', 'quoted', 'booked', 'done', 'lost'], true)
+    .setAllowInvalid(false)
+    .build();
+  sheet.getRange(2, statusCol, Math.max(sheet.getMaxRows() - 1, 1), 1).setDataValidation(rule);
+}
+
+function setupNewsletterSheet(ss){
+  var sheet = getOrCreateSheet(ss, 'Newsletter');
+  sheet.getRange(1, 1, 1, NEWSLETTER_COLUMNS.length).setValues([NEWSLETTER_COLUMNS]);
+  sheet.setFrozenRows(1);
+
+  var statusCol = NEWSLETTER_COLUMNS.indexOf('status') + 1;
+  var rule = SpreadsheetApp.newDataValidation()
+    .requireValueInList(['subscribed', 'unsubscribed'], true)
     .setAllowInvalid(false)
     .build();
   sheet.getRange(2, statusCol, Math.max(sheet.getMaxRows() - 1, 1), 1).setDataValidation(rule);

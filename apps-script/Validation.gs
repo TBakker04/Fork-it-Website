@@ -35,6 +35,29 @@ function isValidEmail(email){
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email));
 }
 
+/* Same honeypot/timing checks as a booking, but only email is required —
+   the newsletter popup never asks for a name, date or group size. */
+function validateNewsletterSubmission(data){
+  if (data.company){
+    return { spam: true, reason: 'honeypot' };
+  }
+
+  var renderedAt = Number(data.renderedAt);
+  var elapsed = Date.now() - renderedAt;
+  if (!renderedAt || elapsed < MIN_SUBMIT_MS){
+    return { spam: true, reason: 'too_fast:' + elapsed + 'ms' };
+  }
+
+  if (!data.email || !String(data.email).trim()){
+    return { spam: false, error: 'missing_field:email' };
+  }
+  if (!isValidEmail(data.email)){
+    return { spam: false, error: 'invalid_email' };
+  }
+
+  return { spam: false };
+}
+
 /* Google Sheets (and Excel) treat a cell starting with =, +, - or @ as
    a formula. A booking form is exactly the kind of untrusted input
    that formula-injection attacks target — prefixing with an

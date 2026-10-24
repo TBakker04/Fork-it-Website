@@ -129,3 +129,16 @@ This one column needs a one-time setup step in GA4 itself, separate from the API
 5. Save.
 
 This only applies going forward — it can take up to a day or two after registering before GA4 has collected enough data for it to show up. Until then (or if you skip this step entirely), that one column in the Weekly analytics tab just comes back empty — every other column, and the row itself, are unaffected. A single report failing like this never blocks the whole weekly export from running; it only blanks that one piece.
+
+## Phase 6: newsletter popup
+
+The "stay in the loop" popup on the website (home, menu, wines, FAQ pages) now submits to this same backend, tagged so it's handled separately from booking inquiries. This changed 4 existing files — no new files this time.
+
+1. Re-paste the updated `Code.gs`, `Setup.gs`, `Validation.gs` and `Email.gs` into the Apps Script editor (same as any other code update).
+2. Save everything (**Ctrl+S**).
+3. Run **`setup`** again from the function dropdown (safe to re-run — it only adds what's missing). This creates a new **Newsletter** tab in the Sheet, alongside the existing ones.
+4. **Deploy → Manage deployments → pencil icon → New version → Deploy** — this picks up the code change on the same Web app URL, so nothing on the website needs to change.
+
+What happens on a signup: a row goes into the **Newsletter** tab (email, when, language, where they signed up), and the subscriber gets a short "thanks for subscribing" email (see `sendNewsletterConfirmation` in `Email.gs` if you want to tweak the wording). There's no owner alert for this one — check the Newsletter tab whenever you like instead of getting an email per signup.
+
+Unsubscribing right now is manual: the confirmation email asks people to just reply if they want off the list, and you'd then mark that row `unsubscribed` (or delete it) yourself. That's fine at low volume. Once you're actually sending regular campaigns off this list, move it into a proper mailing tool (Mailchimp, Brevo, Mailerlite — all have a free tier) instead of BCC-ing from the Sheet — they handle one-click unsubscribe automatically, which Dutch law (Telecommunicatiewet art. 11.7) requires on every marketing email.

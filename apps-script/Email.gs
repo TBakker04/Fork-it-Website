@@ -90,6 +90,55 @@ function sendCustomerConfirmation(data){
   MailApp.sendEmail(data.email, subject, body, options);
 }
 
+/* At most one newsletter confirmation per email address per hour. */
+function maybeSendNewsletterConfirmation(data){
+  var cache = CacheService.getScriptCache();
+  var cacheKey = 'newsletter_confirm_' + String(data.email).toLowerCase();
+  if (cache.get(cacheKey)){
+    logEvent('maybeSendNewsletterConfirmation', 'INFO', 'rate-limited: ' + data.email);
+    return;
+  }
+  cache.put(cacheKey, '1', 3600);
+  sendNewsletterConfirmation(data);
+}
+
+function sendNewsletterConfirmation(data){
+  var businessName = getSetting('business_name', 'Fork It');
+  var replyTo = getSetting('reply_to_email', getSetting('owner_email', ''));
+  var instagramUrl = getSetting('instagram_url', 'https://instagram.com/fork_it_leiden');
+  var isNl = data.language === 'nl';
+
+  var subject = isNl ? 'Welkom bij de ' + businessName + ' nieuwsbrief!' : 'Welcome to the ' + businessName + ' newsletter!';
+  var body = (isNl ? [
+    'Hoi,',
+    '',
+    'Bedankt voor je inschrijving! Je hoort voortaan af en toe van ons — nieuwe seizoensmenu’s, speciale acties en updates.',
+    '',
+    'Geen zin meer in deze mails? Stuur ons gewoon een berichtje terug en we halen je van de lijst.',
+    '',
+    'Volg ons ondertussen hier: ' + instagramUrl,
+    '',
+    'Tot snel,',
+    businessName
+  ] : [
+    'Hi there,',
+    '',
+    'Thanks for subscribing! You’ll hear from us every now and then — new seasonal menus, special offers and updates.',
+    '',
+    'Want off the list? Just reply to this email and we’ll take care of it.',
+    '',
+    'Follow along in the meantime: ' + instagramUrl,
+    '',
+    'Talk soon,',
+    businessName
+  ]).join('\n');
+
+  var options = { name: businessName };
+  if (replyTo) options.replyTo = replyTo;
+
+  MailApp.sendEmail(data.email, subject, body, options);
+}
+
 /* First review ask, sent 1-3 days after a "done" event. */
 function sendReviewRequest(r){
   var reviewLink = getSetting('google_review_link', '');

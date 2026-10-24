@@ -15,7 +15,8 @@ function doPost(e){
   }
   try {
     var data = parseRequest(e);
-    return jsonResponse(handleBooking(data));
+    var result = data.formType === 'newsletter' ? handleNewsletterSignup(data) : handleBooking(data);
+    return jsonResponse(result);
   } catch (err){
     logEvent('doPost', 'ERROR', (err && err.stack) || err);
     return jsonResponse({ ok: false, error: 'server_error' });
@@ -56,6 +57,44 @@ function handleBooking(data){
   maybeSendCustomerConfirmation(data);
 
   return { ok: true, id: id };
+}
+
+function handleNewsletterSignup(data){
+  var check = validateNewsletterSubmission(data);
+
+  if (check.spam){
+    // Pretend success so a bot doesn't learn to adjust its behavior.
+    logEvent('handleNewsletterSignup', 'INFO', 'blocked spam submission: ' + check.reason);
+    return { ok: true };
+  }
+  if (check.error){
+    return { ok: false, error: check.error };
+  }
+
+  var id = Utilities.getUuid();
+  appendNewsletterRow(id, data);
+  maybeSendNewsletterConfirmation(data);
+
+  return { ok: true, id: id };
+}
+
+function appendNewsletterRow(id, data){
+  var sheet = getSheet('Newsletter');
+  var row = NEWSLETTER_COLUMNS.map(function(col){
+    switch (col){
+      case 'id': return id;
+      case 'received_at': return new Date();
+      case 'email': return sanitizeCell(data.email);
+      case 'language': return sanitizeCell(data.language || 'en');
+      case 'utm_source': return sanitizeCell(data.utmSource);
+      case 'utm_medium': return sanitizeCell(data.utmMedium);
+      case 'utm_campaign': return sanitizeCell(data.utmCampaign);
+      case 'landing_page': return sanitizeCell(data.landingPage);
+      case 'status': return 'subscribed';
+      default: return '';
+    }
+  });
+  sheet.appendRow(row);
 }
 
 function appendInquiryRow(id, data){
