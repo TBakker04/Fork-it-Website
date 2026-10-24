@@ -51,6 +51,7 @@
     font-size:1.05rem; color:var(--ink-soft);
     margin-block:6px 2px;
   }
+  .kicker:empty{ display:none; }
 
   /* ---------- header ---------- */
   header{
