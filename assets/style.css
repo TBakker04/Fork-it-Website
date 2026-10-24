@@ -589,7 +589,7 @@
   /* collage is desktop/webpage only — hidden on phone widths */
   .about-collage{ display:none; }
   @media (min-width:960px){
-    .about-grid{ grid-template-columns:1fr 400px; align-items:start; gap:48px; }
+    .about-grid{ grid-template-columns:1fr 400px; align-items:center; gap:48px; }
     .about-collage{
       display:block; position:relative;
       aspect-ratio:760/1120;
