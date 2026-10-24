@@ -331,8 +331,8 @@
     perspective:2200px;
     margin-inline:auto;
     overflow:hidden;
-    border:1px solid var(--ink);
-    background:#fff;
+    border:1px solid #2A0A06;
+    background:#532102;
     box-shadow:0 14px 32px rgba(22,19,17,0.12);
     transition:width .25s ease-out, aspect-ratio .25s ease-out;
   }
@@ -348,7 +348,7 @@
   /* static left-hand title page, always sits beneath the cover/leaves */
   .book-titlepage{
     position:absolute; top:0; left:0; width:50%; height:100%;
-    background:#fff; border-right:1px solid var(--line);
+    background:#532102; border-right:1px solid rgba(243,237,226,0.15);
     padding:clamp(20px,3.6vw,30px);
     display:flex; flex-direction:column; justify-content:center;
     z-index:1;
@@ -364,38 +364,17 @@
   }
   .book-cover.is-turned{ transform:rotateY(-180deg); }
   .book-cover .leaf-front{
-    background:#fff; color:var(--ink);
-    align-items:center; justify-content:center;
-    text-align:center;
-    padding-bottom:13%;
+    background:#532102 url("../images/season-menu-cover.webp") center/cover no-repeat;
+    color:#F7F2E8;
     cursor:pointer;
   }
-  .book-cover .book-cover-title{
-    position:relative; z-index:2;
-    font-family:'Fraunces',serif; font-style:italic; font-weight:600;
-    font-size:clamp(1.1rem, 9cqw, 1.7rem);
-    line-height:1.3;
-    letter-spacing:0.01em;
-    max-width:80%;
-    margin:0 auto;
-  }
-  .book-cover-rule{
-    position:relative; z-index:2;
-    display:block; width:1px; height:6%;
-    background:var(--ink); margin:16px auto 0;
-  }
-  .book-cover .leaf-back{ transform:rotateY(180deg); background:var(--ink); }
-  .book-cover-trees{
-    position:absolute; right:0; bottom:0; width:38%;
-    pointer-events:none; z-index:1;
-  }
-  .tree-cluster{ width:100%; height:auto; display:block; }
+  .book-cover .leaf-back{ transform:rotateY(180deg); background:#532102; }
   .book-cover .book-hint{
-    position:relative; z-index:2;
-    margin-top:14px;
+    position:absolute; z-index:2; right:8%; bottom:8%;
     width:34px; height:34px; border-radius:999px;
     display:inline-flex; align-items:center; justify-content:center;
-    border:1px solid var(--ink); color:var(--ink);
+    background:rgba(83,33,2,0.55); backdrop-filter:blur(4px);
+    border:1px solid rgba(247,242,232,0.6); color:#F7F2E8;
   }
   .book-hint svg{ width:15px; height:15px; }
 
@@ -414,31 +393,38 @@
     display:flex; flex-direction:column; justify-content:center;
     overflow:hidden;
   }
-  .book-leaf .leaf-front{ background:#fff; color:var(--ink); border-right:1px solid var(--line); }
-  .book-leaf .leaf-back{ transform:rotateY(180deg); background:#fff; color:var(--ink); border-right:1px solid var(--line); }
+  .book-leaf .leaf-front{ background:#532102; color:#F7F2E8; border-right:1px solid rgba(243,237,226,0.15); }
+  .book-leaf .leaf-back{ transform:rotateY(180deg); background:#532102; color:#F7F2E8; border-right:1px solid rgba(243,237,226,0.15); }
 
   .book-titlepage .book-page-label, .leaf-face .book-page-label{
     font-family:'Karla',sans-serif; font-weight:700; font-size:0.68rem;
-    letter-spacing:0.2em; text-transform:uppercase; color:var(--ink);
+    letter-spacing:0.2em; text-transform:uppercase; color:#B30D1A;
     font-style:normal;
     margin-bottom:10px;
   }
-  .leaf-face h3{ font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:1.2rem; }
-  .leaf-face p{
+  .book-titlepage h3, .leaf-face h3{
+    font-family:'Caveat Brush',cursive; font-weight:400; font-style:normal;
+    font-size:1.7rem; color:#F7F2E8;
+  }
+  .book-titlepage p, .leaf-face p{
     font-family:'Fraunces',serif; font-style:italic; font-weight:400;
-    color:var(--ink-soft); font-size:0.88rem; margin-top:8px; line-height:1.5;
+    color:rgba(247,242,232,0.78); font-size:0.88rem; margin-top:8px; line-height:1.5;
   }
 
   .book-wines{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px; }
   .book-wines .wine-name{
-    display:block; font-family:'Fraunces',serif; font-style:italic; font-weight:600; font-size:0.96rem;
+    display:block; font-family:'Caveat Brush',cursive; font-weight:400; font-size:1.25rem; color:#F7F2E8;
   }
   .book-wines .wine-note{
     display:block; font-family:'Fraunces',serif; font-style:italic; font-weight:400;
-    color:var(--ink-soft); font-size:0.8rem; margin-top:2px; line-height:1.35;
+    color:rgba(247,242,232,0.72); font-size:0.8rem; margin-top:2px; line-height:1.35;
   }
 
-  .leaf-face .btn{ margin-top:16px; align-self:flex-start; }
+  .leaf-face .btn{
+    margin-top:16px; align-self:flex-start;
+    background:#B30D1A; color:#F7F2E8; border-color:#B30D1A;
+  }
+  .leaf-face .btn:hover{ background:transparent; color:#F7F2E8; border-color:#F7F2E8; }
 
   .book-nav{ display:flex; align-items:center; gap:16px; }
   .book-arrow{
@@ -459,10 +445,9 @@
   @media (max-width:480px){
     .menu-book{ aspect-ratio:2/3; }
     #seasonBook.is-open .menu-book{ aspect-ratio:4/5; }
-    .book-cover-trees{ width:28%; }
     .leaf-face{ padding:16px 14px; }
     .book-titlepage .book-page-label, .leaf-face .book-page-label{ font-size:0.6rem; margin-bottom:6px; }
-    .leaf-face h3{ font-size:1.02rem; }
+    .book-titlepage h3, .leaf-face h3{ font-size:1.3rem; }
     .leaf-face p{ font-size:0.78rem; margin-top:5px; line-height:1.4; }
     .book-wines{ gap:7px; }
     .book-wines .wine-name{ font-size:0.84rem; }
