@@ -657,6 +657,12 @@
     background:var(--surface); padding:clamp(24px,3vw,36px); display:flex; flex-direction:column; gap:16px;
   }
   .pricing-card h3{ font-size:1.4rem; }
+  .pricing-highlight{
+    display:inline-flex; align-self:flex-start;
+    background:var(--ink); color:#fff;
+    font-family:'Karla',sans-serif; font-weight:700; font-size:0.78rem;
+    padding:5px 12px; border-radius:999px; margin:2px 0 4px;
+  }
   .pricing-card .lede{ color:var(--ink-soft); font-size:0.96rem; }
   .pricing-card ul{ list-style:none; padding:0; margin:4px 0 0; display:flex; flex-direction:column; gap:10px; }
   .pricing-card li{ font-size:0.9rem; color:var(--ink-soft); padding-left:24px; position:relative; }
