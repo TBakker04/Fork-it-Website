@@ -92,7 +92,6 @@ body:has(#page-private-dinner:not([hidden])) footer{
 }
 .pd-price-list li span:first-child{ font-weight:600; }
 .pd-price-list li span:last-child{ font-weight:800; }
-.pd-scene-photo .pd-wine-note{ color:rgba(255,255,255,0.78); text-shadow:0 2px 8px rgba(0,0,0,0.4); }
 
 /* ---------- plain white scenes (2, 4) ---------- */
 .pd-scene-plain{ background:#fff; color:var(--ink); }
@@ -101,21 +100,7 @@ body:has(#page-private-dinner:not([hidden])) footer{
   font-family:'Fraunces',Georgia,serif; font-weight:600;
   font-size:clamp(1.7rem,3.2vw,2.3rem); line-height:1.2; margin-top:12px;
 }
-
-.pd-wine-table{
-  width:100%; max-width:480px; margin:28px auto 0; border-collapse:collapse;
-}
-.pd-wine-table th, .pd-wine-table td{
-  padding:14px 6px; border-bottom:1px solid var(--line);
-  font-family:'Karla',sans-serif; font-size:0.95rem; color:var(--ink);
-}
-.pd-wine-table thead th{
-  font-weight:800; text-transform:uppercase; letter-spacing:0.06em;
-  font-size:0.72rem; color:var(--ink-soft); border-bottom:1.5px solid var(--ink);
-}
-.pd-wine-table td:last-child, .pd-wine-table th:last-child{ text-align:right; }
-.pd-wine-table tbody tr:last-child td{ border-bottom:1.5px solid var(--ink); }
-.pd-wine-note{ margin-top:14px; font-size:0.85rem; color:var(--ink-faint); }
+.pd-scene-plain .pd-price-list li{ color:var(--ink); text-shadow:none; }
 
 @media (max-width:640px){
   .pd-back{ top:14px; left:14px; padding:8px 14px; }

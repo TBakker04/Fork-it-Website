@@ -203,7 +203,7 @@
 
   section{ padding-block:60px; }
   .section-head{ max-width:640px; margin-bottom:38px; }
-  .section-head h2{ font-size:clamp(1.7rem,3vw,2.3rem); margin-top:8px; }
+  .section-head h1, .section-head h2{ font-size:clamp(1.7rem,3vw,2.3rem); margin-top:8px; }
   .section-head p{ color:var(--ink-soft); margin-top:10px; }
   .rule{ border:none; border-top:1px solid var(--line); margin:0; }
 
