@@ -232,7 +232,7 @@
     aspect-ratio:3/4;
     border-radius:20px; overflow:hidden;
     display:block; text-decoration:none; color:#fff;
-    opacity:0.32; transform:scale(0.94);
+    opacity:0.62; transform:scale(0.94);
     transition:opacity .5s ease, transform .5s ease;
     cursor:pointer;
   }
