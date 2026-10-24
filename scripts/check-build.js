@@ -16,6 +16,7 @@ const REQUIRED_PAGES = [
   'menu.html',
   'gallery.html',
   'wines.html',
+  'faq.html',
   'privacy.html',
   '404.html',
 ];
