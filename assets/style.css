@@ -583,33 +583,32 @@
   .about-grid{
     display:grid; grid-template-columns:1fr; gap:36px;
   }
-  @media (min-width:960px){
-    .about-grid{ grid-template-columns:1fr 400px; align-items:start; gap:48px; }
-  }
   .about{
     max-width:760px;
   }
-  .about-collage{
-    column-count:2;
-    column-gap:12px;
-  }
+  /* collage is desktop/webpage only — hidden on phone widths */
+  .about-collage{ display:none; }
   @media (min-width:960px){
-    .about-collage{ column-count:3; }
+    .about-grid{ grid-template-columns:1fr 400px; align-items:start; gap:48px; }
+    .about-collage{
+      display:block; position:relative;
+      aspect-ratio:760/1120;
+    }
+    .about-collage img{
+      position:absolute; display:block; object-fit:cover;
+      border-radius:16px;
+    }
+    /* positions placed by hand in the collage editor */
+    .about-collage img:nth-child(1){ left:2.31%; top:7.46%; width:30.00%; height:24.00%; }
+    .about-collage img:nth-child(2){ left:35.00%; top:2.50%; width:30.00%; height:24.00%; }
+    .about-collage img:nth-child(3){ left:67.73%; top:12.57%; width:30.00%; height:24.00%; }
+    .about-collage img:nth-child(4){ left:1.81%; top:33.04%; width:30.00%; height:30.00%; }
+    .about-collage img:nth-child(5){ left:35.00%; top:29.00%; width:30.00%; height:30.00%; }
+    .about-collage img:nth-child(6){ left:68.42%; top:38.07%; width:30.00%; height:30.00%; }
+    .about-collage img:nth-child(7){ left:35.07%; top:61.50%; width:29.77%; height:38.50%; }
+    .about-collage img:nth-child(8){ left:1.85%; top:64.86%; width:30.00%; height:20.00%; }
+    .about-collage img:nth-child(9){ left:67.04%; top:70.43%; width:30.00%; height:20.00%; }
   }
-  .about-collage img{
-    width:100%; display:block; object-fit:cover;
-    border-radius:16px; margin-bottom:12px;
-    break-inside:avoid;
-  }
-  .about-collage img:nth-child(1){ aspect-ratio:0.45; }
-  .about-collage img:nth-child(2){ aspect-ratio:0.33; }
-  .about-collage img:nth-child(3){ aspect-ratio:0.25; }
-  .about-collage img:nth-child(4){ aspect-ratio:0.40; }
-  .about-collage img:nth-child(5){ aspect-ratio:0.55; }
-  .about-collage img:nth-child(6){ aspect-ratio:0.42; }
-  .about-collage img:nth-child(7){ aspect-ratio:0.30; }
-  .about-collage img:nth-child(8){ aspect-ratio:0.50; }
-  .about-collage img:nth-child(9){ aspect-ratio:0.38; }
   .about h2{
     font-size:clamp(1.8rem,3.6vw,2.6rem);
     font-style:italic;
